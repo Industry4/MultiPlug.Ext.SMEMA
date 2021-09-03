@@ -1,0 +1,29 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MultiPlug.Ext.SMEMA</id>
+    <version>1.0.0</version>
+    <title>SMEMA MultiPlug Edge Computing Platform Extension</title>
+    <authors>4IR.UK</authors>
+    <owners>4IR.UK</owners>
+    <projectUrl>https://github.com/Industry4/MultiPlug.Ext.SMEMA</projectUrl>
+    <icon>images\multiplugico.png</icon>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>SMEMA Extension for the MultiPlug .Net Edge Computing Platform</description>
+	<license type="expression">MIT</license>
+    <releaseNotes>1.0.0 Reserve name and create project scaffolding.</releaseNotes>
+    <copyright>4IR.UK British Systems 2021</copyright>
+    <tags>SMEMA 9851 MultiPlug Edge_Computing Edge IoT INDUSTRY_4.0 INDUSTRY4 4IR M2M</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2">
+        <dependency id="MultiPlug.Base" version="1.0.64" />
+        <dependency id="MultiPlug.Extension.Core" version="1.0.63" />
+        <dependency id="MultiPlug.Core" version="2.2.76" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="images\multiplugico.png" target="images\" />
+    <file src="..\..\src\MultiPlug.Ext.SMEMA\bin\Release\MultiPlug.Ext.SMEMA.dll" target="lib\net472" />
+  </files>
+</package>
