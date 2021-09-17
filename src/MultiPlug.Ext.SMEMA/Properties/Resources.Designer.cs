@@ -61,28 +61,212 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to $(&quot;#btn-newlane&quot;).click(function () {
+        ///    $(&apos;#lanesTable tr:last&apos;).before(NewLane());
+        ///
+        ///    $(&quot;.btn-deletelanetemp&quot;).click(function (event) {
+        ///        event.preventDefault();
+        ///        $(this).closest(&quot;tr&quot;).remove();
+        ///    });
+        ///
+        ///});
+        ///
+        ///$(&quot;.btn-deletelane&quot;).click(function (event) {
+        ///    event.preventDefault();
+        ///
+        ///    var theRow = $(this).closest(&quot;tr&quot;);
+        ///
+        ///    $.post($(this).attr(&apos;href&apos;), function (data) {
+        ///
+        ///    })
+        ///    .done(function () {
+        ///        theRow.remove();
+        ///    });
+        ///});
+        ///
+        ///function NewLane()
+        ///{
+        ///   [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string LanesJS {
+            get {
+                return ResourceManager.GetString("LanesJS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
         ///
         ///&lt;section class=&quot;row-fluid&quot;&gt;
-        ///    &lt;div class=&quot;row-fluid&quot;&gt;
-        ///        &lt;div class=&quot;box&quot;&gt;
-        ///            &lt;div class=&quot;span4&quot;&gt;
-        ///            &lt;/div&gt;
-        ///            &lt;div class=&quot;span4&quot;&gt;
-        ///                &lt;p style=&quot;font-size:26px; line-height: 54px; text-align: center; margin: 0px;&quot;&gt;SMEMA&lt;/p&gt;
-        ///            &lt;/div&gt;
-        ///        &lt;/div&gt;
-        ///    &lt;/div&gt;
         ///
         ///    &lt;div class=&quot;row-fluid&quot;&gt;
-        ///        &lt;div class=&quot;box non-collapsible&quot;&gt;
-        ///            &lt;div class=&quot;row-fluid&quot;&gt;
-        ///                &lt;p&gt;Hello World&lt;/p&gt;
+        ///        &lt;div class=&quot;box&quot;&gt;
+        ///            &lt;div class=&quot;span2&quot;&gt;
+        ///                &lt;a style=&quot;line-height: 52px;&quot; href=&quot;@Raw(Model.Context.Paths.Home)&quot;&gt;&lt;img alt=&quot;SMEMA Logo&quot; src=&quot;@Raw(Model.Context.Paths.Assets)images/SMEMA-small.png&quot;&gt;&lt;/a&gt;
+        ///            &lt;/div&gt;
+        ///            &lt;div class=&quot;span8&quot;&gt;
+        ///                &lt;p style=&quot;font-size:26px; line-height: 54px; text-align: center; margin: 0px;&quot;&gt;About&lt;/p&gt;
+        ///            &lt;/div&gt;
         ///   [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SettingsAbout {
+            get {
+                return ResourceManager.GetString("SettingsAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
+        ///
+        ///@functions
+        ///{
+        ///    string isConnected(bool theValue)
+        ///    {
+        ///        return (theValue) ? &quot;&lt;i class=\&quot;icon-ok icon-large\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;icon-remove icon-large\&quot;&gt;&lt;/i&gt;&quot;;
+        ///    }
+        ///
+        ///}
+        ///
+        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
+        ///    &lt;input type=&quot;hidden&quot; name=&quot;Guid&quot; value=&quot;@Model.Extension.Model.Guid&quot;&gt;
+        ///    &lt;section class=&quot;row-fluid&quot;&gt;
+        ///
+        ///        &lt;div class=&quot;row-fluid&quot;&gt;
+        ///            &lt;div class=&quot;box&quot;&gt;
+        ///             [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SettingsDownstream {
+            get {
+                return ResourceManager.GetString("SettingsDownstream", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
+        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
+        ///    &lt;section class=&quot;row-fluid&quot;&gt;
+        ///
+        ///        &lt;div class=&quot;row-fluid&quot;&gt;
+        ///            &lt;div class=&quot;box&quot;&gt;
+        ///                &lt;div class=&quot;span4&quot;&gt;
+        ///                    &lt;a style=&quot;line-height: 52px;&quot; href=&quot;@Raw(Model.Context.Paths.Home)&quot;&gt;&lt;img alt=&quot;SMEMA Logo&quot; src=&quot;@Raw(Model.Context.Paths.Assets)images/SMEMA-small.png&quot;&gt;&lt;/a&gt;
+        ///                &lt;/div&gt;
+        ///                &lt;div class=&quot;span4&quot;&gt;
+        ///    [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SettingsHome {
             get {
                 return ResourceManager.GetString("SettingsHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
+        ///
+        ///@functions
+        ///{
+        ///    string isConnected(bool theValue)
+        ///    {
+        ///        return (theValue) ? &quot;&lt;i class=\&quot;icon-ok icon-large\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;icon-remove icon-large\&quot;&gt;&lt;/i&gt;&quot;;
+        ///    }
+        ///}
+        ///
+        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
+        ///    &lt;input type=&quot;hidden&quot; name=&quot;Guid&quot; value=&quot;@Model.Extension.Model.Guid&quot;&gt;
+        ///    &lt;section class=&quot;row-fluid&quot;&gt;
+        ///
+        ///        &lt;div class=&quot;row-fluid&quot;&gt;
+        ///            &lt;div class=&quot;box&quot;&gt;
+        ///               [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SettingsInterlock {
+            get {
+                return ResourceManager.GetString("SettingsInterlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
+        ///
+        ///@functions
+        ///{
+        ///    string isCurrentLoggingLevel(int theLevel)
+        ///    {
+        ///        return (@Model.Extension.Model.LoggingLevel == theLevel) ? &quot;selected&quot; : &quot;&quot;;
+        ///    }
+        ///
+        ///}
+        ///
+        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
+        ///    &lt;input type=&quot;hidden&quot; name=&quot;Guid&quot; value=&quot;@Model.Extension.Model.Guid&quot;&gt;
+        ///    &lt;section class=&quot;row-fluid&quot;&gt;
+        ///
+        ///        &lt;div class=&quot;row-fluid&quot;&gt;
+        ///            &lt;div class=&quot;box&quot;&gt;
+        ///                &lt;div class=&quot;span [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SettingsLane {
+            get {
+                return ResourceManager.GetString("SettingsLane", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
+        ///@functions {
+        ///    public string NavLocationIsHome()
+        ///    {
+        ///        return Model.Context.Paths.Current == Model.Context.Paths.Home ? &quot;active&quot; : string.Empty;
+        ///    }
+        ///
+        ///    public string NavLocationIsLane()
+        ///    {
+        ///        return Model.Context.Paths.Current == Model.Context.Paths.Home + &quot;lane/&quot; ? &quot;active&quot; : string.Empty;
+        ///    }
+        ///
+        ///    public string NavLocationIsUpstream()
+        ///    {
+        ///        return Model.Context.Paths.Current == Model.Context.Paths.Home + &quot;lane/upstream/&quot; ? &quot;a [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SettingsNavigation {
+            get {
+                return ResourceManager.GetString("SettingsNavigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
+        ///
+        ///@functions
+        ///{
+        ///    string isConnected(bool theValue)
+        ///    {
+        ///        return (theValue) ? &quot;&lt;i class=\&quot;icon-ok icon-large\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;icon-remove icon-large\&quot;&gt;&lt;/i&gt;&quot;;
+        ///    }
+        ///
+        ///}
+        ///
+        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
+        ///    &lt;input type=&quot;hidden&quot; name=&quot;Guid&quot; value=&quot;@Model.Extension.Model.Guid&quot;&gt;
+        ///    &lt;section class=&quot;row-fluid&quot;&gt;
+        ///
+        ///        &lt;div class=&quot;row-fluid&quot;&gt;
+        ///            &lt;div class=&quot;box&quot;&gt;
+        ///             [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SettingsUpstream {
+            get {
+                return ResourceManager.GetString("SettingsUpstream", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SMEMA_small_png {
+            get {
+                object obj = ResourceManager.GetObject("SMEMA_small_png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

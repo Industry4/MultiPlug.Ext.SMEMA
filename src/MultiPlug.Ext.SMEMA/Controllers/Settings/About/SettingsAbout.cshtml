@@ -1,0 +1,65 @@
+﻿@model MultiPlug.Base.Http.EdgeApp
+
+<section class="row-fluid">
+
+    <div class="row-fluid">
+        <div class="box">
+            <div class="span2">
+                <a style="line-height: 52px;" href="@Raw(Model.Context.Paths.Home)"><img alt="SMEMA Logo" src="@Raw(Model.Context.Paths.Assets)images/SMEMA-small.png"></a>
+            </div>
+            <div class="span8">
+                <p style="font-size:26px; line-height: 54px; text-align: center; margin: 0px;">About</p>
+            </div>
+            <div class="span2" style="text-align: right;">
+            </div>
+        </div>
+    </div>
+
+    @Include("MultiPlug.Ext.SMEMA.SMEMA_Settings_Navigation")
+
+    <div class="row-fluid">
+        <div class="span12">
+            <h3 class="box-header">About MultiPlug.Ext.SMEMA</h3>
+            <div class="box">
+                <div class="row-fluid">
+                    <div class="span6"><b>Version</b></div>
+                    <div class="span6">@Raw(Model.Extension.Model.Version)</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6"><b>Extension</b></div>
+                    <div class="span6">@Raw(Model.Extension.Model.Title)</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6"><b>Description</b></div>
+                    <div class="span6">@Raw(Model.Extension.Model.Description)</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6"><b>Maintainer</b></div>
+                    <div class="span6"><a target="_blank" href="https://www.4ir.uk">@Raw(Model.Extension.Model.Company)</a></div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6"><b>Product</b></div>
+                    <div class="span6">@Raw(Model.Extension.Model.Product)</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6"><b>Copyright</b></div>
+                    <div class="span6">@Raw(Model.Extension.Model.Copyright)</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6"><b>Trademarks</b></div>
+                    <div class="span6">@Raw(Model.Extension.Model.Trademark)</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6"><b>More information</b></div>
+                    <div class="span6"><a target="_blank" href="https://github.com/Industry4/MultiPlug.Ext.SMEMA">github.com/Industry4/MultiPlug.Ext.SMEMA</a></div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <p>Copyright 2021 Industry4 Ltd</p>
+                        <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

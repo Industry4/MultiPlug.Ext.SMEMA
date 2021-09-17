@@ -1,0 +1,52 @@
+﻿@model MultiPlug.Base.Http.EdgeApp
+@functions {
+    public string NavLocationIsHome()
+    {
+        return Model.Context.Paths.Current == Model.Context.Paths.Home ? "active" : string.Empty;
+    }
+
+    public string NavLocationIsLane()
+    {
+        return Model.Context.Paths.Current == Model.Context.Paths.Home + "lane/" ? "active" : string.Empty;
+    }
+
+    public string NavLocationIsUpstream()
+    {
+        return Model.Context.Paths.Current == Model.Context.Paths.Home + "lane/upstream/" ? "active" : string.Empty;
+    }
+
+    public string NavLocationIsDownstream()
+    {
+        return Model.Context.Paths.Current == Model.Context.Paths.Home + "lane/downstream/" ? "active" : string.Empty;
+    }
+
+    public string NavLocationIsInterlock()
+    {
+        return Model.Context.Paths.Current == Model.Context.Paths.Home + "lane/interlock/" ? "active" : string.Empty;
+    }
+
+    public string NavLocationIsAbout()
+    {
+        return Model.Context.Paths.Current == Model.Context.Paths.Home + "about/" ? "active" : string.Empty;
+    }
+}
+
+<div class="row-fluid">
+    <ul class="nav nav-tabs">
+        <li class="@NavLocationIsHome()"><a href="@Raw(Model.Context.Paths.Home)">Home</a></li>
+
+        @if (!string.IsNullOrEmpty(Model.Extension.Model.Guid))
+        {
+            <li class="@NavLocationIsLane()"><a href="@Raw(Model.Context.Paths.Home)lane/?id=@Model.Extension.Model.Guid">Lane</a></li>
+            <li class="@NavLocationIsUpstream()"><a href="@Raw(Model.Context.Paths.Home)lane/upstream/?id=@Model.Extension.Model.Guid">Upstream</a></li>
+            <li class="@NavLocationIsInterlock()"><a href="@Raw(Model.Context.Paths.Home)lane/interlock/?id=@Model.Extension.Model.Guid">Interlock</a></li>
+            <li class="@NavLocationIsDownstream()"><a href="@Raw(Model.Context.Paths.Home)lane/downstream/?id=@Model.Extension.Model.Guid">Downstream</a></li>
+            <li class="@NavLocationIsAbout()"><a href="@Raw(Model.Context.Paths.Home)about/?id=@Model.Extension.Model.Guid">About</a></li>
+
+        }
+        else
+        {
+            <li class="@NavLocationIsAbout()"><a href="@Raw(Model.Context.Paths.Home)about/">About</a></li>
+        }
+    </ul>
+</div>
