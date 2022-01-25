@@ -68,14 +68,14 @@ namespace MultiPlug.Ext.SMEMA
 
                     NewLane.UpdateProperties(new LaneProperties { LaneId = Lane.LaneId, MachineId = Lane.MachineId });
 
-                    if (Lane.Upstream != null)
+                    if (Lane.BoardAvailable != null)
                     {
-                        NewLane.Upstream.UpdateProperties(Lane.Upstream);
+                        NewLane.BoardAvailable.UpdateProperties(Lane.BoardAvailable);
                     }
 
-                    if (Lane.Downstream != null)
+                    if (Lane.MachineReady != null)
                     {
-                        NewLane.Downstream.UpdateProperties(Lane.Downstream);
+                        NewLane.MachineReady.UpdateProperties(Lane.MachineReady);
                     }
 
                     if (Lane.Interlock != null)

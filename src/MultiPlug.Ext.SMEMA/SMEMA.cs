@@ -17,9 +17,9 @@ namespace MultiPlug.Ext.SMEMA
                     new RazorTemplate(Templates.SettingsNavigation,Resources.SettingsNavigation),
                     new RazorTemplate(Templates.SettingsHome, Resources.SettingsHome),
                     new RazorTemplate(Templates.SettingsLane, Resources.SettingsLane),
-                    new RazorTemplate(Templates.SettingsUpstream, Resources.SettingsUpstream),
+                    new RazorTemplate(Templates.SettingsBoardAvailable, Resources.SettingsBoardAvailable),
                     new RazorTemplate(Templates.SettingsInterlock, Resources.SettingsInterlock),
-                    new RazorTemplate(Templates.SettingsDownstream, Resources.SettingsDownstream),
+                    new RazorTemplate(Templates.SettingsMachineReady, Resources.SettingsMachineReady),
                     new RazorTemplate(Templates.SettingsAbout, Resources.SettingsAbout),
                 };
             }

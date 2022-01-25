@@ -1,8 +1,8 @@
 ﻿
 using System.Runtime.Serialization;
-using MultiPlug.Ext.SMEMA.Models.Components.Downstream;
 using MultiPlug.Ext.SMEMA.Models.Components.Interlock;
-using MultiPlug.Ext.SMEMA.Models.Components.Upstream;
+using MultiPlug.Ext.SMEMA.Models.Components.BoardAvailable;
+using MultiPlug.Ext.SMEMA.Models.Components.MachineReady;
 
 namespace MultiPlug.Ext.SMEMA.Models.Load
 {
@@ -15,9 +15,9 @@ namespace MultiPlug.Ext.SMEMA.Models.Load
         [DataMember]
         public string MachineId { get; set; }
         [DataMember]
-        public UpstreamProperties Upstream { get; set; }
+        public BoardAvailableProperties BoardAvailable { get; set; }
         [DataMember]
-        public DownstreamProperties Downstream { get; set; }
+        public MachineReadyProperties MachineReady { get; set; }
         [DataMember]
         public InterlockProperties Interlock { get; set; }
     }

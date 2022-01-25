@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using MultiPlug.Base.Attribute;
 using MultiPlug.Base.Http;
-using MultiPlug.Ext.SMEMA.Models.Settings.Upstream;
-using MultiPlug.Ext.SMEMA.Models.Components.Upstream;
+using MultiPlug.Ext.SMEMA.Models.Settings.BoardAvailable;
+using MultiPlug.Ext.SMEMA.Models.Components.BoardAvailable;
 
-namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Upstream
+namespace MultiPlug.Ext.SMEMA.Controllers.Settings.BoardAvailable
 {
-    [Route("lane/upstream")]
-    public class UpstreamController : SettingsApp
+    [Route("lane/board-available")]
+    public class BoardAvailableController : SettingsApp
     {
         public Response Get(string id)
         {
@@ -23,16 +23,16 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Upstream
 
             return new Response
             {
-                Model = new UpstreamModel
+                Model = new BoardAvailableModel
                 {
                     Guid = LaneSearch.Guid,
-                    Properties = LaneSearch.Upstream
+                    Properties = LaneSearch.BoardAvailable
                 },
-                Template = Templates.SettingsUpstream
+                Template = Templates.SettingsBoardAvailable
             };
         }
 
-        public Response Post(UpstreamUpdateModel theModel)
+        public Response Post(BoardAvailableUpdateModel theModel)
         {
             var LaneSearch = Core.Instance.Lanes.FirstOrDefault(Lane => Lane.Guid == theModel.Guid);
 
@@ -50,7 +50,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Upstream
             ushort SMEMAFailedBoardAvailableSubscriptionSubjectIndex = 0;
             ushort.TryParse(theModel.SMEMAFailedBoardAvailableSubscriptionSubjectIndex, out SMEMAFailedBoardAvailableSubscriptionSubjectIndex);
 
-            UpstreamProperties Properties = new UpstreamProperties
+            BoardAvailableProperties Properties = new BoardAvailableProperties
             {
                 SMEMAMachineReadyEvent = new Base.Exchange.Event
                 {
@@ -70,7 +70,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Upstream
                 }
             };
 
-            LaneSearch.Upstream.UpdateProperties(Properties);
+            LaneSearch.BoardAvailable.UpdateProperties(Properties);
 
             return new Response
             {

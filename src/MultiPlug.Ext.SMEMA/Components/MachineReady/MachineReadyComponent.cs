@@ -1,10 +1,10 @@
 ﻿using System;
 using MultiPlug.Base.Exchange;
-using MultiPlug.Ext.SMEMA.Models.Components.Downstream;
+using MultiPlug.Ext.SMEMA.Models.Components.MachineReady;
 
-namespace MultiPlug.Ext.SMEMA.Components.Downstream
+namespace MultiPlug.Ext.SMEMA.Components.MachineReady
 {
-    public class DownstreamComponent : DownstreamProperties
+    public class MachineReadyComponent : MachineReadyProperties
     {
         internal const string c_SMEMABoardAvailableEventId = "SMEMABoardAvailable";
         internal const string c_SMEMAFailedBoardAvailableEventId = "SMEMAFailedBoardAvailable";
@@ -12,14 +12,14 @@ namespace MultiPlug.Ext.SMEMA.Components.Downstream
         internal event Action EventsUpdated;
         internal event Action SubscriptionsUpdated;
 
-        public DownstreamComponent(string theGuid, string theEventSuffix)
+        public MachineReadyComponent(string theGuid, string theEventSuffix)
         {
             SMEMAMachineReadySubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Subjects = new ushort[] { 0 }, Value = "1" };
             SMEMABoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = c_SMEMABoardAvailableEventId + theEventSuffix, Description = "Board Available", Subjects = new string[] { "value" } };
             SMEMAFailedBoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = c_SMEMAFailedBoardAvailableEventId + theEventSuffix, Description = "Failed Board Available", Subjects = new string[] { "value" } };
         }
 
-        internal void UpdateProperties(DownstreamProperties theNewProperties)
+        internal void UpdateProperties(MachineReadyProperties theNewProperties)
         {
             bool FlagSubscriptionUpdated = false;
             bool FlagEventUpdated = false;

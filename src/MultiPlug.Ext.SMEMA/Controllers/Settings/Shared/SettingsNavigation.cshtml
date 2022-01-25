@@ -10,14 +10,14 @@
         return Model.Context.Paths.Current == Model.Context.Paths.Home + "lane/" ? "active" : string.Empty;
     }
 
-    public string NavLocationIsUpstream()
+    public string NavLocationIsBoardAvailable()
     {
-        return Model.Context.Paths.Current == Model.Context.Paths.Home + "lane/upstream/" ? "active" : string.Empty;
+        return Model.Context.Paths.Current == Model.Context.Paths.Home + "lane/board-available/" ? "active" : string.Empty;
     }
 
-    public string NavLocationIsDownstream()
+    public string NavLocationIsMachineReady()
     {
-        return Model.Context.Paths.Current == Model.Context.Paths.Home + "lane/downstream/" ? "active" : string.Empty;
+        return Model.Context.Paths.Current == Model.Context.Paths.Home + "lane/machine-ready/" ? "active" : string.Empty;
     }
 
     public string NavLocationIsInterlock()
@@ -38,9 +38,9 @@
         @if (!string.IsNullOrEmpty(Model.Extension.Model.Guid))
         {
             <li class="@NavLocationIsLane()"><a href="@Raw(Model.Context.Paths.Home)lane/?id=@Model.Extension.Model.Guid">Lane</a></li>
-            <li class="@NavLocationIsUpstream()"><a href="@Raw(Model.Context.Paths.Home)lane/upstream/?id=@Model.Extension.Model.Guid">Upstream</a></li>
+            <li class="@NavLocationIsMachineReady()"><a href="@Raw(Model.Context.Paths.Home)lane/machine-ready/?id=@Model.Extension.Model.Guid">SMEMA Machine Ready</a></li>
             <li class="@NavLocationIsInterlock()"><a href="@Raw(Model.Context.Paths.Home)lane/interlock/?id=@Model.Extension.Model.Guid">Interlock</a></li>
-            <li class="@NavLocationIsDownstream()"><a href="@Raw(Model.Context.Paths.Home)lane/downstream/?id=@Model.Extension.Model.Guid">Downstream</a></li>
+            <li class="@NavLocationIsBoardAvailable()"><a href="@Raw(Model.Context.Paths.Home)lane/board-available/?id=@Model.Extension.Model.Guid">SMEMA Board Available</a></li>
             <li class="@NavLocationIsAbout()"><a href="@Raw(Model.Context.Paths.Home)about/?id=@Model.Extension.Model.Guid">About</a></li>
 
         }

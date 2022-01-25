@@ -7,8 +7,8 @@ namespace MultiPlug.Ext.SMEMA.Controllers
         internal const string SettingsHome = "SMEMA_Settings_Home";
         internal const string SettingsAbout = "SMEMA_Settings_About";
         internal const string SettingsLane = "SMEMA_Settings_Lane";
-        internal const string SettingsUpstream = "SMEMA_Settings_Upstream";
+        internal const string SettingsBoardAvailable = "SMEMA_Settings_BoardAvailable";
         internal const string SettingsInterlock = "SMEMA_Settings_Interlock";
-        internal const string SettingsDownstream = "SMEMA_Settings_Downstream";
+        internal const string SettingsMachineReady = "SMEMA_Settings_MachineReady";
     }
 }

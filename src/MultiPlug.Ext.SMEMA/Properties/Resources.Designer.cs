@@ -124,7 +124,6 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         ///    {
         ///        return (theValue) ? &quot;&lt;i class=\&quot;icon-ok icon-large\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;icon-remove icon-large\&quot;&gt;&lt;/i&gt;&quot;;
         ///    }
-        ///
         ///}
         ///
         ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
@@ -133,11 +132,11 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         ///
         ///        &lt;div class=&quot;row-fluid&quot;&gt;
         ///            &lt;div class=&quot;box&quot;&gt;
-        ///             [rest of string was truncated]&quot;;.
+        ///               [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SettingsDownstream {
+        internal static string SettingsBoardAvailable {
             get {
-                return ResourceManager.GetString("SettingsDownstream", resourceCulture);
+                return ResourceManager.GetString("SettingsBoardAvailable", resourceCulture);
             }
         }
         
@@ -213,6 +212,31 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
+        ///
+        ///@functions
+        ///{
+        ///    string isConnected(bool theValue)
+        ///    {
+        ///        return (theValue) ? &quot;&lt;i class=\&quot;icon-ok icon-large\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;icon-remove icon-large\&quot;&gt;&lt;/i&gt;&quot;;
+        ///    }
+        ///}
+        ///
+        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
+        ///    &lt;input type=&quot;hidden&quot; name=&quot;Guid&quot; value=&quot;@Model.Extension.Model.Guid&quot;&gt;
+        ///    &lt;section class=&quot;row-fluid&quot;&gt;
+        ///
+        ///        &lt;div class=&quot;row-fluid&quot;&gt;
+        ///            &lt;div class=&quot;box&quot;&gt;
+        ///               [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SettingsMachineReady {
+            get {
+                return ResourceManager.GetString("SettingsMachineReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
         ///@functions {
         ///    public string NavLocationIsHome()
         ///    {
@@ -231,32 +255,6 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         internal static string SettingsNavigation {
             get {
                 return ResourceManager.GetString("SettingsNavigation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
-        ///
-        ///@functions
-        ///{
-        ///    string isConnected(bool theValue)
-        ///    {
-        ///        return (theValue) ? &quot;&lt;i class=\&quot;icon-ok icon-large\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;icon-remove icon-large\&quot;&gt;&lt;/i&gt;&quot;;
-        ///    }
-        ///
-        ///}
-        ///
-        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
-        ///    &lt;input type=&quot;hidden&quot; name=&quot;Guid&quot; value=&quot;@Model.Extension.Model.Guid&quot;&gt;
-        ///    &lt;section class=&quot;row-fluid&quot;&gt;
-        ///
-        ///        &lt;div class=&quot;row-fluid&quot;&gt;
-        ///            &lt;div class=&quot;box&quot;&gt;
-        ///             [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string SettingsUpstream {
-            get {
-                return ResourceManager.GetString("SettingsUpstream", resourceCulture);
             }
         }
         

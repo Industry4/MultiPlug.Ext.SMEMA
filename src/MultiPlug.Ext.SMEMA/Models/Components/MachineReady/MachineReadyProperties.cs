@@ -1,15 +1,10 @@
-﻿using MultiPlug.Base;
+﻿using System.Runtime.Serialization;
+using MultiPlug.Base;
 using MultiPlug.Base.Exchange;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MultiPlug.Ext.SMEMA.Models.Components.Downstream
+namespace MultiPlug.Ext.SMEMA.Models.Components.MachineReady
 {
-    public class DownstreamProperties : MultiPlugBase
+    public class MachineReadyProperties : MultiPlugBase
     {
         /// 
         /// SMEMA Machine Ready to Receive

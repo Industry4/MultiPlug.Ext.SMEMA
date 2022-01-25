@@ -51,41 +51,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Downstream\DownstreamComponent.cs" />
+    <Compile Include="Components\MachineReady\MachineReadyComponent.cs" />
     <Compile Include="Components\Interlock\InterlockComponent.cs" />
     <Compile Include="Components\Lane\LaneComponent.cs" />
-    <Compile Include="Components\Upstream\UpstreamComponent.cs" />
+    <Compile Include="Components\BoardAvailable\BoardAvailableComponent.cs" />
     <Compile Include="Controllers\Assets\AssetsController.cs" />
     <Compile Include="Controllers\Assets\Images\ImagesController.cs" />
     <Compile Include="Controllers\Assets\JavaScripts\JavaScriptsController.cs" />
     <Compile Include="Controllers\Settings\About\AboutController.cs" />
-    <Compile Include="Controllers\Settings\Downstream\DownstreamController.cs" />
+    <Compile Include="Controllers\Settings\MachineReady\MachineReadyController.cs" />
     <Compile Include="Controllers\Settings\Home\HomeController.cs" />
     <Compile Include="Controllers\Settings\Interlock\InterlockController.cs" />
     <Compile Include="Controllers\Settings\Lane\LaneController.cs" />
     <Compile Include="Controllers\Settings\Lane\LaneDeleteController.cs" />
     <Compile Include="Controllers\Settings\SettingsApp.cs" />
-    <Compile Include="Controllers\Settings\Upstream\UpstreamController.cs" />
+    <Compile Include="Controllers\Settings\BoardAvailable\BoardAvailableController.cs" />
     <Compile Include="Controllers\Templates.cs" />
     <Compile Include="Core.cs" />
-    <Compile Include="Models\Components\Downstream\DownstreamProperties.cs" />
+    <Compile Include="Models\Components\MachineReady\MachineReadyProperties.cs" />
     <Compile Include="Models\Components\Interlock\InterlockProperties.cs" />
     <Compile Include="Models\Components\Lane\LaneProperties.cs" />
-    <Compile Include="Models\Components\Upstream\UpstreamProperties.cs" />
+    <Compile Include="Models\Components\BoardAvailable\BoardAvailableProperties.cs" />
     <Compile Include="Models\Exchange\Subscription.cs" />
     <Compile Include="Models\Load\LoadLaneComponent.cs" />
     <Compile Include="Models\Load\LoadRoot.cs" />
     <Compile Include="Models\Settings\About\AboutModel.cs" />
-    <Compile Include="Models\Settings\Downstream\DownstreamModel.cs" />
-    <Compile Include="Models\Settings\Downstream\DownstreamUpdateModel.cs" />
+    <Compile Include="Models\Settings\MachineReady\MachineReadyModel.cs" />
+    <Compile Include="Models\Settings\MachineReady\MachineReadyUpdateModel.cs" />
     <Compile Include="Models\Settings\Home\HomeModel.cs" />
     <Compile Include="Models\Settings\Home\LaneModel.cs" />
     <Compile Include="Models\Settings\Home\NewLanesModel.cs" />
     <Compile Include="Models\Settings\Interlock\InterlockModel.cs" />
     <Compile Include="Models\Settings\Interlock\InterlockUpdateModel.cs" />
     <Compile Include="Models\Settings\Lane\LaneModel.cs" />
-    <Compile Include="Models\Settings\Upstream\UpstreamModel.cs" />
-    <Compile Include="Models\Settings\Upstream\UpstreamUpdateModel.cs" />
+    <Compile Include="Models\Settings\BoardAvailable\BoardAvailableModel.cs" />
+    <Compile Include="Models\Settings\BoardAvailable\BoardAvailableUpdateModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -96,17 +96,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Controllers\Settings\About\SettingsAbout.cshtml" />
-    <None Include="Controllers\Settings\Downstream\Downstream.cshtml" />
+    <None Include="Controllers\Settings\MachineReady\MachineReady.cshtml" />
     <None Include="Controllers\Settings\Home\Home.cshtml" />
     <None Include="Controllers\Settings\Interlock\Interlock.cshtml" />
     <None Include="Controllers\Settings\Lane\Lane.cshtml" />
     <None Include="Controllers\Settings\Shared\SettingsNavigation.cshtml" />
-    <None Include="Controllers\Settings\Upstream\Upstream.cshtml" />
+    <None Include="Controllers\Settings\BoardAvailable\BoardAvailable.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

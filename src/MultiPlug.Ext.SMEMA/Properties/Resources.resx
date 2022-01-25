@@ -124,9 +124,6 @@
   <data name="SettingsAbout" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controllers\Settings\About\SettingsAbout.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SettingsDownstream" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Controllers\Settings\Downstream\Downstream.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="SettingsHome" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controllers\Settings\Home\Home.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -139,10 +136,13 @@
   <data name="SettingsNavigation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controllers\Settings\Shared\SettingsNavigation.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SettingsUpstream" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Controllers\Settings\Upstream\Upstream.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="SMEMA_small_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controllers\Assets\Images\SMEMA-small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SettingsBoardAvailable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Settings\BoardAvailable\BoardAvailable.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SettingsMachineReady" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Settings\MachineReady\MachineReady.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

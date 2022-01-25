@@ -1,10 +1,10 @@
-﻿using MultiPlug.Base;
+﻿using System.Runtime.Serialization;
+using MultiPlug.Base;
 using MultiPlug.Base.Exchange;
-using System.Runtime.Serialization;
 
-namespace MultiPlug.Ext.SMEMA.Models.Components.Upstream
+namespace MultiPlug.Ext.SMEMA.Models.Components.BoardAvailable
 {
-    public class UpstreamProperties : MultiPlugBase
+    public class BoardAvailableProperties : MultiPlugBase
     {
         /// 
         /// SMEMA Machine Ready to Receive

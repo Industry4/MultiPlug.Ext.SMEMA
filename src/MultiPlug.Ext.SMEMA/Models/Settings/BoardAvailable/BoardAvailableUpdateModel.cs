@@ -1,7 +1,7 @@
 ﻿
-namespace MultiPlug.Ext.SMEMA.Models.Settings.Upstream
+namespace MultiPlug.Ext.SMEMA.Models.Settings.BoardAvailable
 {
-    public class UpstreamUpdateModel
+    public class BoardAvailableUpdateModel
     {
         public string Guid { get; set; }
 

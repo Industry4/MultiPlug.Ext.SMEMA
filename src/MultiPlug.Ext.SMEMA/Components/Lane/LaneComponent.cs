@@ -1,6 +1,6 @@
-﻿using MultiPlug.Ext.SMEMA.Components.Downstream;
+﻿using MultiPlug.Ext.SMEMA.Components.BoardAvailable;
 using MultiPlug.Ext.SMEMA.Components.Interlock;
-using MultiPlug.Ext.SMEMA.Components.Upstream;
+using MultiPlug.Ext.SMEMA.Components.MachineReady;
 using MultiPlug.Ext.SMEMA.Models.Components.Lane;
 
 namespace MultiPlug.Ext.SMEMA.Components.Lane
@@ -14,8 +14,8 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
                 Guid = theGuid;
             }
 
-            Upstream = new UpstreamComponent(theGuid, EventSuffix);
-            Downstream = new DownstreamComponent(theGuid, EventSuffix);
+            BoardAvailable = new BoardAvailableComponent(theGuid, EventSuffix);
+            MachineReady = new MachineReadyComponent(theGuid, EventSuffix);
             Interlock = new InterlockComponent(theGuid, EventSuffix);
         }
 

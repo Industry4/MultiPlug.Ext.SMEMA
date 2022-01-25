@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using MultiPlug.Base.Http;
 using MultiPlug.Base.Attribute;
-using MultiPlug.Ext.SMEMA.Models.Settings.Downstream;
-using MultiPlug.Ext.SMEMA.Models.Components.Downstream;
+using MultiPlug.Ext.SMEMA.Models.Settings.MachineReady;
+using MultiPlug.Ext.SMEMA.Models.Components.MachineReady;
 
-namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Downstream
+namespace MultiPlug.Ext.SMEMA.Controllers.Settings.MachineReady
 {
-    [Route("lane/downstream")]
-    public class DownstreamController : SettingsApp
+    [Route("lane/machine-ready")]
+    public class MachineReadyController : SettingsApp
     {
         public Response Get(string id)
         {
@@ -23,16 +23,16 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Downstream
 
             return new Response
             {
-                Model = new DownstreamModel
+                Model = new MachineReadyModel
                 {
                     Guid = LaneSearch.Guid,
-                    Properties = LaneSearch.Downstream,
+                    Properties = LaneSearch.MachineReady,
                 },
-                Template = Templates.SettingsDownstream
+                Template = Templates.SettingsMachineReady
             };
         }
 
-        public Response Post(DownstreamUpdateModel theModel)
+        public Response Post(MachineReadyUpdateModel theModel)
         {
             var LaneSearch = Core.Instance.Lanes.FirstOrDefault(Lane => Lane.Guid == theModel.Guid);
 
@@ -48,7 +48,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Downstream
             ushort SMEMAMachineReadySubscriptionSubjectIndex = 0;
             ushort.TryParse(theModel.SMEMAMachineReadySubscriptionSubjectIndex, out SMEMAMachineReadySubscriptionSubjectIndex);
 
-            DownstreamProperties Properties = new DownstreamProperties
+            MachineReadyProperties Properties = new MachineReadyProperties
             {
                 SMEMAMachineReadySubscription = new Models.Exchange.Subscription
                 {
@@ -71,7 +71,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Downstream
 
             };
 
-            LaneSearch.Downstream.UpdateProperties(Properties);
+            LaneSearch.MachineReady.UpdateProperties(Properties);
 
             return new Response
             {

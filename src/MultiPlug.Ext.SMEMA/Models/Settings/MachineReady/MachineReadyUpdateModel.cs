@@ -1,7 +1,7 @@
 ﻿
-namespace MultiPlug.Ext.SMEMA.Models.Settings.Downstream
+namespace MultiPlug.Ext.SMEMA.Models.Settings.MachineReady
 {
-    public class DownstreamUpdateModel
+    public class MachineReadyUpdateModel
     {
         public string Guid { get; set; }
 
