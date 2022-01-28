@@ -3,6 +3,7 @@ using MultiPlug.Base.Attribute;
 using MultiPlug.Base.Http;
 using MultiPlug.Ext.SMEMA.Components.Lane;
 using MultiPlug.Ext.SMEMA.Models.Settings.Lane;
+using MultiPlug.Ext.SMEMA.Models.Components.Lane;
 
 namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Lane
 {
@@ -33,6 +34,34 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Lane
                 },
                 Template = Templates.SettingsLane,
                // Subscriptions = new Subscription[] { new Subscription { Id = LaneSearch.LogEventId } }
+            };
+        }
+
+        public Response Post(LanePost theModel)
+        {
+            var LaneSearch = Core.Instance.Lanes.FirstOrDefault(Lane => Lane.Guid == theModel.Guid);
+
+            if (LaneSearch == null)
+            {
+                return new Response
+                {
+                    StatusCode = System.Net.HttpStatusCode.NotFound
+                };
+            }
+
+            var LaneProps = new LaneProperties
+            {
+                LaneId = theModel.LaneId,
+                MachineId = theModel.MachineId,
+                LoggingLevel = theModel.LoggingLevel
+            };
+
+            LaneSearch.UpdateProperties(LaneProps);
+
+            return new Response
+            {
+                StatusCode = System.Net.HttpStatusCode.Moved,
+                Location = Context.Referrer
             };
         }
     }

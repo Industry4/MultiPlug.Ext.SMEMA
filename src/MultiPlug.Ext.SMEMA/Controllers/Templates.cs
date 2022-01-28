@@ -1,7 +1,7 @@
 ﻿
 namespace MultiPlug.Ext.SMEMA.Controllers
 {
-    class Templates
+    internal class Templates
     {
         internal const string SettingsNavigation = "SMEMA_Settings_Navigation";
         internal const string SettingsHome = "SMEMA_Settings_Home";
@@ -10,5 +10,16 @@ namespace MultiPlug.Ext.SMEMA.Controllers
         internal const string SettingsBoardAvailable = "SMEMA_Settings_BoardAvailable";
         internal const string SettingsInterlock = "SMEMA_Settings_Interlock";
         internal const string SettingsMachineReady = "SMEMA_Settings_MachineReady";
+
+        internal const string AppsSMEMAMonitorHome = "SMEMA_Monitor_Home";
+        internal const string AppsSMEMAMonitorNotSetup = "SMEMA_Monitor_NotSetup";
+        internal const string AppsSMEMAMonitorLaneNotFound = "SMEMA_Monitor_LaneNotFound";
+        internal const string AppsSMEMAMonitorNavBar = "SMEMA_Monitor_NavBar";
+        internal const string AppsSMEMAMonitorNavBarSimple = "SMEMA_Monitor_NavBar_Simple";
+        internal const string AppsSMEMAMonitorShutdownModal = "SMEMA_Monitor_ShutdownModal";
+        internal const string AppsSMEMAMonitorWebSocketReconnectModal = "SMEMA_Monitor_WebSocketReconnectModal";
+        internal const string AppsSMEMAMonitorSelectLaneModal = "SMEMA_Monitor_SelectLaneModal";
+        internal const string AppsSMEMAMonitorSMEMAIOContainer = "SMEMA_Monitor_SMEMAIOContainer";
+
     }
 }

@@ -6,12 +6,19 @@ using MultiPlug.Base;
 using MultiPlug.Ext.SMEMA.Components.Lane;
 using MultiPlug.Ext.SMEMA.Models.Components.Lane;
 using MultiPlug.Ext.SMEMA.Models.Load;
+using MultiPlug.Base.Exchange;
 
 namespace MultiPlug.Ext.SMEMA
 {
     internal class Core : MultiPlugBase
     {
         private static Core m_Instance = null;
+
+        public event Action EventsUpdated;
+        public event Action SubscriptionsUpdated;
+
+        public Subscription[] Subscriptions { get; private set; }
+        public Event[] Events { get; private set; }
 
         [DataMember]
         public LaneComponent[] Lanes { get; private set; } = new LaneComponent[0];
@@ -42,6 +49,8 @@ namespace MultiPlug.Ext.SMEMA
             List<LaneComponent> LanesList = Lanes.ToList();
             LanesList.Add(NewLane);
             Lanes = LanesList.ToArray();
+            AggregateSubscriptions();
+            AggregateEvents();
         }
 
         internal void LaneDelete(LaneComponent theLane)
@@ -49,6 +58,8 @@ namespace MultiPlug.Ext.SMEMA
             List<LaneComponent> LanesList = Lanes.ToList();
             LanesList.Remove(theLane);
             Lanes = LanesList.ToArray();
+            AggregateSubscriptions();
+            AggregateEvents();
         }
 
         internal void Load(LoadRoot theConfiguration)
@@ -87,7 +98,50 @@ namespace MultiPlug.Ext.SMEMA
                 }
 
                 Lanes = NewLanes.ToArray();
+
+                AggregateSubscriptions();
+                AggregateEvents();
             }
+        }
+
+        private void AggregateEvents()
+        {
+            var EventsList = new List<Event>();
+
+            foreach (var Lane in Lanes)
+            {
+                EventsList.Add(Lane.BoardAvailable.SMEMAMachineReadyEvent);
+                EventsList.Add(Lane.MachineReady.SMEMABoardAvailableEvent);
+                EventsList.Add(Lane.MachineReady.SMEMAFailedBoardAvailableEvent);
+            }
+
+            Events = EventsList.ToArray();
+            EventsUpdated?.Invoke();
+        }
+
+        private void AggregateSubscriptions()
+        {
+            var SubscriptionsList = new List<Base.Exchange.Subscription>();
+
+            foreach (var Lane in Lanes)
+            {
+                SubscriptionsList.Add(Lane.BoardAvailable.SMEMABoardAvailableSubscription);
+                SubscriptionsList.Add(Lane.BoardAvailable.SMEMAFailedBoardAvailableSubscription);
+                SubscriptionsList.Add(Lane.MachineReady.SMEMAMachineReadySubscription);
+            }
+
+            Subscriptions = SubscriptionsList.ToArray();
+            SubscriptionsUpdated?.Invoke();
+        }
+
+        private void OnEventsUpdated()
+        {
+            AggregateEvents();
+        }
+
+        private void OnSubscriptionsUpdated()
+        {
+            AggregateSubscriptions();
         }
     }
 }

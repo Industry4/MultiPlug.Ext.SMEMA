@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MultiPlug.Base, Version=1.0.64.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MultiPlug.Base.1.0.64\lib\net472\MultiPlug.Base.dll</HintPath>
+    <Reference Include="MultiPlug.Base, Version=1.0.65.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MultiPlug.Base.1.0.65\lib\net472\MultiPlug.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MultiPlug.Extension.Core, Version=1.0.63.0, Culture=neutral, processorArchitecture=MSIL">
@@ -51,11 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\BoardAvailable\BoardAvailableSMEMAStateMachine.cs" />
     <Compile Include="Components\MachineReady\MachineReadyComponent.cs" />
     <Compile Include="Components\Interlock\InterlockComponent.cs" />
     <Compile Include="Components\Lane\LaneComponent.cs" />
     <Compile Include="Components\BoardAvailable\BoardAvailableComponent.cs" />
+    <Compile Include="Components\MachineReady\MachineReadySMEMAStateMachine.cs" />
+    <Compile Include="Controllers\Apps\SMEMAMonitor\HomeController.cs" />
+    <Compile Include="Controllers\Apps\SMEMAMonitor\SMEMAMonitorApp.cs" />
     <Compile Include="Controllers\Assets\AssetsController.cs" />
+    <Compile Include="Controllers\Assets\CSSs\CSSController.cs" />
+    <Compile Include="Controllers\Assets\Fonts\FontsController.cs" />
+    <Compile Include="Controllers\Assets\Icons\IconController.cs" />
     <Compile Include="Controllers\Assets\Images\ImagesController.cs" />
     <Compile Include="Controllers\Assets\JavaScripts\JavaScriptsController.cs" />
     <Compile Include="Controllers\Settings\About\AboutController.cs" />
@@ -68,6 +75,8 @@
     <Compile Include="Controllers\Settings\BoardAvailable\BoardAvailableController.cs" />
     <Compile Include="Controllers\Templates.cs" />
     <Compile Include="Core.cs" />
+    <Compile Include="Models\Apps\LaneUrl.cs" />
+    <Compile Include="Models\Apps\SMEMAMonitor.cs" />
     <Compile Include="Models\Components\MachineReady\MachineReadyProperties.cs" />
     <Compile Include="Models\Components\Interlock\InterlockProperties.cs" />
     <Compile Include="Models\Components\Lane\LaneProperties.cs" />
@@ -76,6 +85,7 @@
     <Compile Include="Models\Load\LoadLaneComponent.cs" />
     <Compile Include="Models\Load\LoadRoot.cs" />
     <Compile Include="Models\Settings\About\AboutModel.cs" />
+    <Compile Include="Models\Settings\Lane\LanePost.cs" />
     <Compile Include="Models\Settings\MachineReady\MachineReadyModel.cs" />
     <Compile Include="Models\Settings\MachineReady\MachineReadyUpdateModel.cs" />
     <Compile Include="Models\Settings\Home\HomeModel.cs" />
@@ -95,6 +105,40 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Controllers\Apps\SMEMAMonitor\Containers\SMEMAIOContainer.cshtml" />
+    <None Include="Controllers\Apps\SMEMAMonitor\Elements\NavBar.cshtml" />
+    <None Include="Controllers\Apps\SMEMAMonitor\Elements\NavBarSimple.cshtml" />
+    <None Include="Controllers\Apps\SMEMAMonitor\Errors\LaneNotFound.cshtml" />
+    <None Include="Controllers\Apps\SMEMAMonitor\Errors\NotSetup.cshtml" />
+    <None Include="Controllers\Apps\SMEMAMonitor\Home.cshtml" />
+    <None Include="Controllers\Apps\SMEMAMonitor\Modals\SelectLaneModal.cshtml" />
+    <None Include="Controllers\Apps\SMEMAMonitor\Modals\ShutdownModal.cshtml" />
+    <None Include="Controllers\Apps\SMEMAMonitor\Modals\WebSocketReconnectModal.cshtml" />
+    <None Include="Controllers\Assets\Fonts\fonts\fa-brands-400.ttf" />
+    <None Include="Controllers\Assets\Fonts\fonts\fa-regular-400.ttf" />
+    <None Include="Controllers\Assets\Fonts\fonts\fa-solid-900.ttf" />
+    <None Include="Controllers\Assets\Fonts\fonts\fa-solid-900.woff" />
+    <None Include="Controllers\Assets\Fonts\fonts\fa-solid-900.woff2" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Bold.eot" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Bold.ttf" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Bold.woff" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Bold.woff2" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Light.eot" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Light.ttf" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Light.woff" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Light.woff2" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Medium.eot" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Medium.ttf" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Medium.woff" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Medium.woff2" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Regular.eot" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Regular.ttf" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Regular.woff" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Regular.woff2" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Thin.eot" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Thin.ttf" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Thin.woff" />
+    <None Include="Controllers\Assets\Fonts\fonts\Roboto-Thin.woff2" />
     <None Include="Controllers\Settings\About\SettingsAbout.cshtml" />
     <None Include="Controllers\Settings\MachineReady\MachineReady.cshtml" />
     <None Include="Controllers\Settings\Home\Home.cshtml" />
@@ -113,12 +157,52 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Controllers\Assets\Images\SMEMA-small.png" />
-    <Content Include="Controllers\Assets\JavaScripts\Lanes.js" />
+    <Content Include="Controllers\Assets\CSSs\css-full\all.css" />
+    <Content Include="Controllers\Assets\CSSs\css-full\bootstrap.css" />
+    <Content Include="Controllers\Assets\CSSs\css-full\fontawesome.css" />
+    <Content Include="Controllers\Assets\CSSs\css-full\mdb.css" />
+    <Content Include="Controllers\Assets\CSSs\css-full\mdb.lite.css" />
+    <Content Include="Controllers\Assets\CSSs\css-full\solid.css" />
+    <Content Include="Controllers\Assets\CSSs\css-full\style.css" />
+    <Content Include="Controllers\Assets\CSSs\css-full\svg-with-js.css" />
+    <Content Include="Controllers\Assets\CSSs\css-full\v4-shims.css" />
+    <Content Include="Controllers\Assets\CSSs\css\all.min.css" />
+    <Content Include="Controllers\Assets\CSSs\css\bootstrap.min.css" />
+    <Content Include="Controllers\Assets\CSSs\css\fontawesome.min.css" />
+    <Content Include="Controllers\Assets\CSSs\css\mdb.lite.min.css" />
+    <Content Include="Controllers\Assets\CSSs\css\mdb.min.css" />
+    <Content Include="Controllers\Assets\CSSs\css\solid.min.css" />
+    <Content Include="Controllers\Assets\CSSs\css\style.min.css" />
+    <Content Include="Controllers\Assets\CSSs\css\svg-with-js.min.css" />
+    <Content Include="Controllers\Assets\CSSs\css\v4-shims.min.css" />
+    <Content Include="Controllers\Assets\Icons\Icons\favicon.ico" />
+    <Content Include="Controllers\Assets\Images\Images\apple-touch-icon.png" />
+    <Content Include="Controllers\Assets\Images\Images\SMEMA-logo.jpg" />
+    <Content Include="Controllers\Assets\Images\Images\SMEMA-small.png" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScript-Full\all.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScript-Full\bootstrap.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScript-Full\fontawesome.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScript-Full\lanes.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScript-Full\mdb.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScript-Full\smemaio.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScript-Full\solid.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScript-Full\v4-shims.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScripts\all.min.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScripts\bootstrap.min.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScripts\fontawesome.min.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScripts\jquery-3.4.1.min.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScripts\mdb.min.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScripts\popper.min.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScripts\solid.min.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScripts\v4-shims.min.js" />
+    <Content Include="Controllers\Assets\SVGs\SVGs\cog.svg" />
+    <Content Include="Controllers\Assets\SVGs\SVGs\minus.svg" />
+    <Content Include="Controllers\Assets\SVGs\SVGs\plus.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)bin\$(ConfigurationName)\MultiPlug.Ext.SMEMA.dll" "C:\projects\i4Core\Connector\MultiPlug.CLI\bin\Debug\extensions\MultiPlug.Ext.SMEMA" /Y /I</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

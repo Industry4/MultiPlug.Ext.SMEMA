@@ -1,0 +1,40 @@
+﻿    <!--Navbar-->
+    <nav class="navbar navbar-expand-md fixed-top primary-color">
+
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">
+            <img src="assets/MultiPlug.Ext.SMEMA/images/SMEMA-logo.jpg"
+                 alt=""
+                 height="50"
+                 width="auto"
+                 class="d-inline-block align-top">
+        </a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <span class="navbar-brand mb-0 h1">M/C: @Model.Extension.Model.MachineName / Lane: @Model.Extension.Model.LaneName</span>
+                </li>
+            </ul> 
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button id="btn-selectlane" type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#selectLaneLong"><i class="fas fa-stream fa-lg"></i></button>
+                        <a href="extensions/multiplug.ext.smema/" class="btn btn-primary waves-effect waves-light" role="button"><i class="fas fa-cog fa-lg"></i></a>
+                        <button id="btn-shutdown" type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#Shutdown-modal"><i class="fas fa-power-off fa-lg"></i></button>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </nav>

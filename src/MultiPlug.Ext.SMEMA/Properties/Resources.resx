@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="LanesJS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Controllers\Assets\JavaScripts\Lanes.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="SettingsAbout" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controllers\Settings\About\SettingsAbout.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -136,13 +133,109 @@
   <data name="SettingsNavigation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controllers\Settings\Shared\SettingsNavigation.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SMEMA_small_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Controllers\Assets\Images\SMEMA-small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="SettingsBoardAvailable" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controllers\Settings\BoardAvailable\BoardAvailable.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SettingsMachineReady" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controllers\Settings\MachineReady\MachineReady.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="AppsSMEMAMonitorHome" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Apps\SMEMAMonitor\Home.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="AppsSMEMAMonitorNotSetup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Apps\SMEMAMonitor\Errors\NotSetup.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="AppsSMEMAMonitorLaneNotFound" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Apps\SMEMAMonitor\Errors\LaneNotFound.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="AppsSMEMAMonitorNavBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Apps\SMEMAMonitor\Elements\NavBar.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="AppsSMEMAMonitorNavBarSimple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Apps\SMEMAMonitor\Elements\NavBarSimple.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="AppsSMEMAMonitorSelectLaneModal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Apps\SMEMAMonitor\Modals\SelectLaneModal.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="AppsSMEMAMonitorShutdownModal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Apps\SMEMAMonitor\Modals\ShutdownModal.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="AppsSMEMAMonitorSMEMAIOContainer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Apps\SMEMAMonitor\Containers\SMEMAIOContainer.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="AppsSMEMAMonitorWebSocketReconnectModal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Apps\SMEMAMonitor\Modals\WebSocketReconnectModal.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="all_min_css" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\CSSs\CSS\all.min.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="bootstrap_min_css" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\CSSs\CSS\bootstrap.min.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="mdb_min_css" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\CSSs\CSS\mdb.min.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="style_min_css" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\CSSs\CSS\style.min.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="fa_solid_900_woff2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\Fonts\Fonts\fa-solid-900.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Roboto_Bold_ttf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\Fonts\Fonts\Roboto-Bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Roboto_Bold_woff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\Fonts\Fonts\Roboto-Bold.woff;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Roboto_Bold_woff2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\Fonts\Fonts\Roboto-Bold.woff2;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Roboto_Light_woff2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\Fonts\Fonts\Roboto-Light.woff2;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Roboto_Medium_woff2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\Fonts\Fonts\Roboto-Medium.woff2;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Roboto_Regular_ttf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\Fonts\Fonts\Roboto-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Roboto_Regular_woff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\Fonts\Fonts\Roboto-Regular.woff;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Roboto_Regular_woff2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\Fonts\Fonts\Roboto-Regular.woff2;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="apple_touch_icon_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\Images\Images\apple-touch-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SMEMA_logo_jpg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\Images\Images\SMEMA-logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SMEMA_small_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\Images\Images\SMEMA-small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_min_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\JavaScripts\JavaScripts\all.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="bootstrap_min_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\JavaScripts\JavaScripts\bootstrap.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="jquery_3_4_1_min_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\JavaScripts\JavaScripts\jquery-3.4.1.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="lanes_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\JavaScripts\JavaScript-Full\lanes.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="mdb_min_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\JavaScripts\JavaScripts\mdb.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="popper_min_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\JavaScripts\JavaScripts\popper.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="smemaio_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\JavaScripts\JavaScript-Full\smemaio.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="favicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\Icons\Icons\favicon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

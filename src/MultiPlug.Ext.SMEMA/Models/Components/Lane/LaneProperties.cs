@@ -28,5 +28,8 @@ namespace MultiPlug.Ext.SMEMA.Models.Components.Lane
                 return ":Machine:" + MachineId + ":Lane:" + LaneId;
             }
         }
+
+        [DataMember]
+        public int LoggingLevel { get; set; } = 0;
     }
 }

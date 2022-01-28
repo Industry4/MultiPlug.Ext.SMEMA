@@ -1,0 +1,63 @@
+﻿@model MultiPlug.Base.Http.EdgeApp
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@Model.Extension.Model.MachineName / @Model.Extension.Model.LaneName | SMEMA Monitor</title>
+    <base href="@Model.Context.Paths.Base">
+    <link rel="shortcut icon" href="@Raw(Model.Context.Paths.Assets)ico/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="@Raw(Model.Context.Paths.Assets)images/apple-touch-icon.png" />
+
+    <!-- Font Awesome -->
+    <script defer src="@Raw(Model.Context.Paths.Assets)js/all.min.js"></script> <!--load all styles -->
+
+    <link href="@Raw(Model.Context.Paths.Assets)css/all.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="@Raw(Model.Context.Paths.Assets)css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="@Raw(Model.Context.Paths.Assets)css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="@Raw(Model.Context.Paths.Assets)css/style.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <input type="hidden" id="LaneGuid" name="LaneGuid" value="@Model.Extension.Model.LaneGuid">
+
+    @Include("MultiPlug.Ext.SMEMA.SMEMA_Monitor_WebSocketReconnectModal")
+
+    @Include("MultiPlug.Ext.SMEMA.SMEMA_Monitor_ShutdownModal")
+
+    @Include("MultiPlug.Ext.SMEMA.SMEMA_Monitor_SelectLaneModal")
+
+    @Include("MultiPlug.Ext.SMEMA.SMEMA_Monitor_NavBar")
+
+    @Include("MultiPlug.Ext.SMEMA.SMEMA_Monitor_SMEMAIOContainer")
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="@Raw(Model.Context.Paths.Assets)js/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="@Raw(Model.Context.Paths.Assets)js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="@Raw(Model.Context.Paths.Assets)js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="@Raw(Model.Context.Paths.Assets)js/mdb.min.js"></script>
+
+    <script type="text/javascript" src="@Raw(Model.Context.Paths.Assets)js/smemaio.js"></script>
+
+    <script src="@Raw(Model.Context.Paths.Roots.Assets)multiplug.ext.mplib/scripts/websocket.min.js" type="text/javascript"></script>
+    <script src="stream/hubs"></script>
+    <script src="@Raw(Model.Context.Paths.Roots.Assets)multiplug.ext.mplib/scripts/multiplug.js?id=@Model.Context.WebSocketId" type="text/javascript"></script>
+    <script>
+        Initialise( "@Model.Context.Paths.APIs",
+                    "@Model.Extension.Model.LaneGuid",
+                    "@Model.Extension.Model.SMEMAMachineReadySubscriptionId",
+                    "@Model.Extension.Model.SMEMABoardAvailableSubscriptionId",
+                    "@Model.Extension.Model.SMEMAFailedBoardAvailableSubscriptionId");
+    </script>
+</body>
+
+</html>

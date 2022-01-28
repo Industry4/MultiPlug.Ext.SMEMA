@@ -21,8 +21,7 @@ $(".btn-deletelane").click(function (event) {
     });
 });
 
-function NewLane()
-{
+function NewLane() {
     return '<tr>\
                 <td class="span4"><input type="text" name="LaneId" value=""></td>\
                 <td class="span4"><input type="text" name="MachineName" value=""></td>\

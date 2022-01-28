@@ -10,15 +10,29 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Assets.Images
     {
         public Response Get(string theName)
         {
-            if (string.Equals(theName, "SMEMA-small.png", System.StringComparison.OrdinalIgnoreCase))
+            Response Result;
+            ImageConverter converter = new ImageConverter();
+
+            switch (theName.ToLower())
             {
-                ImageConverter converter = new ImageConverter();
-                return new Response { RawBytes = (byte[])converter.ConvertTo(Resources.SMEMA_small_png, typeof(byte[])), MediaType = "image/png" };
+                case "smema-small.png":
+                    Result = new Response { RawBytes = (byte[])converter.ConvertTo(Resources.SMEMA_small_png, typeof(byte[])), MediaType = "image/png" };
+                    break;
+
+                case "smema-logo.jpg":
+                    Result = new Response { RawBytes = (byte[])converter.ConvertTo(Resources.SMEMA_logo_jpg, typeof(byte[])), MediaType = "image/jpeg" };
+                    break;
+
+                case "apple-touch-icon.png":
+                    Result = new Response { RawBytes = (byte[])converter.ConvertTo(Resources.apple_touch_icon_png, typeof(byte[])), MediaType = "image/png" };
+                    break;
+
+                default:
+                    Result = new Response { StatusCode = System.Net.HttpStatusCode.NotFound };
+                    break;
             }
-            else
-            {
-                return new Response { StatusCode = System.Net.HttpStatusCode.NotFound };
-            }
+
+            return Result;
         }
     }
 }

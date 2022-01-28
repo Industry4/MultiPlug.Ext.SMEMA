@@ -12,9 +12,14 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
         internal event Action EventsUpdated;
         internal event Action SubscriptionsUpdated;
 
+        internal MachineReadySMEMAStateMachine StateMachine { get; private set; }
+
         public MachineReadyComponent(string theGuid, string theEventSuffix)
         {
+            StateMachine = new MachineReadySMEMAStateMachine(this);
+
             SMEMAMachineReadySubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Subjects = new ushort[] { 0 }, Value = "1" };
+            SMEMAMachineReadySubscription.Event += StateMachine.OnEvent;
             SMEMABoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = c_SMEMABoardAvailableEventId + theEventSuffix, Description = "Board Available", Subjects = new string[] { "value" } };
             SMEMAFailedBoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = c_SMEMAFailedBoardAvailableEventId + theEventSuffix, Description = "Failed Board Available", Subjects = new string[] { "value" } };
         }

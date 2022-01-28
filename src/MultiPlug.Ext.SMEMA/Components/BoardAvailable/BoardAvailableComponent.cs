@@ -12,8 +12,12 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
         internal event Action EventsUpdated;
         internal event Action SubscriptionsUpdated;
 
+        internal BoardAvailableSMEMAStateMachine StateMachine { get; private set; }
+
         public BoardAvailableComponent(string theGuid, string theEventSuffix)
         {
+            StateMachine = new BoardAvailableSMEMAStateMachine(this);
+
             SMEMAMachineReadyEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = SMEMAMachineReadyEventId + theEventSuffix, Description = "SMEMA Machine Ready", Subjects = new[] { "value" } };
             SMEMABoardAvailableSubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Subjects = new ushort[] { 0 }, Value = "1" };
             SMEMAFailedBoardAvailableSubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Subjects = new ushort[] { 0 }, Value = "1" };
@@ -30,6 +34,20 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
 
             if (FlagSubscriptionUpdated) { SubscriptionsUpdated?.Invoke(); }
             if (FlagEventUpdated) { EventsUpdated?.Invoke(); }
+        }
+
+        internal void SetMachineReady()
+        {
+            SMEMAMachineReadyEvent.Invoke(new Payload(SMEMAMachineReadyEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(SMEMAMachineReadyEvent.Subjects[0], "1")
+                }));
+        }
+
+        internal void SetMachineNotReady()
+        {
+            SMEMAMachineReadyEvent.Invoke(new Payload(SMEMAMachineReadyEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(SMEMAMachineReadyEvent.Subjects[0], "0")
+                }));
         }
     }
 }

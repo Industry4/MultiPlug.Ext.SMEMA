@@ -1,0 +1,156 @@
+﻿@functions{
+
+    string IsSMEMAMachineReadyStateHigh(bool theValue)
+    {
+        return (theValue) ? "<i class=\"fas fa-lg fa-check\"></i>" : "<i class=\"fas fa-lg fa-times\"></i>";
+    }
+
+    string IsSMEMAInterlock(bool theValue)
+    {
+        return (theValue) ? "<i class=\"fas fa-lg fa-check\"></i>" : "<i class=\"fas fa-lg fa-question\"></i>";
+    }
+}
+
+<div class="container" id="container1">
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <nav class="nav">
+                <a class="nav-link active" href="@Raw(Model.Context.Paths.Current)">SMEMA I/O</a>
+            </nav>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            <!--accordion class/id must be unique-->
+            <div class="accordion upline-smemaio smemaio">
+                <div class="card">
+                    <a role="button"
+                       data-toggle="collapse"
+                       href="#collapse-1"
+                       aria-expanded="true"
+                       aria-controls="collapse-1">
+                        <div class="card-header secondary-header" id="heading-1-1">
+                            <h5 class="mb-0" style="display: inline">
+                                Upline
+                            </h5>
+                        </div>
+                    </a>
+                    <!--data-parent must match unique accordion class/id-->
+                    <div id="collapse-1" class="collapse show" data-parent=".upline-smemaio" aria-labelledby="heading-1-1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th>Machine Ready</th>
+                                                <td id="SMEMAUplineMachineReadyState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMAMachineReadyState))</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Good Board</th>
+                                                <td id="SMEMAUplineGoodBoardState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMAGoodBoardState))</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Bad Board</th>
+                                                <td id="SMEMAUplineBadBoardState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMABadBoardState))</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <!--accordion class/id must be unique-->
+            <div class="accordion interlock-smemaio interlock">
+                <div class="card">
+                    <a role="button"
+                       data-toggle="collapse"
+                       href="#collapse-2"
+                       aria-expanded="true"
+                       aria-controls="collapse-2">
+                        <div class="card-header secondary-header" id="heading-2-1">
+                            <h5 class="mb-0" style="display: inline">
+                                Interlock
+                            </h5>
+                        </div>
+                    </a>
+                    <!--data-parent must match unique accordion class/id-->
+                    <div id="collapse-2" class="collapse show" data-parent=".interlock-smemaio" aria-labelledby="heading-2-1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th>Machine Ready</th>
+                                                <td id="SMEMAInterlockMachineReadyState">@Raw(IsSMEMAInterlock(false))</td><!--TODO-->
+                                            </tr>
+                                            <tr>
+                                                <th>Good Board</th>
+                                                <td id="SMEMAInterlockGoodBoardState">@Raw(IsSMEMAInterlock(false))</td><!--TODO-->
+                                            </tr>
+                                            <tr>
+                                                <th>Bad Board</th>
+                                                <td id="SMEMAInterlockBadBoardState">@Raw(IsSMEMAInterlock(false))</td><!--TODO-->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div class="accordion downline-smemaio smemaio">
+                <div class="card">
+                    <a role="button"
+                       data-toggle="collapse"
+                       href="#collapse-3"
+                       aria-expanded="true"
+                       aria-controls="collapse-3">
+                        <div class="card-header secondary-header" id="heading-3-1">
+                            <h5 class="mb-0" style="display: inline">
+                                Downline
+                            </h5>
+                        </div>
+                    </a>
+                    <div id="collapse-3" class="collapse show" data-parent=".downline-smemaio" aria-labelledby="heading-3-1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th>Machine Ready</th>
+                                                <td id="SMEMADownlineMachineReadyState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMAMachineReadyState))</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Good Board</th>
+                                                <td id="SMEMADownlineGoodBoardState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMAGoodBoardState))</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Bad Board</th>
+                                                <td id="SMEMADownlineBadBoardState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMABadBoardState))</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

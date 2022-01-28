@@ -1,0 +1,53 @@
+﻿@model MultiPlug.Base.Http.EdgeApp
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Setup Required | SMEMA Monitor</title>
+    <base href="@Model.Context.Paths.Base">
+    <link rel="shortcut icon" href="@Raw(Model.Context.Paths.Assets)ico/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="@Raw(Model.Context.Paths.Assets)img/apple-touch-icon.png" />
+
+    <!-- Font Awesome -->
+    <script defer src="@Raw(Model.Context.Paths.Assets)js/all.min.js"></script> <!--load all styles -->
+
+    <link href="@Raw(Model.Context.Paths.Assets)css/all.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="@Raw(Model.Context.Paths.Assets)css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="@Raw(Model.Context.Paths.Assets)css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="@Raw(Model.Context.Paths.Assets)css/style.min.css" rel="stylesheet">
+</head>
+
+<body>
+    @Include("MultiPlug.Ext.Hermes.Hermes_Monitor_ShutdownModal")
+
+    @Include("MultiPlug.Ext.Hermes.Hermes_Monitor_SelectLaneModal")
+
+    @Include("MultiPlug.Ext.Hermes.Hermes_Monitor_NavBar_Simple")
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <p class="text-center font-weight-bold">Setup Required</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="@Raw(Model.Context.Paths.Assets)js/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="@Raw(Model.Context.Paths.Assets)js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="@Raw(Model.Context.Paths.Assets)js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="@Raw(Model.Context.Paths.Assets)js/mdb.min.js"></script>
+</body>
+
+</html>
