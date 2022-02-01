@@ -111,6 +111,9 @@ namespace MultiPlug.Ext.SMEMA
             foreach (var Lane in Lanes)
             {
                 EventsList.Add(Lane.BoardAvailable.SMEMAMachineReadyEvent);
+                EventsList.Add(Lane.Interlock.MachineReadyEvent);
+                EventsList.Add(Lane.Interlock.GoodBoardEvent);
+                EventsList.Add(Lane.Interlock.BadBoardEvent);
                 EventsList.Add(Lane.MachineReady.SMEMABoardAvailableEvent);
                 EventsList.Add(Lane.MachineReady.SMEMAFailedBoardAvailableEvent);
             }
@@ -127,6 +130,7 @@ namespace MultiPlug.Ext.SMEMA
             {
                 SubscriptionsList.Add(Lane.BoardAvailable.SMEMABoardAvailableSubscription);
                 SubscriptionsList.Add(Lane.BoardAvailable.SMEMAFailedBoardAvailableSubscription);
+                SubscriptionsList.Add(Lane.Interlock.InterlockSubscription);
                 SubscriptionsList.Add(Lane.MachineReady.SMEMAMachineReadySubscription);
             }
 

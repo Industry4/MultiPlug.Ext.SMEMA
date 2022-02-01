@@ -11,6 +11,8 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
         internal event Action<bool> MachineReady;
 
         internal bool MachineReadyState { get; private set; }
+        public bool BadBoardAvailableState { get; internal set; }
+        public bool GoodBoardAvailableState { get; internal set; }
 
         public MachineReadySMEMAStateMachine(MachineReadyProperties theMachineReadyProperties)
         {
@@ -26,13 +28,13 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
                 if (PayloadSubject.Value.Equals(m_Properties.SMEMAMachineReadySubscription.Value, StringComparison.OrdinalIgnoreCase))
                 {
                     MachineReadyState = true;
-                    MachineReady?.Invoke(MachineReadyState);
                 }
                 else
                 {
                     MachineReadyState = false;
-                    MachineReady?.Invoke(MachineReadyState);
                 }
+
+                MachineReady?.BeginInvoke(MachineReadyState, MachineReady.EndInvoke, null);
             }
         }
     }

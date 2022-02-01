@@ -7,7 +7,7 @@
 
     string IsSMEMAInterlock(bool theValue)
     {
-        return (theValue) ? "<i class=\"fas fa-lg fa-check\"></i>" : "<i class=\"fas fa-lg fa-question\"></i>";
+        return (theValue) ? "<i class=\"fas fa-lg fa-check\"></i>" : "<i class=\"fas fa-lg fa-times\"></i>";
     }
 }
 
@@ -47,15 +47,15 @@
                                         <tbody>
                                             <tr>
                                                 <th>Machine Ready</th>
-                                                <td id="SMEMAUplineMachineReadyState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMAMachineReadyState))</td>
+                                                <td id="SMEMAUplineMachineReadyState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMABoardAvailableStates.MachineReady))</td>
                                             </tr>
                                             <tr>
                                                 <th>Good Board</th>
-                                                <td id="SMEMAUplineGoodBoardState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMAGoodBoardState))</td>
+                                                <td id="SMEMAUplineGoodBoardState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMABoardAvailableStates.GoodBoard))</td>
                                             </tr>
                                             <tr>
                                                 <th>Bad Board</th>
-                                                <td id="SMEMAUplineBadBoardState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMABadBoardState))</td>
+                                                <td id="SMEMAUplineBadBoardState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMABoardAvailableStates.BadBoard))</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -91,15 +91,15 @@
                                         <tbody>
                                             <tr>
                                                 <th>Machine Ready</th>
-                                                <td id="SMEMAInterlockMachineReadyState">@Raw(IsSMEMAInterlock(false))</td><!--TODO-->
+                                                <td id="SMEMAInterlockMachineReadyState">@Raw(IsSMEMAInterlock(Model.Extension.Model.SMEMAInterlockStates.MachineReady))</td>
                                             </tr>
                                             <tr>
                                                 <th>Good Board</th>
-                                                <td id="SMEMAInterlockGoodBoardState">@Raw(IsSMEMAInterlock(false))</td><!--TODO-->
+                                                <td id="SMEMAInterlockGoodBoardState">@Raw(IsSMEMAInterlock(Model.Extension.Model.SMEMAInterlockStates.GoodBoard))</td>
                                             </tr>
                                             <tr>
                                                 <th>Bad Board</th>
-                                                <td id="SMEMAInterlockBadBoardState">@Raw(IsSMEMAInterlock(false))</td><!--TODO-->
+                                                <td id="SMEMAInterlockBadBoardState">@Raw(IsSMEMAInterlock(Model.Extension.Model.SMEMAInterlockStates.BadBoard))</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -133,15 +133,15 @@
                                         <tbody>
                                             <tr>
                                                 <th>Machine Ready</th>
-                                                <td id="SMEMADownlineMachineReadyState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMAMachineReadyState))</td>
+                                                <td id="SMEMADownlineMachineReadyState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMAMachineReadyStates.MachineReady))</td>
                                             </tr>
                                             <tr>
                                                 <th>Good Board</th>
-                                                <td id="SMEMADownlineGoodBoardState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMAGoodBoardState))</td>
+                                                <td id="SMEMADownlineGoodBoardState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMAMachineReadyStates.GoodBoard))</td>
                                             </tr>
                                             <tr>
                                                 <th>Bad Board</th>
-                                                <td id="SMEMADownlineBadBoardState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMABadBoardState))</td>
+                                                <td id="SMEMADownlineBadBoardState">@Raw(IsSMEMAMachineReadyStateHigh(Model.Extension.Model.SMEMAMachineReadyStates.BadBoard))</td>
                                             </tr>
                                         </tbody>
                                     </table>

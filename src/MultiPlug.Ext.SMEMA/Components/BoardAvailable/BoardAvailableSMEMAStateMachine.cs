@@ -6,6 +6,8 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
     {
         private BoardAvailableProperties m_Properties;
 
+        internal bool MachineReadyState { get; set; }
+
         internal bool GoodBoardAvailableState { get; private set; }
         internal bool BadBoardAvailableState { get; private set; }
 

@@ -16,9 +16,17 @@ function SMEMAEnabledIcon(theSelect, theValue) {
 
 function Initialise(theAPIPath,
     theLaneGuid,
-    theSMEMAMachineReadySubscriptionId,
-    theSMEMABoardAvailableSubscriptionId,
-    theSMEMAFailedBoardAvailableSubscriptionId) {
+    theSMEMAUplineMachineReadySubId,
+    theSMEMAUplineGoodBoardSubId,
+    theSMEMAUplineBadBoardSubId,
+    
+    theSMEMAInterlockMachineReadySubId,
+    theSMEMAInterlockGoodBoardSubId,
+    theSMEMAInterlockBadBoardSubId,   
+
+    theSMEMADownlineMachineReadySubId,
+    theSMEMADownlineGoodBoardSubId,
+    theSMEMADownlineBadBoardSubId) {
     g_APIPath = theAPIPath;
 
     $(".btn-shutdown").click(function (event) {
@@ -48,14 +56,32 @@ function Initialise(theAPIPath,
     window.addEventListener("multiplugReady", function (e) {
         $.connection.wS.on("Send", function (id, Payload) {
 
-            if (id == theSMEMAMachineReadySubscriptionId) {
-                SMEMAEnabledIcon($('#SMEMADownlineMachineReadyState'), Payload.Pairs[0].Value);
+            if (id == theSMEMAUplineMachineReadySubId) {
+                SMEMAEnabledIcon($('#SMEMAUplineMachineReadyState'), Payload.Pairs[0].Value);
             }
-            else if (id == theSMEMABoardAvailableSubscriptionId) {
+            else if (id == theSMEMAUplineGoodBoardSubId) {
                 SMEMAEnabledIcon($('#SMEMAUplineGoodBoardState'), Payload.Pairs[0].Value);
             }
-            else if (id == theSMEMAFailedBoardAvailableSubscriptionId) {
+            else if (id == theSMEMAUplineBadBoardSubId) {
                 SMEMAEnabledIcon($('#SMEMAUplineBadBoardState'), Payload.Pairs[0].Value);
+            }
+            else if (id == theSMEMAInterlockMachineReadySubId) {
+                SMEMAEnabledIcon($('#SMEMAInterlockMachineReadyState'), Payload.Pairs[0].Value);
+            }
+            else if (id == theSMEMAInterlockGoodBoardSubId) {
+                SMEMAEnabledIcon($('#SMEMAInterlockGoodBoardState'), Payload.Pairs[0].Value);
+            }
+            else if (id == theSMEMAInterlockBadBoardSubId) {
+                SMEMAEnabledIcon($('#SMEMAInterlockBadBoardState'), Payload.Pairs[0].Value);
+            }
+            else if (id == theSMEMADownlineMachineReadySubId) {
+                SMEMAEnabledIcon($('#SMEMADownlineMachineReadyState'), Payload.Pairs[0].Value);
+            }
+            else if (id == theSMEMADownlineGoodBoardSubId) {
+                SMEMAEnabledIcon($('#SMEMADownlineGoodBoardState'), Payload.Pairs[0].Value);
+            }
+            else if (id == theSMEMADownlineBadBoardSubId) {
+                SMEMAEnabledIcon($('#SMEMADownlineBadBoardState'), Payload.Pairs[0].Value);
             }
         });
     });

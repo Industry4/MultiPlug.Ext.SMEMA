@@ -54,9 +54,15 @@
     <script>
         Initialise( "@Model.Context.Paths.APIs",
                     "@Model.Extension.Model.LaneGuid",
-                    "@Model.Extension.Model.SMEMAMachineReadySubscriptionId",
-                    "@Model.Extension.Model.SMEMABoardAvailableSubscriptionId",
-                    "@Model.Extension.Model.SMEMAFailedBoardAvailableSubscriptionId");
+                    "@Model.Extension.Model.SMEMABoardAvailableEventIds.MachineReady",
+                    "@Model.Extension.Model.SMEMABoardAvailableEventIds.GoodBoard",
+                    "@Model.Extension.Model.SMEMABoardAvailableEventIds.BadBoard",
+                    "@Model.Extension.Model.SMEMAInterlockEventIds.MachineReady",
+                    "@Model.Extension.Model.SMEMAInterlockEventIds.GoodBoard",
+                    "@Model.Extension.Model.SMEMAInterlockEventIds.BadBoard",
+                    "@Model.Extension.Model.SMEMAMachineReadyEventIds.MachineReady",
+                    "@Model.Extension.Model.SMEMAMachineReadyEventIds.GoodBoard",
+                    "@Model.Extension.Model.SMEMAMachineReadyEventIds.BadBoard");
     </script>
 </body>
 

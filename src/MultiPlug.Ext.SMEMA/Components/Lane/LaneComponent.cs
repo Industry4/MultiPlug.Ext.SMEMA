@@ -1,8 +1,8 @@
-﻿using MultiPlug.Ext.SMEMA.Components.BoardAvailable;
+﻿using System;
+using MultiPlug.Ext.SMEMA.Components.BoardAvailable;
 using MultiPlug.Ext.SMEMA.Components.Interlock;
 using MultiPlug.Ext.SMEMA.Components.MachineReady;
 using MultiPlug.Ext.SMEMA.Models.Components.Lane;
-using System;
 
 namespace MultiPlug.Ext.SMEMA.Components.Lane
 {
@@ -28,7 +28,9 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
 
             Interlock = new InterlockComponent(theGuid, EventSuffix);
 
-            MachineReady.StateMachine.MachineReady += OnMachineReady;
+            MachineReady.StateMachine.MachineReady += Interlock.OnMachineReady;
+
+            Interlock.MachineReady += BoardAvailable.OnMachineReady;
         }
 
         private void OnEventsUpdated()
@@ -43,17 +45,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
             SubscriptionsUpdated?.Invoke();
         }
 
-        private void OnMachineReady(bool isMachineReady)
-        {
-            if(isMachineReady)
-            {
-                BoardAvailable.SetMachineReady();
-            }
-            else
-            {
-                BoardAvailable.SetMachineNotReady();
-            }
-        }
+
 
         internal void UpdateProperties(LaneProperties theNewProperties)
         {
