@@ -13,6 +13,7 @@ namespace MultiPlug.Ext.SMEMA
         {
             Core.Instance.SubscriptionsUpdated += Instance_SubscriptionsUpdated;
             Core.Instance.EventsUpdated += Instance_EventsUpdated;
+            Core.Instance.Init(MultiPlugServices, MultiPlugActions);
         }
 
         private void Instance_EventsUpdated()

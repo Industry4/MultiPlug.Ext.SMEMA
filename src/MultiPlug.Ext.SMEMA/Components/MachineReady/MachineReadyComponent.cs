@@ -1,6 +1,7 @@
 ﻿using System;
 using MultiPlug.Base.Exchange;
 using MultiPlug.Ext.SMEMA.Models.Components.MachineReady;
+using MultiPlug.Ext.SMEMA.Components.Utils;
 
 namespace MultiPlug.Ext.SMEMA.Components.MachineReady
 {
@@ -20,8 +21,8 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
 
             SMEMAMachineReadySubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Subjects = new ushort[] { 0 }, Value = "1" };
             SMEMAMachineReadySubscription.Event += StateMachine.OnEvent;
-            SMEMABoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = c_SMEMABoardAvailableEventId + theEventSuffix, Description = "Board Available", Subjects = new string[] { "value" } };
-            SMEMAFailedBoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = c_SMEMAFailedBoardAvailableEventId + theEventSuffix, Description = "Failed Board Available", Subjects = new string[] { "value" } };
+            SMEMABoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = c_SMEMABoardAvailableEventId + theEventSuffix, Description = "Good Board Available", Subjects = new string[] { "value" } };
+            SMEMAFailedBoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = c_SMEMAFailedBoardAvailableEventId + theEventSuffix, Description = "Bad Board Available", Subjects = new string[] { "value" } };
         }
 
         internal void UpdateProperties(MachineReadyProperties theNewProperties)
@@ -46,5 +47,22 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
             if (FlagEventUpdated) { EventsUpdated?.Invoke(); }
         }
 
+        internal void OnGoodBoard(bool isTrue)
+        {
+            StateMachine.GoodBoardAvailableState = isTrue;
+
+            SMEMABoardAvailableEvent.Invoke(new Payload(SMEMABoardAvailableEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(SMEMABoardAvailableEvent.Subjects[0], GetStringValue.Invoke( isTrue ) )
+                }));
+        }
+
+        internal void OnBadBoard(bool isTrue)
+        {
+            StateMachine.BadBoardAvailableState = isTrue;
+
+            SMEMAFailedBoardAvailableEvent.Invoke(new Payload(SMEMAFailedBoardAvailableEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(SMEMAFailedBoardAvailableEvent.Subjects[0], GetStringValue.Invoke( isTrue ) )
+                }));
+        }
     }
 }

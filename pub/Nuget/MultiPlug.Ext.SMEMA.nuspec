@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MultiPlug.Ext.SMEMA</id>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <title>SMEMA MultiPlug Edge Computing Platform Extension</title>
     <authors>4IR.UK</authors>
     <owners>4IR.UK</owners>
@@ -12,6 +12,7 @@
     <description>SMEMA Extension for the MultiPlug .Net Edge Computing Platform</description>
 	<license type="expression">MIT</license>
     <releaseNotes>
+	1.0.4 Work in progress - Interlock REST API for All
 	1.0.3 Work in progress - Interlock REST API for Machine Ready only
 	1.0.2 Work in progress - UI Mirros SMEMA signals, no interlocking.
 	1.0.1 Customer Preview - Settings Page

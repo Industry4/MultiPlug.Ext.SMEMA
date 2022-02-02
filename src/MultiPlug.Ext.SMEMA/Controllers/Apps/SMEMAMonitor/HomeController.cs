@@ -82,9 +82,15 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
                     },
                     SMEMAInterlockStates = new Models.Apps.ComponentStates
                     {
-                        MachineReady = LaneSearch.Interlock.MachineReadyState,
-                        GoodBoard = LaneSearch.Interlock.GoodBoard,
-                        BadBoard = LaneSearch.Interlock.BadBoard
+                        MachineReady = LaneSearch.Interlock.MachineReadyStateMachine.MachineReady,
+                        GoodBoard = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard,
+                        BadBoard = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard
+                    },
+                    SMEMAInterlockLatchedStates = new Models.Apps.ComponentStates
+                    {
+                        MachineReady = LaneSearch.Interlock.MachineReadyStateMachine.Latch,
+                        GoodBoard = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardLatch,
+                        BadBoard = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch
                     },
                     SMEMAMachineReadyStates = new Models.Apps.ComponentStates
                     {

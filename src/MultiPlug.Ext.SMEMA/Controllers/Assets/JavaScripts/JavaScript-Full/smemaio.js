@@ -14,6 +14,18 @@ function SMEMAEnabledIcon(theSelect, theValue) {
     theSelect.html(theValue == '1' ? '<i class="fas fa-lg fa-check"></i>' : '<i class="fas fa-lg fa-times"></i>');
 }
 
+function SMEMAEnabledIconLeft(theSelect, theValue) {
+    theSelect.html(theValue == '1' ? '<i class="fas fa-lg fa-arrow-left"></i>' : '<i class="fas fa-lg fa-times"></i>');
+}
+
+function SMEMAEnabledIconRight(theSelect, theValue) {
+    theSelect.html(theValue == '1' ? '<i class="fas fa-lg fa-arrow-right"></i>' : '<i class="fas fa-lg fa-times"></i>');
+}
+
+function SMEMALatchedIcon(theSelect, theValue) {
+    theSelect.html(theValue == '1' ? '<i class="fas fa-lg fa-lock"></i>' : '<i class="fas fa-lg fa-lock-open"></i>');
+}
+
 function Initialise(theAPIPath,
     theLaneGuid,
     theSMEMAUplineMachineReadySubId,
@@ -39,6 +51,7 @@ function Initialise(theAPIPath,
                 $('#Shutdown-modal').modal('hide');
             },
         });
+        $('#Shutdown-modal').modal('hide');
     });
 
     $(".btn-restart").click(function (event) {
@@ -51,6 +64,7 @@ function Initialise(theAPIPath,
                 $('#Shutdown-modal').modal('hide');
             },
         });
+        $('#Shutdown-modal').modal('hide');
     });
 
     window.addEventListener("multiplugReady", function (e) {
@@ -66,13 +80,16 @@ function Initialise(theAPIPath,
                 SMEMAEnabledIcon($('#SMEMAUplineBadBoardState'), Payload.Pairs[0].Value);
             }
             else if (id == theSMEMAInterlockMachineReadySubId) {
-                SMEMAEnabledIcon($('#SMEMAInterlockMachineReadyState'), Payload.Pairs[0].Value);
+                SMEMAEnabledIconLeft($('#SMEMAInterlockMachineReadyState'), Payload.Pairs[0].Value);
+                SMEMALatchedIcon($('#SMEMAInterlockMachineReadyLatchState'), Payload.Pairs[2].Value);
             }
             else if (id == theSMEMAInterlockGoodBoardSubId) {
-                SMEMAEnabledIcon($('#SMEMAInterlockGoodBoardState'), Payload.Pairs[0].Value);
+                SMEMAEnabledIconRight($('#SMEMAInterlockGoodBoardState'), Payload.Pairs[0].Value);
+                SMEMALatchedIcon($('#SMEMAInterlockGoodBoardLatchState'), Payload.Pairs[2].Value);
             }
             else if (id == theSMEMAInterlockBadBoardSubId) {
-                SMEMAEnabledIcon($('#SMEMAInterlockBadBoardState'), Payload.Pairs[0].Value);
+                SMEMAEnabledIconRight($('#SMEMAInterlockBadBoardState'), Payload.Pairs[0].Value);
+                SMEMALatchedIcon($('#SMEMAInterlockBadBoardLatchState'), Payload.Pairs[2].Value);
             }
             else if (id == theSMEMADownlineMachineReadySubId) {
                 SMEMAEnabledIcon($('#SMEMADownlineMachineReadyState'), Payload.Pairs[0].Value);

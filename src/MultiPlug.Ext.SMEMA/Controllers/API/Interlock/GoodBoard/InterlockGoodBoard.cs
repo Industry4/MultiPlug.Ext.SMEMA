@@ -22,8 +22,8 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.GoodBoard
 
             var Result = new
             {
-                GoodBoard = LaneSearch.Interlock.GoodBoard,
-                Latch = LaneSearch.Interlock.GoodBoardLatch
+                GoodBoard = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard,
+                Latch = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardLatch
             };
 
             return new Response
@@ -46,7 +46,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.GoodBoard
                 };
             }
 
-            LaneSearch.Interlock.GoodBoard = enable;
+            LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard = enable;
 
             return new Response
             {

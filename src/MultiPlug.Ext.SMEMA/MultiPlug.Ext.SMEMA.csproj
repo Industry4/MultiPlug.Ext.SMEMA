@@ -52,11 +52,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\BoardAvailable\BoardAvailableSMEMAStateMachine.cs" />
+    <Compile Include="Components\Interlock\InterlockBoardAvailableStateMachine.cs" />
+    <Compile Include="Components\Interlock\InterlockMachineReadyStateMachine.cs" />
+    <Compile Include="Components\Interlock\InterlockSMEMAStateMachine.cs" />
     <Compile Include="Components\MachineReady\MachineReadyComponent.cs" />
     <Compile Include="Components\Interlock\InterlockComponent.cs" />
     <Compile Include="Components\Lane\LaneComponent.cs" />
     <Compile Include="Components\BoardAvailable\BoardAvailableComponent.cs" />
     <Compile Include="Components\MachineReady\MachineReadySMEMAStateMachine.cs" />
+    <Compile Include="Components\Utils\GetStringValue.cs" />
     <Compile Include="Controllers\API\APIController.cs" />
     <Compile Include="Controllers\API\Interlock\BadBoard\InterlockBadBoard.cs" />
     <Compile Include="Controllers\API\Interlock\BadBoard\InterlockBadBoardDivert.cs" />
@@ -68,6 +72,8 @@
     <Compile Include="Controllers\API\Interlock\MachineReady\InterlockMachineReady.cs" />
     <Compile Include="Controllers\API\Interlock\MachineReady\InterlockMachineReadyLatch.cs" />
     <Compile Include="Controllers\API\LanesController.cs" />
+    <Compile Include="Controllers\API\Power\RestartController.cs" />
+    <Compile Include="Controllers\API\Power\ShutdownController.cs" />
     <Compile Include="Controllers\API\Utils\GetLane.cs" />
     <Compile Include="Controllers\Apps\SMEMAMonitor\HomeController.cs" />
     <Compile Include="Controllers\Apps\SMEMAMonitor\SMEMAMonitorApp.cs" />

@@ -20,7 +20,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
                 };
             }
 
-            LaneSearch.Interlock.BadBoardLatch = enable;
+            LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch = enable;
 
             return new Response
             {

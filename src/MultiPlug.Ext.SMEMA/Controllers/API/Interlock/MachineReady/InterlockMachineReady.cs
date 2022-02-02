@@ -2,11 +2,6 @@
 using MultiPlug.Base.Http;
 using MultiPlug.Ext.SMEMA.Components.Lane;
 using MultiPlug.Ext.SMEMA.Controllers.API.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.MachineReady
 {
@@ -27,8 +22,8 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.MachineReady
 
             var Result = new
             {
-                MachineReady = LaneSearch.Interlock.MachineReadyState,
-                Latch = LaneSearch.Interlock.MachineReadyLatch
+                MachineReady = LaneSearch.Interlock.MachineReadyStateMachine.MachineReady,
+                Latch = LaneSearch.Interlock.MachineReadyStateMachine.Latch
             };
 
             return new Response
@@ -51,7 +46,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.MachineReady
                 };
             }
 
-            LaneSearch.Interlock.MachineReadyState = enable;
+            LaneSearch.Interlock.MachineReadyStateMachine.MachineReady = enable;
 
             return new Response
             {

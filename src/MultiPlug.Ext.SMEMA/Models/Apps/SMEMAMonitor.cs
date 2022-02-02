@@ -12,6 +12,7 @@ namespace MultiPlug.Ext.SMEMA.Models.Apps
 
         public ComponentStates SMEMABoardAvailableStates { get; internal set; }
         public ComponentStates SMEMAInterlockStates { get; internal set; }
+        public ComponentStates SMEMAInterlockLatchedStates { get; internal set; }
         public ComponentStates SMEMAMachineReadyStates { get; internal set; }
 
         public ComponentEventIDs SMEMABoardAvailableEventIds { get; internal set; }

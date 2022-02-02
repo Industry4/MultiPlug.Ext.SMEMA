@@ -22,8 +22,8 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
 
             var Result = new
             {
-                BadBoard = LaneSearch.Interlock.BadBoard,
-                Latch = LaneSearch.Interlock.BadBoardLatch
+                BadBoard = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard,
+                Latch = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch
             };
 
             return new Response
@@ -46,7 +46,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
                 };
             }
 
-            LaneSearch.Interlock.BadBoard = enable;
+            LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard = enable;
 
             return new Response
             {

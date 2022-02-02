@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Linq;
+using System.Security;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 using MultiPlug.Base;
+using MultiPlug.Base.Exchange;
+using MultiPlug.Base.Exchange.API;
 using MultiPlug.Ext.SMEMA.Components.Lane;
 using MultiPlug.Ext.SMEMA.Models.Components.Lane;
 using MultiPlug.Ext.SMEMA.Models.Load;
-using MultiPlug.Base.Exchange;
+using MultiPlug.Extension.Core;
 
 namespace MultiPlug.Ext.SMEMA
 {
     internal class Core : MultiPlugBase
     {
         private static Core m_Instance = null;
+        private IMultiPlugServices m_MultiPlugServices;
+        private IMultiPlugActions m_MultiPlugActions;
 
         public event Action EventsUpdated;
         public event Action SubscriptionsUpdated;
@@ -39,11 +44,19 @@ namespace MultiPlug.Ext.SMEMA
         {
         }
 
+        internal void Init(IMultiPlugServices theMultiPlugServices, IMultiPlugActions theMultiPlugActions)
+        {
+            m_MultiPlugServices = theMultiPlugServices;
+            m_MultiPlugActions = theMultiPlugActions;
+        }
+
         internal void LaneAdd(string theLaneId, string theMachineName)
         {
             string NewLaneGuid = Guid.NewGuid().ToString();
 
             LaneComponent NewLane = new LaneComponent(NewLaneGuid);
+            NewLane.EventsUpdated += OnEventsUpdated;
+            NewLane.SubscriptionsUpdated += OnSubscriptionsUpdated;
             NewLane.UpdateProperties(new LaneProperties { Guid = NewLaneGuid, LaneId = theLaneId, MachineId = theMachineName });
 
             List<LaneComponent> LanesList = Lanes.ToList();
@@ -76,6 +89,9 @@ namespace MultiPlug.Ext.SMEMA
                     }
 
                     LaneComponent NewLane = new LaneComponent(Lane.Guid);
+
+                    NewLane.EventsUpdated += OnEventsUpdated;
+                    NewLane.SubscriptionsUpdated += OnSubscriptionsUpdated;
 
                     NewLane.UpdateProperties(new LaneProperties { LaneId = Lane.LaneId, MachineId = Lane.MachineId });
 
@@ -146,6 +162,32 @@ namespace MultiPlug.Ext.SMEMA
         private void OnSubscriptionsUpdated()
         {
             AggregateSubscriptions();
+        }
+
+        internal bool DoShutdown()
+        {
+            try
+            {
+                m_MultiPlugActions.System.Power.Shutdown();
+                return true;
+            }
+            catch (SecurityException)
+            {
+                return false;
+            }
+        }
+
+        internal bool DoRestart()
+        {
+            try
+            {
+                m_MultiPlugActions.System.Power.Restart();
+                return true;
+            }
+            catch (SecurityException)
+            {
+                return false;
+            }
         }
     }
 }

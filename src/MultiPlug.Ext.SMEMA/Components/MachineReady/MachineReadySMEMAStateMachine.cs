@@ -11,8 +11,8 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
         internal event Action<bool> MachineReady;
 
         internal bool MachineReadyState { get; private set; }
-        public bool BadBoardAvailableState { get; internal set; }
-        public bool GoodBoardAvailableState { get; internal set; }
+        internal bool BadBoardAvailableState { get; set; }
+        internal bool GoodBoardAvailableState { get; set; }
 
         public MachineReadySMEMAStateMachine(MachineReadyProperties theMachineReadyProperties)
         {

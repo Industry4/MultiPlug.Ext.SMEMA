@@ -1,6 +1,7 @@
 ﻿using System;
 using MultiPlug.Base.Exchange;
 using MultiPlug.Ext.SMEMA.Models.Components.BoardAvailable;
+using MultiPlug.Ext.SMEMA.Components.Utils;
 
 namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
 {
@@ -20,25 +21,18 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
 
             SMEMAMachineReadyEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = SMEMAMachineReadyEventId + theEventSuffix, Description = "SMEMA Machine Ready", Subjects = new[] { "value" } };
             SMEMABoardAvailableSubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Subjects = new ushort[] { 0 }, Value = "1" };
+            SMEMABoardAvailableSubscription.Event += StateMachine.OnGoodBoardEvent;
             SMEMAFailedBoardAvailableSubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Subjects = new ushort[] { 0 }, Value = "1" };
+            SMEMAFailedBoardAvailableSubscription.Event += StateMachine.OnBadBoardEvent;
         }
 
         internal void OnMachineReady(bool isTrue)
         {
             StateMachine.MachineReadyState = isTrue;
 
-            if ( isTrue )
-            {
-                SMEMAMachineReadyEvent.Invoke(new Payload(SMEMAMachineReadyEvent.Id, new PayloadSubject[] {
-                    new PayloadSubject(SMEMAMachineReadyEvent.Subjects[0], "1")
-                    }));
-            }
-            else
-            {
-                SMEMAMachineReadyEvent.Invoke(new Payload(SMEMAMachineReadyEvent.Id, new PayloadSubject[] {
-                    new PayloadSubject(SMEMAMachineReadyEvent.Subjects[0], "0")
-                    }));
-            }
+            SMEMAMachineReadyEvent.Invoke(new Payload(SMEMAMachineReadyEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(SMEMAMachineReadyEvent.Subjects[0], GetStringValue.Invoke( isTrue ) )
+                }));
         }
 
         internal void UpdateProperties(BoardAvailableProperties theNewProperties)

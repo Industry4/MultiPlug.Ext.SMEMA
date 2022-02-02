@@ -28,24 +28,25 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
 
             Interlock = new InterlockComponent(theGuid, EventSuffix);
 
-            MachineReady.StateMachine.MachineReady += Interlock.OnMachineReady;
+            MachineReady.StateMachine.MachineReady += Interlock.MachineReadyStateMachine.OnSMEMAIOMachineReady;
+            Interlock.MachineReadyStateMachine.MachineReadyUpdated += BoardAvailable.OnMachineReady;
 
-            Interlock.MachineReady += BoardAvailable.OnMachineReady;
+            BoardAvailable.StateMachine.GoodBoard += Interlock.BoardAvailableStateMachine.OnSMEMAIOGoodBoard;
+            Interlock.BoardAvailableStateMachine.GoodBoardUpdated += MachineReady.OnGoodBoard;
+
+            BoardAvailable.StateMachine.BadBoard += Interlock.BoardAvailableStateMachine.OnSMEMAIOBadBoard;
+            Interlock.BoardAvailableStateMachine.BadBoardUpdated += MachineReady.OnBadBoard;
         }
 
         private void OnEventsUpdated()
         {
-            //AggregateEvents();
             EventsUpdated?.Invoke();
         }
 
         private void OnSubscriptionsUpdated()
         {
-            //AggregateSubscriptions();
             SubscriptionsUpdated?.Invoke();
         }
-
-
 
         internal void UpdateProperties(LaneProperties theNewProperties)
         {

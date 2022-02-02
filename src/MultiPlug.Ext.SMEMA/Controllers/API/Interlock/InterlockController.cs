@@ -22,9 +22,9 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock
 
             var Result = new
             {
-                MachineReady = LaneSearch.Interlock.MachineReadyState,
-                GoodBoard = LaneSearch.Interlock.GoodBoard,
-                BadBoard = LaneSearch.Interlock.BadBoard
+                MachineReady = LaneSearch.Interlock.MachineReadyStateMachine.MachineReady,
+                GoodBoard = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard,
+                BadBoard = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard
             };
 
             return new Response

@@ -20,7 +20,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.MachineReady
                 };
             }
 
-            LaneSearch.Interlock.MachineReadyLatch = enable;
+            LaneSearch.Interlock.MachineReadyStateMachine.Latch = enable;
 
             return new Response
             {
