@@ -5,7 +5,7 @@ using MultiPlug.Ext.SMEMA.Controllers.API.Utils;
 
 namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.MachineReady
 {
-    [Route("1/lane/interlock/machineready/latch")]
+    [Route("1/lane/interlock/ready/latch")]
     public class InterlockMachineReadyLatch : APIController
     {
         public Response Post(string index, string guid, bool enable)

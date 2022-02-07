@@ -33,20 +33,48 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         {
             m_SMEMAStateMachine.GoodBoard = theIOState;
 
-            if (theIOState)
+            OnGoodBoardUpdate();
+        }
+
+        private void OnGoodBoardUpdate()
+        {
+            if (m_SMEMAStateMachine.GoodBoard)
             {
-                if (GoodBoard)
+                if (GoodBoardDivert)
                 {
-                    GoodBoardUpdated?.BeginInvoke(theIOState, GoodBoardUpdated.EndInvoke, null);
+                    m_SMEMAStateMachine.GoodBoardDiverted = true;
+                    BadBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.GoodBoard, BadBoardUpdated.EndInvoke, null);
+                }
+                else
+                {
+                    if (m_GoodBoard)
+                    {
+                        GoodBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.GoodBoard, GoodBoardUpdated.EndInvoke, null);
+                    }
                 }
             }
             else
             {
-                if (!GoodBoardLatch)
+                if (m_SMEMAStateMachine.GoodBoardDiverted)
                 {
-                    GoodBoard = false;
+                    m_SMEMAStateMachine.GoodBoardDiverted = false;
+
+                    if (!GoodBoardDivertLatch)
+                    {
+                        m_GoodBoardDivert = false;
+                        InvokeGoodBoardEvent();
+                    }
+                    BadBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.GoodBoard, BadBoardUpdated.EndInvoke, null);
                 }
-                GoodBoardUpdated?.BeginInvoke(theIOState, GoodBoardUpdated.EndInvoke, null);
+                else
+                {
+                    if (!GoodBoardLatch)
+                    {
+                        m_GoodBoard = false;
+                        InvokeGoodBoardEvent();
+                    }
+                    GoodBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.GoodBoard, GoodBoardUpdated.EndInvoke, null);
+                }
             }
         }
 
@@ -54,21 +82,48 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         {
             m_SMEMAStateMachine.BadBoard = theIOState;
 
-            if (theIOState)
-            {
+            OnBadBoardUpdate();
+        }
 
-                if (BadBoard)
+        private void OnBadBoardUpdate()
+        {
+            if (m_SMEMAStateMachine.BadBoard)
+            {
+                if (BadBoardDivert)
                 {
-                    BadBoardUpdated?.BeginInvoke(theIOState, BadBoardUpdated.EndInvoke, null);
+                    m_SMEMAStateMachine.BadBoardDiverted = true;
+                    GoodBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.BadBoard, BadBoardUpdated.EndInvoke, null);
+                }
+                else
+                {
+                    if (m_BadBoard)
+                    {
+                        BadBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.BadBoard, GoodBoardUpdated.EndInvoke, null);
+                    }
                 }
             }
             else
             {
-                if (!BadBoardLatch)
+                if (m_SMEMAStateMachine.BadBoardDiverted)
                 {
-                    BadBoard = false;
+                    m_SMEMAStateMachine.BadBoardDiverted = false;
+
+                    if (!BadBoardDivertLatch)
+                    {
+                        m_BadBoardDivert = false;
+                        InvokeBadBoardEvent();
+                    }
+                    GoodBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.BadBoard, BadBoardUpdated.EndInvoke, null);
                 }
-                BadBoardUpdated?.BeginInvoke(theIOState, BadBoardUpdated.EndInvoke, null);
+                else
+                {
+                    if (!BadBoardLatch)
+                    {
+                        m_BadBoard = false;
+                        InvokeBadBoardEvent();
+                    }
+                    BadBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.BadBoard, GoodBoardUpdated.EndInvoke, null);
+                }
             }
         }
 
@@ -105,13 +160,8 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 if (m_GoodBoard != value)
                 {
                     m_GoodBoard = value;
-
-                    if (m_GoodBoard && m_SMEMAStateMachine.MachineReady)
-                    {
-                        GoodBoardUpdated?.BeginInvoke(m_GoodBoard, GoodBoardUpdated.EndInvoke, null);
-                    }
-
                     InvokeGoodBoardEvent();
+                    OnGoodBoardUpdate();
                 }
             }
         }
@@ -146,6 +196,11 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 {
                     m_GoodBoardDivert = value;
                     InvokeGoodBoardEvent();
+
+                    if(m_GoodBoardDivert)
+                    {
+                        OnGoodBoardUpdate();
+                    }
                 }
             }
         }
@@ -179,12 +234,8 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 {
                     m_BadBoard = value;
 
-                    if (m_BadBoard && m_SMEMAStateMachine.MachineReady)
-                    {
-                        BadBoardUpdated?.BeginInvoke(true, BadBoardUpdated.EndInvoke, null);
-                    }
-
                     InvokeBadBoardEvent();
+                    OnGoodBoardUpdate();
                 }
             }
         }
@@ -219,6 +270,10 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 {
                     m_BadBoardDivert = value;
                     InvokeBadBoardEvent();
+                    if (m_BadBoardDivert)
+                    {
+                        OnBadBoardUpdate();
+                    }
                 }
             }
         }

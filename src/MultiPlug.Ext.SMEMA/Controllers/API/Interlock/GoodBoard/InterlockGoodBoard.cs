@@ -5,7 +5,7 @@ using MultiPlug.Ext.SMEMA.Controllers.API.Utils;
 
 namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.GoodBoard
 {
-    [Route("1/lane/interlock/goodboard")]
+    [Route("1/lane/interlock/good")]
     public class InterlockGoodBoard : APIController
     {
         public Response Get(string index, string guid)
