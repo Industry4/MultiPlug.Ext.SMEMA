@@ -18,6 +18,8 @@ namespace MultiPlug.Ext.SMEMA.Models.Apps
         public ComponentEventIDs SMEMABoardAvailableEventIds { get; internal set; }
         public ComponentEventIDs SMEMAInterlockEventIds { get; internal set; }
         public ComponentEventIDs SMEMAMachineReadyEventIds { get; internal set; }
+        public ComponentStates SMEMAInterlockDivertStates { get; internal set; }
+        public ComponentStates SMEMAInterlockDivertLatchedStates { get; internal set; }
     }
 
     [Serializable]

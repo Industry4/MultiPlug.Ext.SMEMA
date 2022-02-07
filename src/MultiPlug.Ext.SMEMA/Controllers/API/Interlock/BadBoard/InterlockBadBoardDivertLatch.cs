@@ -5,8 +5,8 @@ using MultiPlug.Ext.SMEMA.Controllers.API.Utils;
 
 namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
 {
-    [Route("1/lane/interlock/badboard/divert")]
-    public class InterlockBadBoardDivert : APIController
+    [Route("1/lane/interlock/badboard/divert/latch/")]
+    public class InterlockBadBoardDivertLatch : APIController
     {
         public Response Post(string index, string guid, bool enable)
         {
@@ -20,7 +20,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
                 };
             }
 
-            LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert = enable;
+            LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivertLatch = enable;
 
             return new Response
             {

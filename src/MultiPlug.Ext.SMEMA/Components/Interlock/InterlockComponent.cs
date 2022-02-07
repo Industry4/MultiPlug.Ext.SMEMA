@@ -18,9 +18,27 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         {
             InterlockSubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Subjects = new ushort[] { 0 }, Value = "1" };
 
-            MachineReadyEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = "Interlock.MachineReady", Description = "Machine Ready Interlock", Subjects = new[] { "value", "enabled", "latched" } };
-            GoodBoardEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = "Interlock.GoodBoard", Description = "Good Board Interlock", Subjects = new[] { "value", "enabled", "latched" } };
-            BadBoardEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = "Interlock.BadBoard", Description = "Bad Board Interlock", Subjects = new[] { "value", "enabled", "latched" } };
+            MachineReadyEvent = new Event
+            {
+                Guid = Guid.NewGuid().ToString(),
+                Id = "Interlock.MachineReady",
+                Description = "Machine Ready Interlock",
+                Subjects = new[] { "value", "enabled", "interlock-latched" }
+            };
+            GoodBoardEvent = new Event
+            {
+                Guid = Guid.NewGuid().ToString(),
+                Id = "Interlock.GoodBoard",
+                Description = "Good Board Interlock",
+                Subjects = new[] { "value", "enabled", "interlock-latched", "divert", "divert-latched" }
+            };
+            BadBoardEvent = new Event
+            {
+                Guid = Guid.NewGuid().ToString(),
+                Id = "Interlock.BadBoard",
+                Description = "Bad Board Interlock",
+                Subjects = new[] { "value", "enabled", "interlock-latched", "divert", "divert-latched" }
+            };
 
             MachineReadyStateMachine = new InterlockMachineReadyStateMachine(m_SMEMAStateMachine, MachineReadyEvent);
             BoardAvailableStateMachine = new InterlockBoardAvailableStateMachine(m_SMEMAStateMachine, GoodBoardEvent, BadBoardEvent);

@@ -1,12 +1,12 @@
 ﻿using MultiPlug.Base.Attribute;
 using MultiPlug.Base.Http;
-using MultiPlug.Ext.SMEMA.Components.Lane;
 using MultiPlug.Ext.SMEMA.Controllers.API.Utils;
+using MultiPlug.Ext.SMEMA.Components.Lane;
 
-namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
+namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.GoodBoard
 {
-    [Route("1/lane/interlock/badboard/divert")]
-    public class InterlockBadBoardDivert : APIController
+    [Route("1/lane/interlock/goodboard/divert")]
+    public class InterlockGoodBoardDivert : APIController
     {
         public Response Post(string index, string guid, bool enable)
         {
@@ -20,7 +20,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
                 };
             }
 
-            LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert = enable;
+            LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivert = enable;
 
             return new Response
             {

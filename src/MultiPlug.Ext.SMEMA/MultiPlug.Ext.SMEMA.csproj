@@ -64,9 +64,11 @@
     <Compile Include="Controllers\API\APIController.cs" />
     <Compile Include="Controllers\API\Interlock\BadBoard\InterlockBadBoard.cs" />
     <Compile Include="Controllers\API\Interlock\BadBoard\InterlockBadBoardDivert.cs" />
+    <Compile Include="Controllers\API\Interlock\BadBoard\InterlockBadBoardDivertLatch.cs" />
     <Compile Include="Controllers\API\Interlock\BadBoard\InterlockBadBoardLatch.cs" />
     <Compile Include="Controllers\API\Interlock\GoodBoard\InterlockGoodBoard.cs" />
-    <Compile Include="Controllers\API\Interlock\GoodBoard\InterlockGoodBoardDivert.cs.cs" />
+    <Compile Include="Controllers\API\Interlock\GoodBoard\InterlockGoodBoardDivert.cs" />
+    <Compile Include="Controllers\API\Interlock\GoodBoard\InterlockGoodBoardDivertLatch.cs" />
     <Compile Include="Controllers\API\Interlock\GoodBoard\InterlockGoodBoardLatch.cs.cs" />
     <Compile Include="Controllers\API\Interlock\InterlockController.cs" />
     <Compile Include="Controllers\API\Interlock\MachineReady\InterlockMachineReady.cs" />

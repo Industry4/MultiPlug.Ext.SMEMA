@@ -1,30 +1,94 @@
 ﻿@functions{
 
-    string IsSMEMAStateHigh(bool theValue)
+    string DrawEnabledIcon(bool theValue)
     {
         return (theValue) ? "<i class=\"fas fa-lg fa-check\"></i>" : "<i class=\"fas fa-lg fa-times\"></i>";
     }
 
-    string IsSMEMAInterlock(bool theValue)
-    {
-        return (theValue) ? "<i class=\"fas fa-lg fa-check\"></i>" : "<i class=\"fas fa-lg fa-times\"></i>";
-    }
-
-    string IsSMEMAInterlockArrowLeft(bool theValue)
+    string DrawLeftIcon(bool theValue)
     {
         return (theValue) ? "<i class=\"fas fa-lg fa-arrow-left\"></i>" : "<i class=\"fas fa-lg fa-times\"></i>";
     }
 
-    string IsSMEMAInterlockArrowRight(bool theValue)
+    string DrawRightIcon(bool theValue)
     {
         return (theValue) ? "<i class=\"fas fa-lg fa-arrow-right\"></i>" : "<i class=\"fas fa-lg fa-times\"></i>";
     }
 
-    string IsSMEMAInterlockLatched(bool theValue)
+    string DrawLatchedIcon(bool theValue)
     {
         return (theValue) ? "<i class=\"fas fa-lg fa-lock\"></i>" : "<i class=\"fas fa-lg fa-lock-open\"></i>";
     }
+
+    string DrawDivertedIcon(bool theValue, bool isBadBoard)
+    {
+        int Rotate = (!theValue) ? 0 : isBadBoard ? 315 : 45;
+
+        return "<i style=\"display: inline-block;\" class=\"fas fa-lg fa-arrow-right divert-rotate-" + Rotate +"\"></i>";
+    }
+
+    string DrawButton(string theId, string theAPI, bool theEnabled, string theIcon)
+    {
+        return DrawButton(theId, theAPI, theEnabled, theIcon, string.Empty, string.Empty);
+    }
+
+    string DrawButton( string theId, string theAPI, bool theEnabled, string theIcon, string theEnabledClasses, string theDisabledClasses)
+    {
+        return "<button id=\""+ theId + "\" class=\"btn btn-smema-outline-dark btn-sq-sm " + (theEnabled? theEnabledClasses : theDisabledClasses) + " btn-apicall\" data-api-href=\"" + theAPI + "&enable=" + (theEnabled ? "false" : "true") + "\">" + theIcon + "</button>";
+    }
 }
+
+<style>
+    .btn-sq-sm {
+      width: 50px;
+      height: 50px;
+      margin: 0px;
+      padding: inherit;
+      margin-top: 2px;
+    }
+
+    table.table td.td-btn-clear {
+        padding: 0px;
+    }
+
+    .divert-rotate-45 {
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .divert-rotate-315 {
+        -webkit-transform: rotate(315deg);
+        -moz-transform: rotate(315deg);
+        -ms-transform: rotate(315deg);
+        -o-transform: rotate(315deg);
+        transform: rotate(315deg);
+    }
+
+    .btn-smema-blocked, btn-smema-blocked:focus, btn-smema-blocked:hover, btn-smema-blocked:active, btn-smema-blocked:visited{
+        background-color: #d92638 !important;
+        color: white !important;
+    }
+
+    .btn-smema-unblocked, btn-smema-unblocked:focus, btn-smema-unblocked:hover, btn-smema-unblocked:active, btn-smema-unblocked:visited{
+        background-color: green !important;
+        color: white !important;
+    }
+
+    .btn-smema-diverted, btn-smema-diverted:focus, btn-smema-diverted:hover, btn-smema-diverted:active, btn-smema-diverted:visited{
+        background-color: yellow !important;
+    }
+
+    .btn-smema-outline-dark{
+        border: 1px solid #212121!important;
+        margin-left: 1px !important;
+        margin-right: 1px !important;
+        margin-top: 5px !important;
+    }
+
+</style>
 
 <div class="container" id="container1">
 
@@ -61,16 +125,16 @@
                                     <table class="table table-bordered">
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-9">Machine Ready</td>
-                                                <td class="col-lg-3 text-center" id="SMEMAUplineMachineReadyState">@Raw(IsSMEMAStateHigh(Model.Extension.Model.SMEMABoardAvailableStates.MachineReady))</td>
+                                                <td class="col-lg-9"><h6>Machine Ready</h6></td>
+                                                <td class="col-lg-3 text-center" id="SMEMAUplineMachineReadyState">@Raw(DrawEnabledIcon(Model.Extension.Model.SMEMABoardAvailableStates.MachineReady))</td>
                                             </tr>
                                             <tr>
-                                                <td class="col-lg-9">Good Board</td>
-                                                <td class="col-lg-3 text-center" id="SMEMAUplineGoodBoardState">@Raw(IsSMEMAStateHigh(Model.Extension.Model.SMEMABoardAvailableStates.GoodBoard))</td>
+                                                <td class="col-lg-9"><h6>Good Board</h6></td>
+                                                <td class="col-lg-3 text-center" id="SMEMAUplineGoodBoardState">@Raw(DrawEnabledIcon(Model.Extension.Model.SMEMABoardAvailableStates.GoodBoard))</td>
                                             </tr>
                                             <tr>
-                                                <td class="col-lg-9">Bad Board</td>
-                                                <td class="col-lg-3 text-center" id="SMEMAUplineBadBoardState">@Raw(IsSMEMAStateHigh(Model.Extension.Model.SMEMABoardAvailableStates.BadBoard))</td>
+                                                <td class="col-lg-9"><h6>Bad Board</h6></td>
+                                                <td class="col-lg-3 text-center" id="SMEMAUplineBadBoardState">@Raw(DrawEnabledIcon(Model.Extension.Model.SMEMABoardAvailableStates.BadBoard))</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -105,19 +169,89 @@
                                     <table class="table table-bordered">
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-6">Machine Ready</td>
-                                                <td class="col-lg-3 text-center" id="SMEMAInterlockMachineReadyLatchState">@Raw(IsSMEMAInterlockLatched(Model.Extension.Model.SMEMAInterlockLatchedStates.MachineReady))</td>
-                                                <td class="col-lg-3 text-center" id="SMEMAInterlockMachineReadyState">@Raw(IsSMEMAInterlockArrowLeft(Model.Extension.Model.SMEMAInterlockStates.MachineReady))</td>
+                                                <td class="col-lg-2"><h6>R</h6></td>
+                                                <td class="col-lg-5 text-center td-btn-clear"></td>
+                                                <td class="col-lg-5 text-center td-btn-clear">
+                                                    <div class="btn-group" role="group">
+                                                        @Raw(DrawButton("SMEMAInterlockMachineReadyLatchState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/machineready/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockLatchedStates.MachineReady,
+                                                        DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockLatchedStates.MachineReady)))
+
+                                                        @Raw(DrawButton("SMEMAInterlockMachineReadyState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/machineready/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockStates.MachineReady,
+                                                        DrawLeftIcon(Model.Extension.Model.SMEMAInterlockStates.MachineReady),
+                                                        "btn-smema-unblocked",
+                                                        "btn-smema-blocked"))
+                                                    </div>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="col-lg-6">Good Board</td>
-                                                <td class="col-lg-3 text-center" id="SMEMAInterlockGoodBoardLatchState">@Raw(IsSMEMAInterlockLatched(Model.Extension.Model.SMEMAInterlockLatchedStates.GoodBoard))</td>
-                                                <td class="col-lg-3 text-center" id="SMEMAInterlockGoodBoardState">@Raw(IsSMEMAInterlockArrowRight(Model.Extension.Model.SMEMAInterlockStates.GoodBoard))</td>
+                                                <td class="col-lg-2"><h6>G</h6></td>                                      
+                                                <td class="col-lg-5 text-center td-btn-clear">
+                                                    <div class="btn-group" role="group">
+                                                        @Raw(DrawButton("SMEMAInterlockGoodBoardDivertLatchState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/goodboard/divert/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockDivertLatchedStates.GoodBoard,
+                                                        DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockDivertLatchedStates.GoodBoard)))
+
+                                                        @Raw(DrawButton("SMEMAInterlockGoodBoardDivertState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/goodboard/divert/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockDivertStates.GoodBoard,
+                                                        DrawDivertedIcon(Model.Extension.Model.SMEMAInterlockDivertStates.GoodBoard, false),
+                                                        "btn-smema-diverted",
+                                                        "btn-smema-unblocked"))
+                                                    </div>
+                                                </td>                                                                     
+                                                <td class="col-lg-5 text-center td-btn-clear">
+                                                    <div class="btn-group" role="group">
+                                                        @Raw(DrawButton("SMEMAInterlockGoodBoardLatchState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/goodboard/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockLatchedStates.GoodBoard,
+                                                        DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockLatchedStates.GoodBoard)))
+
+                                                        @Raw(DrawButton("SMEMAInterlockGoodBoardState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/goodboard/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockStates.GoodBoard,
+                                                        DrawRightIcon(Model.Extension.Model.SMEMAInterlockStates.GoodBoard),
+                                                        "btn-smema-unblocked",
+                                                        "btn-smema-blocked"))
+                                                    </div>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="col-lg-6">Bad Board</td>
-                                                <td class="col-lg-3 text-center" id="SMEMAInterlockBadBoardLatchState">@Raw(IsSMEMAInterlockLatched(Model.Extension.Model.SMEMAInterlockLatchedStates.BadBoard))</td>
-                                                <td class="col-lg-3 text-center" id="SMEMAInterlockBadBoardState">@Raw(IsSMEMAInterlockArrowRight(Model.Extension.Model.SMEMAInterlockStates.BadBoard))</td>
+                                                <td class="col-lg-2"><h6>B</h6></td>
+                                                <td class="col-lg-5 text-center td-btn-clear">
+                                                    <div class="btn-group" role="group">
+                                                        @Raw(DrawButton("SMEMAInterlockBadBoardDivertLatchState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/badboard/divert/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockDivertLatchedStates.BadBoard,
+                                                        DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockDivertLatchedStates.BadBoard)))
+
+                                                        @Raw(DrawButton("SMEMAInterlockBadBoardDivertState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/badboard/divert/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockDivertStates.BadBoard,
+                                                        DrawDivertedIcon(Model.Extension.Model.SMEMAInterlockDivertStates.BadBoard, true),
+                                                        "btn-smema-diverted",
+                                                        "btn-smema-unblocked"))
+                                                    </div>
+                                                </td>
+                                                <td class="col-lg-5 text-center td-btn-clear">
+                                                    <div class="btn-group" role="group">
+                                                        @Raw(DrawButton("SMEMAInterlockBadBoardLatchState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/badboard/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockLatchedStates.BadBoard,
+                                                        DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockLatchedStates.BadBoard)))
+
+                                                        @Raw(DrawButton("SMEMAInterlockBadBoardState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/badboard/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockStates.BadBoard,
+                                                        DrawRightIcon(Model.Extension.Model.SMEMAInterlockStates.BadBoard),
+                                                        "btn-smema-unblocked",
+                                                        "btn-smema-blocked"))
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -150,16 +284,16 @@
                                     <table class="table table-bordered">
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-9">Machine Ready</td>
-                                                <td class="col-lg-3 text-center" id="SMEMADownlineMachineReadyState">@Raw(IsSMEMAStateHigh(Model.Extension.Model.SMEMAMachineReadyStates.MachineReady))</td>
+                                                <td class="col-lg-9"><h6>Machine Ready</h6></td>
+                                                <td class="col-lg-3 text-center" id="SMEMADownlineMachineReadyState">@Raw(DrawEnabledIcon(Model.Extension.Model.SMEMAMachineReadyStates.MachineReady))</td>
                                             </tr>
                                             <tr>
-                                                <td class="col-lg-9">Good Board</td>
-                                                <td class="col-lg-3 text-center" id="SMEMADownlineGoodBoardState">@Raw(IsSMEMAStateHigh(Model.Extension.Model.SMEMAMachineReadyStates.GoodBoard))</td>
+                                                <td class="col-lg-9"><h6>Good Board</h6></td>
+                                                <td class="col-lg-3 text-center" id="SMEMADownlineGoodBoardState">@Raw(DrawEnabledIcon(Model.Extension.Model.SMEMAMachineReadyStates.GoodBoard))</td>
                                             </tr>
                                             <tr>
-                                                <td class="col-lg-9">Bad Board</td>
-                                                <td class="col-lg-3 text-center" id="SMEMADownlineBadBoardState">@Raw(IsSMEMAStateHigh(Model.Extension.Model.SMEMAMachineReadyStates.BadBoard))</td>
+                                                <td class="col-lg-9"><h6>Bad Board</h6></td>
+                                                <td class="col-lg-3 text-center" id="SMEMADownlineBadBoardState">@Raw(DrawEnabledIcon(Model.Extension.Model.SMEMAMachineReadyStates.BadBoard))</td>
                                             </tr>
                                         </tbody>
                                     </table>

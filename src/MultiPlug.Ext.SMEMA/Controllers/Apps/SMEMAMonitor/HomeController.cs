@@ -55,15 +55,15 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
             {
                 Subscriptions = new Subscription[]
                 {
-                    new Subscription { Guid = Guid.NewGuid().ToString(), Id = LaneSearch.BoardAvailable.SMEMAMachineReadyEvent.Id },
-                    new Subscription { Guid = Guid.NewGuid().ToString(), Id = LaneSearch.BoardAvailable.SMEMABoardAvailableSubscription.Id },
-                    new Subscription { Guid = Guid.NewGuid().ToString(), Id = LaneSearch.BoardAvailable.SMEMAFailedBoardAvailableSubscription.Id },
-                    new Subscription { Guid = Guid.NewGuid().ToString(), Id = LaneSearch.Interlock.MachineReadyEvent.Id },
-                    new Subscription { Guid = Guid.NewGuid().ToString(), Id = LaneSearch.Interlock.GoodBoardEvent.Id },
-                    new Subscription { Guid = Guid.NewGuid().ToString(), Id = LaneSearch.Interlock.BadBoardEvent.Id },
-                    new Subscription { Guid = Guid.NewGuid().ToString(), Id = LaneSearch.MachineReady.SMEMAMachineReadySubscription.Id },
-                    new Subscription { Guid = Guid.NewGuid().ToString(), Id = LaneSearch.MachineReady.SMEMABoardAvailableEvent.Id },
-                    new Subscription { Guid = Guid.NewGuid().ToString(), Id = LaneSearch.MachineReady.SMEMAFailedBoardAvailableEvent.Id }
+                    new Subscription { Guid = "UPReady", Id = LaneSearch.BoardAvailable.SMEMAMachineReadyEvent.Id },
+                    new Subscription { Guid = "UPGood", Id = LaneSearch.BoardAvailable.SMEMABoardAvailableSubscription.Id },
+                    new Subscription { Guid = "UPBad", Id = LaneSearch.BoardAvailable.SMEMAFailedBoardAvailableSubscription.Id },
+                    new Subscription { Guid = "ILReady", Id = LaneSearch.Interlock.MachineReadyEvent.Id },
+                    new Subscription { Guid = "ILGood", Id = LaneSearch.Interlock.GoodBoardEvent.Id },
+                    new Subscription { Guid = "ILBad", Id = LaneSearch.Interlock.BadBoardEvent.Id },
+                    new Subscription { Guid = "DLReady", Id = LaneSearch.MachineReady.SMEMAMachineReadySubscription.Id },
+                    new Subscription { Guid = "DLGood", Id = LaneSearch.MachineReady.SMEMABoardAvailableEvent.Id },
+                    new Subscription { Guid = "DLBad", Id = LaneSearch.MachineReady.SMEMAFailedBoardAvailableEvent.Id }
                 },
                 Model = new Models.Apps.SMEMAMonitor
                 {
@@ -80,6 +80,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
                         BadBoard = LaneSearch.BoardAvailable.StateMachine.BadBoardAvailableState
 
                     },
+
                     SMEMAInterlockStates = new Models.Apps.ComponentStates
                     {
                         MachineReady = LaneSearch.Interlock.MachineReadyStateMachine.MachineReady,
@@ -92,6 +93,19 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
                         GoodBoard = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardLatch,
                         BadBoard = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch
                     },
+
+                    SMEMAInterlockDivertStates = new Models.Apps.ComponentStates
+                    {
+                        GoodBoard = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivert,
+                        BadBoard = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert
+                    },
+
+                    SMEMAInterlockDivertLatchedStates = new Models.Apps.ComponentStates
+                    {
+                        GoodBoard = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivertLatch,
+                        BadBoard = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivertLatch
+                    },
+
                     SMEMAMachineReadyStates = new Models.Apps.ComponentStates
                     {
                         MachineReady = LaneSearch.MachineReady.StateMachine.MachineReadyState,

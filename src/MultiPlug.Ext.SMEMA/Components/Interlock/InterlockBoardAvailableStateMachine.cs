@@ -12,8 +12,12 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         private Event m_GoodBoardEvent;
         private bool m_GoodBoard;
         private bool m_GoodBoardLatch;
+        private bool m_GoodBoardDivert;
+        private bool m_GoodBoardDivertLatch;
         private bool m_BadBoard;
         private bool m_BadBoardLatch;
+        private bool m_BadBoardDivert;
+        private bool m_BadBoardDivertLatch;
 
         internal event Action<bool> GoodBoardUpdated;
         internal event Action<bool> BadBoardUpdated;
@@ -73,7 +77,9 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             m_GoodBoardEvent.Invoke(new Payload(m_GoodBoardEvent.Id, new PayloadSubject[] {
             new PayloadSubject(m_GoodBoardEvent.Subjects[0], GetStringValue.Invoke(GoodBoard)),
             new PayloadSubject(m_GoodBoardEvent.Subjects[1], GetStringValue.Invoke(GoodBoard)),
-            new PayloadSubject(m_GoodBoardEvent.Subjects[2], GetStringValue.Invoke(GoodBoardLatch))
+            new PayloadSubject(m_GoodBoardEvent.Subjects[2], GetStringValue.Invoke(GoodBoardLatch)),
+            new PayloadSubject(m_GoodBoardEvent.Subjects[3], GetStringValue.Invoke(GoodBoardDivert)),
+            new PayloadSubject(m_GoodBoardEvent.Subjects[4], GetStringValue.Invoke(GoodBoardDivertLatch))
             }));
         }
 
@@ -82,7 +88,9 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             m_BadBoardEvent.Invoke(new Payload(m_BadBoardEvent.Id, new PayloadSubject[] {
             new PayloadSubject(m_BadBoardEvent.Subjects[0], GetStringValue.Invoke(BadBoard)),
             new PayloadSubject(m_BadBoardEvent.Subjects[1], GetStringValue.Invoke(BadBoard)),
-            new PayloadSubject(m_BadBoardEvent.Subjects[2], GetStringValue.Invoke(BadBoardLatch))
+            new PayloadSubject(m_BadBoardEvent.Subjects[2], GetStringValue.Invoke(BadBoardLatch)),
+            new PayloadSubject(m_GoodBoardEvent.Subjects[3], GetStringValue.Invoke(BadBoardDivert)),
+            new PayloadSubject(m_GoodBoardEvent.Subjects[4], GetStringValue.Invoke(BadBoardDivertLatch))
             }));
         }
 
@@ -125,9 +133,41 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             }
         }
 
-        internal bool GoodBoardDivert { get; set; }
+        internal bool GoodBoardDivert
+        {
+            get
+            {
+                return m_GoodBoardDivert;
+            }
 
-        public bool BadBoard
+            set
+            {
+                if (m_GoodBoardDivert != value)
+                {
+                    m_GoodBoardDivert = value;
+                    InvokeGoodBoardEvent();
+                }
+            }
+        }
+
+        internal bool GoodBoardDivertLatch
+        {
+            get
+            {
+                return m_GoodBoardDivertLatch;
+            }
+
+            set
+            {
+                if (m_GoodBoardDivertLatch != value)
+                {
+                    m_GoodBoardDivertLatch = value;
+                    InvokeGoodBoardEvent();
+                }
+            }
+        }
+
+        internal bool BadBoard
         {
             get
             {
@@ -166,6 +206,38 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             }
         }
 
-        internal bool BadBoardDivert { get; set; }
+        internal bool BadBoardDivert
+        {
+            get
+            {
+                return m_BadBoardDivert;
+            }
+
+            set
+            {
+                if (m_BadBoardDivert != value)
+                {
+                    m_BadBoardDivert = value;
+                    InvokeBadBoardEvent();
+                }
+            }
+        }
+        internal bool BadBoardDivertLatch
+        {
+            get
+            {
+                return m_BadBoardDivertLatch;
+            }
+
+            set
+            {
+                if (m_BadBoardDivertLatch != value)
+                {
+                    m_BadBoardDivertLatch = value;
+                    InvokeBadBoardEvent();
+                }
+            }
+        }
+
     }
 }
