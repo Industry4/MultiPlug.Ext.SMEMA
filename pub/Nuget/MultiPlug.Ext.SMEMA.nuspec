@@ -20,7 +20,7 @@
 	1.0.2 Work in progress - UI Mirros SMEMA signals, no interlocking.
 	1.0.1 Customer Preview - Settings Page
 	1.0.0 Reserve name and create project scaffolding.</releaseNotes>
-    <copyright>4IR.UK British Systems 2021</copyright>
+    <copyright>4IR.UK British Systems 2022</copyright>
     <tags>SMEMA 9851 MultiPlug Edge_Computing Edge IoT INDUSTRY_4.0 INDUSTRY4 4IR M2M</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
