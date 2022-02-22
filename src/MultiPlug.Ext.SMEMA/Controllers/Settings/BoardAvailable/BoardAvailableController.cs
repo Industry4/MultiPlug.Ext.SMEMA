@@ -44,29 +44,20 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.BoardAvailable
                 };
             }
 
-            ushort SMEMABoardAvailableSubscriptionSubjectIndex = 0;
-            ushort.TryParse(theModel.SMEMABoardAvailableSubscriptionSubjectIndex, out SMEMABoardAvailableSubscriptionSubjectIndex);
-
-            ushort SMEMAFailedBoardAvailableSubscriptionSubjectIndex = 0;
-            ushort.TryParse(theModel.SMEMAFailedBoardAvailableSubscriptionSubjectIndex, out SMEMAFailedBoardAvailableSubscriptionSubjectIndex);
-
             BoardAvailableProperties Properties = new BoardAvailableProperties
             {
                 SMEMAMachineReadyEvent = new Base.Exchange.Event
                 {
                     Id = theModel.SMEMAMachineReadyEventId,
-                    Description = theModel.SMEMAMachineReadyEventDescription,
-                    Subjects = new string[] { theModel.SMEMAMachineReadyEventSubject }
+                    Description = theModel.SMEMAMachineReadyEventDescription
                 },
                 SMEMABoardAvailableSubscription = new Models.Exchange.Subscription
                 {
-                    Id = theModel.SMEMABoardAvailableSubscriptionId,
-                    Subjects = new ushort[] { SMEMABoardAvailableSubscriptionSubjectIndex }
+                    Id = theModel.SMEMABoardAvailableSubscriptionId
                 },
                 SMEMAFailedBoardAvailableSubscription = new Models.Exchange.Subscription
                 {
-                    Id = theModel.SMEMAFailedBoardAvailableSubscriptionId,
-                    Subjects = new ushort[] { SMEMAFailedBoardAvailableSubscriptionSubjectIndex }
+                    Id = theModel.SMEMAFailedBoardAvailableSubscriptionId
                 }
             };
 

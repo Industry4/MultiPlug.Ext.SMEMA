@@ -15,9 +15,6 @@ namespace MultiPlug.Ext.SMEMA.Models.Apps
         public ComponentStates SMEMAInterlockLatchedStates { get; internal set; }
         public ComponentStates SMEMAMachineReadyStates { get; internal set; }
 
-        public ComponentEventIDs SMEMABoardAvailableEventIds { get; internal set; }
-        public ComponentEventIDs SMEMAInterlockEventIds { get; internal set; }
-        public ComponentEventIDs SMEMAMachineReadyEventIds { get; internal set; }
         public ComponentStates SMEMAInterlockDivertStates { get; internal set; }
         public ComponentStates SMEMAInterlockDivertLatchedStates { get; internal set; }
     }
@@ -28,13 +25,5 @@ namespace MultiPlug.Ext.SMEMA.Models.Apps
         public bool MachineReady { get; set; }
         public bool GoodBoard { get; set; }
         public bool BadBoard { get; set; }
-    }
-
-    [Serializable]
-    public class ComponentEventIDs
-    {
-        public string MachineReady { get; set; }
-        public string GoodBoard { get; set; }
-        public string BadBoard { get; set; }
     }
 }

@@ -12,11 +12,12 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         internal InterlockMachineReadyStateMachine MachineReadyStateMachine { get; private set; }
         internal InterlockBoardAvailableStateMachine BoardAvailableStateMachine { get; private set; }
 
-        private InterlockSMEMAStateMachine m_SMEMAStateMachine = new InterlockSMEMAStateMachine();
+        private InterlockSMEMAStateMachine m_SMEMAUplineStateMachine = new InterlockSMEMAStateMachine();
+        private InterlockSMEMAStateMachine m_SMEMADownlineStateMachine = new InterlockSMEMAStateMachine();
 
         public InterlockComponent(string theGuid, string theEventSuffix)
         {
-            InterlockSubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Subjects = new ushort[] { 0 }, Value = "1" };
+            InterlockSubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Value = "1" };
 
             MachineReadyEvent = new Event
             {
@@ -40,8 +41,8 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 Subjects = new[] { "value", "enabled", "interlock-latched", "divert", "divert-latched" }
             };
 
-            MachineReadyStateMachine = new InterlockMachineReadyStateMachine(m_SMEMAStateMachine, MachineReadyEvent);
-            BoardAvailableStateMachine = new InterlockBoardAvailableStateMachine(m_SMEMAStateMachine, GoodBoardEvent, BadBoardEvent);
+            MachineReadyStateMachine = new InterlockMachineReadyStateMachine(m_SMEMAUplineStateMachine, m_SMEMADownlineStateMachine, MachineReadyEvent);
+            BoardAvailableStateMachine = new InterlockBoardAvailableStateMachine(m_SMEMAUplineStateMachine, m_SMEMADownlineStateMachine, GoodBoardEvent, BadBoardEvent);
         }
 
         internal void UpdateProperties(InterlockProperties theNewProperties)

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MultiPlug.Ext.SMEMA</id>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <title>SMEMA MultiPlug Edge Computing Platform Extension</title>
     <authors>4IR.UK</authors>
     <owners>4IR.UK</owners>
@@ -12,6 +12,7 @@
     <description>SMEMA Extension for the MultiPlug .Net Edge Computing Platform</description>
 	<license type="expression">MIT</license>
     <releaseNotes>
+	1.0.7 Work in progress - State bugs
 	1.0.6 Work in progress - Divert Bug and changes to api signature simplified	
 	1.0.5 Work in progress - Good/Bad Divert API and UI 
 	1.0.4 Work in progress - Interlock REST API for All
@@ -23,9 +24,9 @@
     <tags>SMEMA 9851 MultiPlug Edge_Computing Edge IoT INDUSTRY_4.0 INDUSTRY4 4IR M2M</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
-        <dependency id="MultiPlug.Base" version="1.0.65" />
+        <dependency id="MultiPlug.Base" version="1.0.69" />
         <dependency id="MultiPlug.Extension.Core" version="1.0.63" />
-        <dependency id="MultiPlug.Core" version="2.2.78" />
+        <dependency id="MultiPlug.Core" version="2.2.79" />
       </group>
     </dependencies>
   </metadata>

@@ -43,15 +43,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="span3">
-                            <div class="row-fluid"><div class="span12">Subscription Subject Index</div></div>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <input name="SMEMAMachineReadySubscriptionSubjectIndex" class="span12" type="text" value="@Model.Extension.Model.Properties.SMEMAMachineReadySubscription.Subjects[0]">
-                                </div>
-                            </div>
-                        </div>
                         <div class="span4">
                             <div class="row-fluid"><div class="span12">Ready Value</div></div>
                             <div class="row-fluid">
@@ -149,50 +140,3 @@
     </section>
 </form>
 
-<script>
-
-    function newMachineReadySubElement() {
-        return '<li>\
-                    <div class="control-group">\
-                        <div class="controls">\
-                            <div class="span4">\
-                                <input type="hidden" name="MachineReadySubscriptionGuid" value="">\
-                                <input name="MachineReadySubscriptionId" class="span12 mp-event-picker" type="text" value="">\
-                            </div>\
-                            <div class="span3">\
-                                <input name="MachineReadySubscriptionSubjectIndex" class="span12" type="text" value="value">\
-                            </div>\
-                            <div class="span3">\
-                                <input name="MachineReadySubscriptionValue" class="span12" type="text" value="1">\
-                            </div>\
-                        </div>\
-                    </div>\
-                </li>';
-    }
-
-    function applyDelete(theSelector) {
-        $(theSelector).on('click', '.delete-sub', function () {
-            var id = $(this).attr('value');
-            var closestli = $(this).closest("li");
-
-            $.ajax({
-                type: "POST",
-                url: '/extensions/hermes/lane/upstream/deletesubscription/?id=@Model.Extension.Model.Guid&subguid=' + id,
-                success: function () {
-                    closestli.remove();
-                }
-            });
-        });
-    }
-
-    $('#NewMachineReadySubscription').on('click', function () {
-        $('#MachineReadySubscriptions').append(newMachineReadySubElement());
-        var NewMachineReadySubscription = $('#MachineReadySubscriptions li:last-child');
-        //applyselectize(NewMachineReadySubscription.find('.js-mpevent-select'));
-        applyDelete(NewMachineReadySubscription.find(':button'));
-        applyMPEventPickerOnClick();
-    });
-
-    applyDelete( document );
-
-</script>

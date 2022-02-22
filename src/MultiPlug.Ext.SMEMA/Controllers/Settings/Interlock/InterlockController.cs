@@ -54,7 +54,6 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Interlock
                 InterlockSubscription = new Models.Exchange.Subscription
                 {
                     Id = theModel.InterlockSubscriptionId,
-                    Subjects = new ushort[] { InterlockSubscriptionSubjectIndex },
                     Value = theModel.InterlockSubscriptionReadyValue
                 }
             };

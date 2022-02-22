@@ -54,15 +54,15 @@
     <script>
         Initialise( "@Model.Context.Paths.APIs",
                     "@Model.Extension.Model.LaneGuid",
-                    "@Model.Extension.Model.SMEMABoardAvailableEventIds.MachineReady",
-                    "@Model.Extension.Model.SMEMABoardAvailableEventIds.GoodBoard",
-                    "@Model.Extension.Model.SMEMABoardAvailableEventIds.BadBoard",
-                    "@Model.Extension.Model.SMEMAInterlockEventIds.MachineReady",
-                    "@Model.Extension.Model.SMEMAInterlockEventIds.GoodBoard",
-                    "@Model.Extension.Model.SMEMAInterlockEventIds.BadBoard",
-                    "@Model.Extension.Model.SMEMAMachineReadyEventIds.MachineReady",
-                    "@Model.Extension.Model.SMEMAMachineReadyEventIds.GoodBoard",
-                    "@Model.Extension.Model.SMEMAMachineReadyEventIds.BadBoard");
+                    "@Model.Extension.GetSubscriptionByGuid("USReady")",
+                    "@Model.Extension.GetSubscriptionByGuid("USGood")",
+                    "@Model.Extension.GetSubscriptionByGuid("USBad")",
+                    "@Model.Extension.GetSubscriptionByGuid("ILReady")",
+                    "@Model.Extension.GetSubscriptionByGuid("ILGood")",
+                    "@Model.Extension.GetSubscriptionByGuid("ILBad")",
+                    "@Model.Extension.GetSubscriptionByGuid("DSReady")",
+                    "@Model.Extension.GetSubscriptionByGuid("DSGood")",
+                    "@Model.Extension.GetSubscriptionByGuid("DSBad")");
     </script>
 </body>
 

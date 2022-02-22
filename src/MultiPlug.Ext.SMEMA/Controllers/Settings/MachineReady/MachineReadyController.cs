@@ -44,16 +44,11 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.MachineReady
                 };
             }
 
-
-            ushort SMEMAMachineReadySubscriptionSubjectIndex = 0;
-            ushort.TryParse(theModel.SMEMAMachineReadySubscriptionSubjectIndex, out SMEMAMachineReadySubscriptionSubjectIndex);
-
             MachineReadyProperties Properties = new MachineReadyProperties
             {
                 SMEMAMachineReadySubscription = new Models.Exchange.Subscription
                 {
                     Id = theModel.SMEMAMachineReadySubscriptionId,
-                    Subjects = new ushort[] { SMEMAMachineReadySubscriptionSubjectIndex },
                     Value = theModel.SMEMAMachineReadySubscriptionReadyValue
                 },
                 SMEMABoardAvailableEvent = new Base.Exchange.Event

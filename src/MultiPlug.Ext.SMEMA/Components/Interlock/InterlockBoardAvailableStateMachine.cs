@@ -6,7 +6,8 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 {
     internal class InterlockBoardAvailableStateMachine
     {
-        private InterlockSMEMAStateMachine m_SMEMAStateMachine;
+        private InterlockSMEMAStateMachine m_SMEMAUplineStateMachine;
+        private InterlockSMEMAStateMachine m_SMEMADownlineStateMachine;
 
         private Event m_BadBoardEvent;
         private Event m_GoodBoardEvent;
@@ -22,107 +23,118 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         internal event Action<bool> GoodBoardUpdated;
         internal event Action<bool> BadBoardUpdated;
 
-        public InterlockBoardAvailableStateMachine(InterlockSMEMAStateMachine theSMEMAStateMachine, Event goodBoardEvent, Event badBoardEvent)
+        public InterlockBoardAvailableStateMachine( InterlockSMEMAStateMachine theSMEMAUplineStateMachine,
+                                                    InterlockSMEMAStateMachine theSMEMADownlineStateMachine,
+                                                    Event theGoodBoardEvent,
+                                                    Event theBadBoardEvent)
         {
-            this.m_SMEMAStateMachine = theSMEMAStateMachine;
-            this.m_GoodBoardEvent = goodBoardEvent;
-            this.m_BadBoardEvent = badBoardEvent;
+            this.m_SMEMAUplineStateMachine = theSMEMAUplineStateMachine;
+            this.m_SMEMADownlineStateMachine = theSMEMADownlineStateMachine;
+            this.m_GoodBoardEvent = theGoodBoardEvent;
+            this.m_BadBoardEvent = theBadBoardEvent;
         }
 
         internal void OnSMEMAIOGoodBoard(bool theIOState)
         {
-            m_SMEMAStateMachine.GoodBoard = theIOState;
+            m_SMEMAUplineStateMachine.GoodBoard = theIOState;
 
             OnGoodBoardUpdate();
         }
 
         private void OnGoodBoardUpdate()
         {
-            if (m_SMEMAStateMachine.GoodBoard)
+            if (m_SMEMAUplineStateMachine.GoodBoard)
             {
-                if (GoodBoardDivert)
+                if ( ( ! m_SMEMADownlineStateMachine.GoodBoard ) && ( ! m_SMEMADownlineStateMachine.GoodBoardDiverted ) )
                 {
-                    m_SMEMAStateMachine.GoodBoardDiverted = true;
-                    BadBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.GoodBoard, BadBoardUpdated.EndInvoke, null);
-                }
-                else
-                {
-                    if (m_GoodBoard)
+                    if (GoodBoardDivert)
                     {
-                        GoodBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.GoodBoard, GoodBoardUpdated.EndInvoke, null);
+                        m_SMEMADownlineStateMachine.GoodBoardDiverted = true;
+                        BadBoardUpdated?.BeginInvoke(m_SMEMAUplineStateMachine.GoodBoard, BadBoardUpdated.EndInvoke, null);
+                    }
+                    else if (GoodBoard)
+                    {
+                        m_SMEMADownlineStateMachine.GoodBoard = true;
+                        GoodBoardUpdated?.BeginInvoke(m_SMEMAUplineStateMachine.GoodBoard, GoodBoardUpdated.EndInvoke, null);
                     }
                 }
             }
             else
             {
-                if (m_SMEMAStateMachine.GoodBoardDiverted)
+                if (m_SMEMADownlineStateMachine.GoodBoardDiverted)
                 {
-                    m_SMEMAStateMachine.GoodBoardDiverted = false;
+                    m_SMEMADownlineStateMachine.GoodBoardDiverted = false;
 
                     if (!GoodBoardDivertLatch)
                     {
-                        m_GoodBoardDivert = false;
-                        InvokeGoodBoardEvent();
+                        GoodBoardDivert = false;
+                       // InvokeGoodBoardEvent();
                     }
-                    BadBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.GoodBoard, BadBoardUpdated.EndInvoke, null);
+                    BadBoardUpdated?.BeginInvoke(m_SMEMAUplineStateMachine.GoodBoard, BadBoardUpdated.EndInvoke, null);
                 }
-                else
+                else if (m_SMEMADownlineStateMachine.GoodBoard)
                 {
+                    m_SMEMADownlineStateMachine.GoodBoard = false;
+
                     if (!GoodBoardLatch)
                     {
                         m_GoodBoard = false;
                         InvokeGoodBoardEvent();
                     }
-                    GoodBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.GoodBoard, GoodBoardUpdated.EndInvoke, null);
+                    GoodBoardUpdated?.BeginInvoke(m_SMEMAUplineStateMachine.GoodBoard, GoodBoardUpdated.EndInvoke, null);
                 }
             }
         }
 
         internal void OnSMEMAIOBadBoard(bool theIOState)
         {
-            m_SMEMAStateMachine.BadBoard = theIOState;
+            m_SMEMAUplineStateMachine.BadBoard = theIOState;
 
             OnBadBoardUpdate();
         }
 
         private void OnBadBoardUpdate()
         {
-            if (m_SMEMAStateMachine.BadBoard)
+            if (m_SMEMAUplineStateMachine.BadBoard)
             {
-                if (BadBoardDivert)
+                if( ( ! m_SMEMADownlineStateMachine.BadBoard) && ( ! m_SMEMADownlineStateMachine.BadBoardDiverted ) )
                 {
-                    m_SMEMAStateMachine.BadBoardDiverted = true;
-                    GoodBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.BadBoard, BadBoardUpdated.EndInvoke, null);
-                }
-                else
-                {
-                    if (m_BadBoard)
+                    if (BadBoardDivert)
                     {
-                        BadBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.BadBoard, GoodBoardUpdated.EndInvoke, null);
+                        m_SMEMADownlineStateMachine.BadBoardDiverted = true;
+                        GoodBoardUpdated?.BeginInvoke(m_SMEMAUplineStateMachine.BadBoard, GoodBoardUpdated.EndInvoke, null);
+                    }
+                    else if (BadBoard)
+                    {
+                        m_SMEMADownlineStateMachine.BadBoard = true;
+                        BadBoardUpdated?.BeginInvoke(m_SMEMAUplineStateMachine.BadBoard, BadBoardUpdated.EndInvoke, null);
                     }
                 }
             }
             else
             {
-                if (m_SMEMAStateMachine.BadBoardDiverted)
+                if (m_SMEMADownlineStateMachine.BadBoardDiverted)
                 {
-                    m_SMEMAStateMachine.BadBoardDiverted = false;
+                    m_SMEMADownlineStateMachine.BadBoardDiverted = false;
 
                     if (!BadBoardDivertLatch)
                     {
-                        m_BadBoardDivert = false;
-                        InvokeBadBoardEvent();
+                        BadBoardDivert = false;
+                        //m_BadBoardDivert = false;
+                        //InvokeBadBoardEvent();
                     }
-                    GoodBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.BadBoard, BadBoardUpdated.EndInvoke, null);
+                    GoodBoardUpdated?.BeginInvoke(m_SMEMAUplineStateMachine.BadBoard, GoodBoardUpdated.EndInvoke, null);
                 }
-                else
+                else if (m_SMEMADownlineStateMachine.BadBoard)
                 {
+                    m_SMEMADownlineStateMachine.BadBoard = false;
+
                     if (!BadBoardLatch)
                     {
-                        m_BadBoard = false;
-                        InvokeBadBoardEvent();
+                        BadBoard = false;
+                        //InvokeBadBoardEvent();
                     }
-                    BadBoardUpdated?.BeginInvoke(m_SMEMAStateMachine.BadBoard, GoodBoardUpdated.EndInvoke, null);
+                    BadBoardUpdated?.BeginInvoke(m_SMEMAUplineStateMachine.BadBoard, BadBoardUpdated.EndInvoke, null);
                 }
             }
         }
@@ -235,7 +247,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                     m_BadBoard = value;
 
                     InvokeBadBoardEvent();
-                    OnGoodBoardUpdate();
+                    OnBadBoardUpdate();
                 }
             }
         }

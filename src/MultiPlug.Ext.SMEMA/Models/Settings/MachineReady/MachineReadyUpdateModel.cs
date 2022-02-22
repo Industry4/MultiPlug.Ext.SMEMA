@@ -6,9 +6,7 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.MachineReady
         public string Guid { get; set; }
 
         public string SMEMAMachineReadySubscriptionId { get; set; }
-        public string SMEMAMachineReadySubscriptionSubjectIndex { get; set; }
         public string SMEMAMachineReadySubscriptionReadyValue { get; set; }
-
 
         public string SMEMABoardAvailableEventId { get; set; }
         public string SMEMABoardAvailableEventDescription { get; set; }
