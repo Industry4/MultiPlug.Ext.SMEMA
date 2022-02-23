@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using MultiPlug.Base.Attribute;
+﻿using MultiPlug.Base.Attribute;
 using MultiPlug.Base.Http;
 
 namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Lane
@@ -9,23 +8,29 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Lane
     {
         public Response Post(string id)
         {
-            var LaneSearch = Core.Instance.Lanes.FirstOrDefault(Lane => Lane.Guid == id);
+            if(string.IsNullOrEmpty(id))
+            {
+                return new Response
+                {
+                    StatusCode = System.Net.HttpStatusCode.BadRequest
+                };
+            }
 
-            if (LaneSearch == null)
+            if( Core.Instance.LaneDelete(id))
+            {
+                return new Response
+                {
+                    StatusCode = System.Net.HttpStatusCode.Moved,
+                    Location = Context.Referrer
+                };
+            }
+            else
             {
                 return new Response
                 {
                     StatusCode = System.Net.HttpStatusCode.NotFound
                 };
             }
-
-            Core.Instance.LaneDelete(LaneSearch);
-
-            return new Response
-            {
-                StatusCode = System.Net.HttpStatusCode.Moved,
-                Location = Context.Referrer
-            };
         }
     }
 }

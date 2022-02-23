@@ -30,18 +30,22 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
             bool FlagSubscriptionUpdated = false;
             bool FlagEventUpdated = false;
 
-            if (Event.Merge(SMEMABoardAvailableEvent, theNewProperties.SMEMABoardAvailableEvent)) { FlagEventUpdated = true; }
+            if (Event.Merge(SMEMABoardAvailableEvent, theNewProperties.SMEMABoardAvailableEvent))
+            {
+                FlagEventUpdated = true;
+            }
 
-            if (Event.Merge(SMEMAFailedBoardAvailableEvent, theNewProperties.SMEMAFailedBoardAvailableEvent)) { FlagEventUpdated = true; }
+            if (Event.Merge(SMEMAFailedBoardAvailableEvent, theNewProperties.SMEMAFailedBoardAvailableEvent))
+            {
+                FlagEventUpdated = true;
+            }
 
-            if (Subscription.Merge(SMEMAMachineReadySubscription, theNewProperties.SMEMAMachineReadySubscription)) { FlagSubscriptionUpdated = true; }
+            if (Subscription.Merge(SMEMAMachineReadySubscription, theNewProperties.SMEMAMachineReadySubscription))
+            {
+                FlagSubscriptionUpdated = true;
+            }
 
             SMEMAMachineReadySubscription.Value = theNewProperties.SMEMAMachineReadySubscription.Value;
-
-            // BUG --------- Temp Fix ------------------------------------
-            //SMEMABoardAvailableEvent.Subjects = theNewProperties.SMEMAFailedBoardAvailableEvent.Subjects != null ? theNewProperties.SMEMAFailedBoardAvailableEvent.Subjects : new string[] { "value" };
-            //SMEMAFailedBoardAvailableEvent.Subjects = theNewProperties.SMEMAFailedBoardAvailableEvent.Subjects != null ? theNewProperties.SMEMAFailedBoardAvailableEvent.Subjects : new string[] { "value" };
-            // BUG -------------------------------------------------------
 
             if (FlagSubscriptionUpdated) { SubscriptionsUpdated?.Invoke(); }
             if (FlagEventUpdated) { EventsUpdated?.Invoke(); }

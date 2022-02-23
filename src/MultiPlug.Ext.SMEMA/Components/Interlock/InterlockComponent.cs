@@ -9,6 +9,8 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         internal event Action EventsUpdated;
         internal event Action SubscriptionsUpdated;
 
+        internal event Action BlockedUpdated;
+
         internal InterlockMachineReadyStateMachine MachineReadyStateMachine { get; private set; }
         internal InterlockBoardAvailableStateMachine BoardAvailableStateMachine { get; private set; }
 
@@ -42,8 +44,12 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             };
 
             MachineReadyStateMachine = new InterlockMachineReadyStateMachine(m_SMEMAUplineStateMachine, m_SMEMADownlineStateMachine, MachineReadyEvent);
+            MachineReadyStateMachine.BlockedUpdated += OnBlockedStatusUpdated;
             BoardAvailableStateMachine = new InterlockBoardAvailableStateMachine(m_SMEMAUplineStateMachine, m_SMEMADownlineStateMachine, GoodBoardEvent, BadBoardEvent);
+            BoardAvailableStateMachine.BlockedUpdated += OnBlockedStatusUpdated;
         }
+
+
 
         internal void UpdateProperties(InterlockProperties theNewProperties)
         {
@@ -56,6 +62,19 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 
             if (FlagSubscriptionUpdated) { SubscriptionsUpdated?.Invoke(); }
             if (FlagEventUpdated) { EventsUpdated?.Invoke(); }
+        }
+
+        private void OnBlockedStatusUpdated()
+        {
+            BlockedUpdated?.Invoke();
+        }
+
+        public bool Blocked
+        {
+            get
+            {
+                return MachineReadyStateMachine.Blocked || BoardAvailableStateMachine.Blocked;
+            }
         }
     }
 }

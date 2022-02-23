@@ -97,6 +97,7 @@
     <Compile Include="Core.cs" />
     <Compile Include="Models\Apps\LaneUrl.cs" />
     <Compile Include="Models\Apps\SMEMAMonitor.cs" />
+    <Compile Include="Models\Components\Core\CoreProperties.cs" />
     <Compile Include="Models\Components\MachineReady\MachineReadyProperties.cs" />
     <Compile Include="Models\Components\Interlock\InterlockProperties.cs" />
     <Compile Include="Models\Components\Lane\LaneProperties.cs" />

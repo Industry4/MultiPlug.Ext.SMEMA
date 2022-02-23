@@ -78,5 +78,10 @@ namespace MultiPlug.Ext.SMEMA
                 return Core.Instance.Subscriptions;
             }
         }
+
+        public override void Start()
+        {
+            Core.Instance.Start();
+        }
     }
 }

@@ -19,6 +19,11 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
             this.m_Properties = theMachineReadyProperties;
         }
 
+        internal void Init()
+        {
+            OnEvent(m_Properties.SMEMAMachineReadySubscription.Cache());
+        }
+
         internal void OnEvent(SubscriptionEvent obj)
         {
             PayloadSubject PayloadSubject;

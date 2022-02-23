@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MultiPlug.Ext.SMEMA</id>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <title>SMEMA MultiPlug Edge Computing Platform Extension</title>
     <authors>4IR.UK</authors>
     <owners>4IR.UK</owners>
@@ -12,6 +12,7 @@
     <description>SMEMA Extension for the MultiPlug .Net Edge Computing Platform</description>
 	<license type="expression">MIT</license>
     <releaseNotes>
+	1.0.8 Work in progress - 1. Added Global Status Event of blocking. 2. Fetch live value of SMEMA values on startup/init
 	1.0.7 Work in progress - State bugs
 	1.0.6 Work in progress - Divert Bug and changes to api signature simplified	
 	1.0.5 Work in progress - Good/Bad Divert API and UI 

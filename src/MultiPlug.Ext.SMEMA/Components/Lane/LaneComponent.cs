@@ -11,6 +11,8 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
         internal event Action EventsUpdated;
         internal event Action SubscriptionsUpdated;
 
+        internal event Action StatusUpdated;
+
         public LaneComponent(string theGuid)
         {
             if (theGuid != null)
@@ -27,6 +29,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
 
 
             Interlock = new InterlockComponent(theGuid, EventSuffix);
+            Interlock.BlockedUpdated += OnInterlockBlockedStatusUpdated;
 
             MachineReady.StateMachine.MachineReady += Interlock.MachineReadyStateMachine.OnSMEMAIOMachineReady;
             Interlock.MachineReadyStateMachine.MachineReadyUpdated += BoardAvailable.OnMachineReady;
@@ -36,6 +39,12 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
 
             BoardAvailable.StateMachine.BadBoard += Interlock.BoardAvailableStateMachine.OnSMEMAIOBadBoard;
             Interlock.BoardAvailableStateMachine.BadBoardUpdated += MachineReady.OnBadBoard;
+        }
+
+        internal void Init()
+        {
+            BoardAvailable.StateMachine.Init();
+            MachineReady.StateMachine.Init();
         }
 
         private void OnEventsUpdated()
@@ -54,5 +63,17 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
             LaneId = theNewProperties.LaneId;
         }
 
+        private void OnInterlockBlockedStatusUpdated()
+        {
+            StatusUpdated?.Invoke();
+        }
+
+        internal bool Blocked
+        {
+            get
+            {
+                return Interlock.Blocked;
+            }
+        }
     }
 }

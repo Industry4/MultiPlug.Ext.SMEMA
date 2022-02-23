@@ -1,34 +1,39 @@
 ﻿using System;
 using System.Linq;
 using System.Security;
-using System.Runtime.Serialization;
 using System.Collections.Generic;
-using MultiPlug.Base;
 using MultiPlug.Base.Exchange;
 using MultiPlug.Base.Exchange.API;
 using MultiPlug.Ext.SMEMA.Components.Lane;
+using MultiPlug.Ext.SMEMA.Models.Components.Core;
 using MultiPlug.Ext.SMEMA.Models.Components.Lane;
 using MultiPlug.Ext.SMEMA.Models.Load;
 using MultiPlug.Extension.Core;
 
 namespace MultiPlug.Ext.SMEMA
 {
-    internal class Core : MultiPlugBase
+    internal class Core : CoreProperties
     {
         private static Core m_Instance = null;
         private IMultiPlugServices m_MultiPlugServices;
         private IMultiPlugActions m_MultiPlugActions;
 
-        public event Action EventsUpdated;
-        public event Action SubscriptionsUpdated;
+        internal event Action EventsUpdated;
+        internal event Action SubscriptionsUpdated;
 
-        public Subscription[] Subscriptions { get; private set; }
-        public Event[] Events { get; private set; }
+        internal Subscription[] Subscriptions { get; private set; }
+        internal Event[] Events { get; private set; }
 
-        [DataMember]
-        public LaneComponent[] Lanes { get; private set; } = new LaneComponent[0];
+        private Core()
+        {
+            GlobalStatusEvent = new Event {
+                Guid = Guid.NewGuid().ToString(),
+                Id = "SMEMA.Global.Status", Description = "Global Status for all Lanes",
+                Subjects = new string[] { "blocked" }
+            };
+        }
 
-        public static Core Instance
+        internal static Core Instance
         {
             get
             {
@@ -38,10 +43,6 @@ namespace MultiPlug.Ext.SMEMA
                 }
                 return m_Instance;
             }
-        }
-
-        private Core()
-        {
         }
 
         internal void Init(IMultiPlugServices theMultiPlugServices, IMultiPlugActions theMultiPlugActions)
@@ -55,8 +56,9 @@ namespace MultiPlug.Ext.SMEMA
             string NewLaneGuid = Guid.NewGuid().ToString();
 
             LaneComponent NewLane = new LaneComponent(NewLaneGuid);
-            NewLane.EventsUpdated += OnEventsUpdated;
-            NewLane.SubscriptionsUpdated += OnSubscriptionsUpdated;
+            NewLane.EventsUpdated += OnLaneEventsUpdated;
+            NewLane.SubscriptionsUpdated += OnLaneSubscriptionsUpdated;
+            NewLane.StatusUpdated += OnLaneStatusUpdated;
             NewLane.UpdateProperties(new LaneProperties { Guid = NewLaneGuid, LaneId = theLaneId, MachineId = theMachineName });
 
             List<LaneComponent> LanesList = Lanes.ToList();
@@ -66,13 +68,49 @@ namespace MultiPlug.Ext.SMEMA
             AggregateEvents();
         }
 
-        internal void LaneDelete(LaneComponent theLane)
+        private void OnLaneStatusUpdated()
         {
+            InvokeGlobalStatusEvent(Lanes.Any(Lane => Lane.Blocked));
+        }
+
+        internal void Start()
+        {
+            foreach (var Lane in Lanes)
+            {
+                Lane.Init();
+            }
+
+            OnLaneStatusUpdated();
+        }
+
+        private void InvokeGlobalStatusEvent(bool theValue)
+        {
+            GlobalStatusEvent.Invoke(new Payload(GlobalStatusEvent.Id, new PayloadSubject[] {
+            new PayloadSubject(GlobalStatusEvent.Subjects[0], theValue ? "true" : "false" ),
+            }));
+        }
+
+        internal bool LaneDelete(string theGuid)
+        {
+            var LaneSearch = Core.Instance.Lanes.FirstOrDefault(Lane => Lane.Guid == theGuid);
+
+            if (LaneSearch == null)
+            {
+                return false;
+            }
+
             List<LaneComponent> LanesList = Lanes.ToList();
-            LanesList.Remove(theLane);
+            LanesList.Remove(LaneSearch);
             Lanes = LanesList.ToArray();
+
+            LaneSearch.EventsUpdated -= OnLaneEventsUpdated;
+            LaneSearch.SubscriptionsUpdated -= OnLaneSubscriptionsUpdated;
+            LaneSearch.StatusUpdated -= OnLaneStatusUpdated;
+
             AggregateSubscriptions();
             AggregateEvents();
+
+            return true;
         }
 
         internal void Load(LoadRoot theConfiguration)
@@ -90,8 +128,9 @@ namespace MultiPlug.Ext.SMEMA
 
                     LaneComponent NewLane = new LaneComponent(Lane.Guid);
 
-                    NewLane.EventsUpdated += OnEventsUpdated;
-                    NewLane.SubscriptionsUpdated += OnSubscriptionsUpdated;
+                    NewLane.EventsUpdated += OnLaneEventsUpdated;
+                    NewLane.SubscriptionsUpdated += OnLaneSubscriptionsUpdated;
+                    NewLane.StatusUpdated += OnLaneStatusUpdated;
 
                     NewLane.UpdateProperties(new LaneProperties { LaneId = Lane.LaneId, MachineId = Lane.MachineId });
 
@@ -124,6 +163,8 @@ namespace MultiPlug.Ext.SMEMA
         {
             var EventsList = new List<Event>();
 
+            EventsList.Add(GlobalStatusEvent);
+
             foreach (var Lane in Lanes)
             {
                 EventsList.Add(Lane.BoardAvailable.SMEMAMachineReadyEvent);
@@ -154,12 +195,12 @@ namespace MultiPlug.Ext.SMEMA
             SubscriptionsUpdated?.Invoke();
         }
 
-        private void OnEventsUpdated()
+        private void OnLaneEventsUpdated()
         {
             AggregateEvents();
         }
 
-        private void OnSubscriptionsUpdated()
+        private void OnLaneSubscriptionsUpdated()
         {
             AggregateSubscriptions();
         }

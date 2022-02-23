@@ -21,6 +21,12 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
             this.m_Properties = theBoardAvailableProperties;
         }
 
+        internal void Init()
+        {
+            OnGoodBoardEvent(m_Properties.SMEMABoardAvailableSubscription.Cache());
+            OnBadBoardEvent(m_Properties.SMEMAFailedBoardAvailableSubscription.Cache());
+        }
+
         internal void OnGoodBoardEvent(SubscriptionEvent theEvent)
         {
             PayloadSubject PayloadSubject;
