@@ -26,5 +26,23 @@ namespace MultiPlug.Ext.SMEMA.Models.Components.Interlock
         ///
         [DataMember]
         public Event BadBoardEvent { get; set; }
+
+        /// 
+        /// Interlock Machine Ready Block
+        ///
+        [DataMember]
+        public Exchange.Event MachineReadyBlockEvent { get; set; }
+
+        /// 
+        /// Interlock Machine Ready Blcok
+        ///
+        [DataMember]
+        public Exchange.Event GoodBoardBlockEvent { get; set; }
+
+        /// 
+        /// Interlock Machine Ready Block
+        ///
+        [DataMember]
+        public Exchange.Event BadBoardBlockEvent { get; set; }
     }
 }

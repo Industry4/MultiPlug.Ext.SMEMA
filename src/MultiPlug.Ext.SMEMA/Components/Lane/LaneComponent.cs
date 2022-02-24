@@ -27,8 +27,10 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
             MachineReady.EventsUpdated += OnEventsUpdated;
             MachineReady.SubscriptionsUpdated += OnSubscriptionsUpdated;
 
-
             Interlock = new InterlockComponent(theGuid, EventSuffix);
+            Interlock.EventsUpdated += OnEventsUpdated;
+            Interlock.SubscriptionsUpdated += OnSubscriptionsUpdated;
+
             Interlock.BlockedUpdated += OnInterlockBlockedStatusUpdated;
 
             MachineReady.StateMachine.MachineReady += Interlock.MachineReadyStateMachine.OnSMEMAIOMachineReady;

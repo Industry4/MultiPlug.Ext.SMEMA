@@ -9,9 +9,13 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         private InterlockSMEMAStateMachine m_SMEMAUplineStateMachine;
         private InterlockSMEMAStateMachine m_SMEMADownlineStateMachine;
 
+        private const string c_ReadyDescription = "ready";
+
         private Event m_MachineReadyEvent;
 
         internal event Action<bool> MachineReadyUpdated;
+
+        private Models.Exchange.Event m_MachineReadyBlockEvent;
 
         internal event Action BlockedUpdated;
         internal bool Blocked { get; private set; }
@@ -21,11 +25,13 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 
         public InterlockMachineReadyStateMachine(   InterlockSMEMAStateMachine theSMEMAUplineStateMachine,
                                                     InterlockSMEMAStateMachine theSMEMADownlineStateMachine,
-                                                    Event theMachineReadyEvent)
+                                                    Event theMachineReadyEvent,
+                                                    Models.Exchange.Event theMachineReadyBlockEvent)
         {
             this.m_SMEMAUplineStateMachine = theSMEMAUplineStateMachine;
             this.m_SMEMADownlineStateMachine = theSMEMADownlineStateMachine;
             this.m_MachineReadyEvent = theMachineReadyEvent;
+            this.m_MachineReadyBlockEvent = theMachineReadyBlockEvent;
         }
 
         private void InvokeMachineReadyEvent()
@@ -37,11 +43,35 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             }));
         }
 
+        private void InvokeMachineReadyBlockEvent()
+        {
+            if(m_MachineReadyBlockEvent.Subjects.Length != 2) // Safety Net
+            {
+                return;
+            }
+
+            if(Blocked && m_MachineReadyBlockEvent.BlockedEnabled)
+            {
+                m_MachineReadyBlockEvent.Invoke(new Payload(m_MachineReadyBlockEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(m_MachineReadyBlockEvent.Subjects[0], m_MachineReadyBlockEvent.BlockedValue),
+                new PayloadSubject(m_MachineReadyBlockEvent.Subjects[1], c_ReadyDescription)
+                }));
+            }
+            else if( !Blocked && m_MachineReadyBlockEvent.UnblockedEnabled)
+            {
+                m_MachineReadyBlockEvent.Invoke(new Payload(m_MachineReadyBlockEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(m_MachineReadyBlockEvent.Subjects[0], m_MachineReadyBlockEvent.UnblockedValue),
+                new PayloadSubject(m_MachineReadyBlockEvent.Subjects[1], c_ReadyDescription)
+                }));
+            }
+        }
+
         private void SetBlocked(bool theValue)
         {
             if (theValue != Blocked)
             {
                 Blocked = theValue;
+                InvokeMachineReadyBlockEvent();
                 BlockedUpdated?.Invoke();
             }
         }
@@ -52,9 +82,9 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 
             if (theIOState)
             {
-
                 if (MachineReady)
                 {
+                    SetBlocked(false);
                     m_SMEMADownlineStateMachine.MachineReady = true;
                     MachineReadyUpdated?.BeginInvoke(theIOState, MachineReadyUpdated.EndInvoke, null);
                 }

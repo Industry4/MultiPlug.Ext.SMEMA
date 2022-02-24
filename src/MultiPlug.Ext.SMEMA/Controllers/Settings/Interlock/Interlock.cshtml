@@ -6,6 +6,10 @@
     {
         return (theValue) ? "<i class=\"icon-ok icon-large\"></i>" : "<i class=\"icon-remove icon-large\"></i>";
     }
+    string isEnabled(bool theValue)
+    {
+        return (theValue) ? "checked" : string.Empty;
+    }
 }
 
 <form action="" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
@@ -28,10 +32,108 @@
 
         @Include("MultiPlug.Ext.SMEMA.SMEMA_Settings_Navigation")
 
-        <h3 class="box-header">Events and Subscriptions</h3>
+        <h3 class="box-header">Setup</h3>
         <div class="box">
 
-            <h4>Interlock Subscription</h4>
+            <h4>Startup State</h4>
+            <div class="row-fluid">
+                <div class="well">
+                    <div class="row-fluid">
+
+                        <div class="span4">
+                            <div class="row-fluid"><div class="span12"><h5>Machine Ready</h5></div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <label class="radio">
+                                        <input type="radio" name="MachineReadyRadios" value="option1" checked>
+                                        Blocked
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="MachineReadyRadios" value="option2">
+                                        Unblocked
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="MachineReadyRadios" value="option2">
+                                        Previous Latched State
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span4">
+                            <div class="row-fluid"><div class="span12"><h5>Good Board</h5></div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <label class="radio">
+                                        <input type="radio" name="GoodBoardRadios" value="option1" checked>
+                                        Blocked
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="GoodBoardRadios" value="option2">
+                                        Unblocked
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="GoodBoardRadios" value="option2">
+                                        Previous Latched State
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span4">
+                            <div class="row-fluid"><div class="span12"><h5>Bad Board</h5></div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <label class="radio">
+                                        <input type="radio" name="BadBoardRadios" value="option1" checked>
+                                        Blocked
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="BadBoardRadios" value="option2">
+                                        Unblocked
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="BadBoardRadios" value="option2">
+                                        Previous Latched State
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <h4>Security</h4>
+            <div class="row-fluid">
+                <div class="well">
+                    <div class="row-fluid">
+
+                        <div class="span12">
+                            <div class="row-fluid"><div class="span12"><h5>Enabled Interfaces</h5></div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <label class="checkbox inline">
+                                        <input type="checkbox" value="option1" checked> User Interface
+                                    </label>
+                                    <label class="checkbox inline">
+                                        <input type="checkbox" value="option2" checked> REST API
+                                    </label>
+                                    <label class="checkbox inline">
+                                        <input type="checkbox" value="option3" checked> MultiPlug Subscriptions
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="box-header">Subscriptions</h3>
+        <div class="box">
+
+            <h4>Interlock</h4>
             <div class="row-fluid">
                 <div class="well">
                     <div class="row-fluid">
@@ -40,7 +142,7 @@
                             <div class="row-fluid"><div class="span12">Subscription ID</div></div>
                             <div class="row-fluid">
                                 <div class="span12">
-                                    <input name="InterlockSubscriptionId" class="input-block-level mp-event-picker" type="text" value="@Model.Extension.Model.Properties.InterlockSubscription.Id" />
+                                    <input name="InterlockSubscriptionId" autocomplete="off" class="input-block-level mp-event-picker" type="text" value="@Model.Extension.Model.Properties.InterlockSubscription.Id" />
                                 </div>
                             </div>
                         </div>
@@ -49,7 +151,7 @@
                             <div class="row-fluid"><div class="span12">OKay Value</div></div>
                             <div class="row-fluid">
                                 <div class="span12">
-                                    <input name="InterlockSubscriptionReadyValue" class="span12" type="text" value="@Model.Extension.Model.Properties.InterlockSubscription.Value">
+                                    <input name="InterlockSubscriptionReadyValue" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.InterlockSubscription.Value">
                                 </div>
                             </div>
                         </div>
@@ -65,6 +167,244 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <h3 class="box-header">Events</h3>
+        <div class="box">
+
+            <h4>Machine Ready Block</h4>
+            <div class="row-fluid">
+                <div class="well">
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="row-fluid"><div class="span12">ID</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="MachineReadyBlockEventId" autocomplete="off" class="input-block-level" type="text" placeholder="Event ID" value="@Model.Extension.Model.Properties.MachineReadyBlockEvent.Id">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span4">
+                            <div class="span12">
+                                <div class="row-fluid"><div class="span12">Description</div></div>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <input name="MachineReadyBlockEventDescription" autocomplete="off" class="input-block-level" type="text" placeholder="Description" value="@Model.Extension.Model.Properties.MachineReadyBlockEvent.Description" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span1">
+                            <div class="row-fluid"><div class="span12">Blocked</div></div>
+                            <div class="row-fluid">
+                                <div class="span2">
+                                    <input name="MachineReadyBlockEventBlockedEnabled" type="checkbox" @Raw(isEnabled(Model.Extension.Model.Properties.MachineReadyBlockEvent.BlockedEnabled))>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span1">
+                            <div class="row-fluid"><div class="span12">Unblocked</div></div>
+                            <div class="row-fluid">
+                                <div class="span2">
+                                    <input name="MachineReadyBlockEventUnblockedEnabled" type="checkbox" @Raw(isEnabled(Model.Extension.Model.Properties.MachineReadyBlockEvent.UnblockedEnabled))>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="row-fluid"><div class="span12">Subject</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="MachineReadyBlockEventSubject" autocomplete="off" class="input-block-level" type="text" placeholder="Event ID" value="@Model.Extension.Model.Properties.MachineReadyBlockEvent.Subjects[0]">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span4">
+                            <div class="span12">
+                                <div class="row-fluid"><div class="span12">Unblocked Value</div></div>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <input name="MachineReadyBlockEventUnblockedValue" autocomplete="off" class="input-block-level" type="text" placeholder="Description" value="@Model.Extension.Model.Properties.MachineReadyBlockEvent.UnblockedValue" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="span4">
+                            <div class="row-fluid"><div class="span12">Blocked Value</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="MachineReadyBlockEventBlockedValue" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.MachineReadyBlockEvent.BlockedValue">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h4>Good Board Block</h4>
+            <div class="row-fluid">
+                <div class="well">
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="row-fluid"><div class="span12">ID</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="GoodBoardBlockEventId" autocomplete="off" class="input-block-level" type="text" placeholder="Event ID" value="@Model.Extension.Model.Properties.GoodBoardBlockEvent.Id">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span4">
+                            <div class="span12">
+                                <div class="row-fluid"><div class="span12">Description</div></div>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <input name="GoodBoardBlockEventDescription" autocomplete="off" class="input-block-level" type="text" placeholder="Description" value="@Model.Extension.Model.Properties.GoodBoardBlockEvent.Description" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span1">
+                            <div class="row-fluid"><div class="span12">Blocked</div></div>
+                            <div class="row-fluid">
+                                <div class="span2">
+                                    <input name="GoodBoardBlockEventBlockedEnabled" type="checkbox" @Raw(isEnabled(Model.Extension.Model.Properties.GoodBoardBlockEvent.BlockedEnabled))>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span1">
+                            <div class="row-fluid"><div class="span12">Unblocked</div></div>
+                            <div class="row-fluid">
+                                <div class="span2">
+                                    <input name="GoodBoardBlockEventUnblockedEnabled" type="checkbox" @Raw(isEnabled(Model.Extension.Model.Properties.GoodBoardBlockEvent.UnblockedEnabled))>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="row-fluid"><div class="span12">Subject</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="GoodBoardBlockEventSubject" autocomplete="off" class="input-block-level" type="text" placeholder="Event ID" value="@Model.Extension.Model.Properties.GoodBoardBlockEvent.Subjects[0]">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span4">
+                            <div class="span12">
+                                <div class="row-fluid"><div class="span12">Unblocked Value</div></div>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <input name="GoodBoardBlockEventUnblockedValue" autocomplete="off" class="input-block-level" type="text" placeholder="Description" value="@Model.Extension.Model.Properties.GoodBoardBlockEvent.UnblockedValue" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="span4">
+                            <div class="row-fluid"><div class="span12">Blocked Value</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="GoodBoardBlockEventBlockedValue" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.GoodBoardBlockEvent.BlockedValue">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h4>Bad Board Block</h4>
+            <div class="row-fluid">
+                <div class="well">
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="row-fluid"><div class="span12">ID</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="BadBoardBlockEventId" autocomplete="off" class="input-block-level" type="text" placeholder="Event ID" value="@Model.Extension.Model.Properties.BadBoardBlockEvent.Id">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span4">
+                            <div class="span12">
+                                <div class="row-fluid"><div class="span12">Description</div></div>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <input name="BadBoardBlockEventDescription" autocomplete="off" class="input-block-level" type="text" placeholder="Description" value="@Model.Extension.Model.Properties.BadBoardBlockEvent.Description" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span1">
+                            <div class="row-fluid"><div class="span12">Blocked</div></div>
+                            <div class="row-fluid">
+                                <div class="span2">
+                                    <input name="BadBoardBlockEventBlockedEnabled" type="checkbox" @Raw(isEnabled(Model.Extension.Model.Properties.BadBoardBlockEvent.BlockedEnabled))>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span1">
+                            <div class="row-fluid"><div class="span12">Unblocked</div></div>
+                            <div class="row-fluid">
+                                <div class="span2">
+                                    <input name="BadBoardBlockEventUnblockedEnabled" type="checkbox" @Raw(isEnabled(Model.Extension.Model.Properties.BadBoardBlockEvent.UnblockedEnabled))>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="row-fluid"><div class="span12">Subject</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="BadBoardBlockEventSubject" autocomplete="off" class="input-block-level" type="text" placeholder="Event ID" value="@Model.Extension.Model.Properties.BadBoardBlockEvent.Subjects[0]">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span4">
+                            <div class="span12">
+                                <div class="row-fluid"><div class="span12">Unblocked Value</div></div>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <input name="BadBoardBlockEventUnblockedValue" autocomplete="off" class="input-block-level" type="text" placeholder="Description" value="@Model.Extension.Model.Properties.BadBoardBlockEvent.UnblockedValue" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span4">
+                            <div class="row-fluid"><div class="span12">Blocked Value</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="BadBoardBlockEventBlockedValue" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.BadBoardBlockEvent.BlockedValue">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </section>
 </form>

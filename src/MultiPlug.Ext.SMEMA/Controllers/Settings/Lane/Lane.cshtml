@@ -38,13 +38,25 @@
                     <div class="control-group form-horizontal">
                         <label class="control-label" for="inputMachineID">Machine ID</label>
                         <div class="controls">
-                            <input type="text" id="inputMachineID" name="MachineId" placeholder="Machine ID" value="@Model.Extension.Model.MachineId">
+                            <input type="text" autocomplete="off" id="inputMachineID" name="MachineId" placeholder="Machine ID" value="@Model.Extension.Model.MachineId">
                         </div>
                     </div>
                     <div class="control-group form-horizontal">
                         <label class="control-label" for="inputLaneID">Lane ID</label>
                         <div class="controls">
-                            <input type="text" id="inputLaneID" name="LaneId" placeholder="Lane ID" value="@Model.Extension.Model.LaneId">
+                            <input type="text" autocomplete="off" id="inputLaneID" name="LaneId" placeholder="Lane ID" value="@Model.Extension.Model.LaneId">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Equipment Setup</h4>
+            <div class="row-fluid">
+                <div class="well">
+                    <div class="control-group form-horizontal">
+                        <label class="control-label" for="inputLaneID">Right to Left</label>
+                        <div class="controls">
+                            <input name="RightToLeft" type="checkbox">
                         </div>
                     </div>
                 </div>

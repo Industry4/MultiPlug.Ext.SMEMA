@@ -171,6 +171,9 @@ namespace MultiPlug.Ext.SMEMA
                 EventsList.Add(Lane.Interlock.MachineReadyEvent);
                 EventsList.Add(Lane.Interlock.GoodBoardEvent);
                 EventsList.Add(Lane.Interlock.BadBoardEvent);
+                EventsList.Add(Lane.Interlock.MachineReadyBlockEvent);
+                EventsList.Add(Lane.Interlock.GoodBoardBlockEvent);
+                EventsList.Add(Lane.Interlock.BadBoardBlockEvent);
                 EventsList.Add(Lane.MachineReady.SMEMABoardAvailableEvent);
                 EventsList.Add(Lane.MachineReady.SMEMAFailedBoardAvailableEvent);
             }

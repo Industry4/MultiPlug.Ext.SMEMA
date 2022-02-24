@@ -46,16 +46,44 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Interlock
             }
 
 
-            ushort InterlockSubscriptionSubjectIndex = 0;
-            ushort.TryParse(theModel.InterlockSubscriptionSubjectIndex, out InterlockSubscriptionSubjectIndex);
-
             InterlockProperties Properties = new InterlockProperties
             {
                 InterlockSubscription = new Models.Exchange.Subscription
                 {
                     Id = theModel.InterlockSubscriptionId,
                     Value = theModel.InterlockSubscriptionReadyValue
+                },
+                MachineReadyBlockEvent = new Models.Exchange.Event
+                {
+                    Id = theModel.MachineReadyBlockEventId,
+                    Description = theModel.MachineReadyBlockEventDescription,
+                    Subjects = new string[] {theModel.MachineReadyBlockEventSubject, "smema"},
+                    BlockedEnabled = theModel.MachineReadyBlockEventBlockedEnabled,
+                    BlockedValue = theModel.MachineReadyBlockEventBlockedValue,
+                    UnblockedEnabled = theModel.MachineReadyBlockEventUnblockedEnabled,
+                    UnblockedValue = theModel.MachineReadyBlockEventUnblockedValue
+                },
+                GoodBoardBlockEvent = new Models.Exchange.Event
+                {
+                    Id = theModel.GoodBoardBlockEventId,
+                    Description = theModel.GoodBoardBlockEventDescription,
+                    Subjects = new string[] { theModel.GoodBoardBlockEventSubject, "smema"},
+                    BlockedEnabled = theModel.GoodBoardBlockEventBlockedEnabled,
+                    BlockedValue = theModel.GoodBoardBlockEventBlockedValue,
+                    UnblockedEnabled = theModel.GoodBoardBlockEventUnblockedEnabled,
+                    UnblockedValue = theModel.GoodBoardBlockEventUnblockedValue
+                },
+                BadBoardBlockEvent = new Models.Exchange.Event
+                {
+                    Id = theModel.BadBoardBlockEventId,
+                    Description = theModel.BadBoardBlockEventDescription,
+                    Subjects = new string[] { theModel.BadBoardBlockEventSubject, "smema" },
+                    BlockedEnabled = theModel.BadBoardBlockEventBlockedEnabled,
+                    BlockedValue = theModel.BadBoardBlockEventBlockedValue,
+                    UnblockedEnabled = theModel.BadBoardBlockEventUnblockedEnabled,
+                    UnblockedValue = theModel.BadBoardBlockEventUnblockedValue
                 }
+
             };
 
             LaneSearch.Interlock.UpdateProperties(Properties);

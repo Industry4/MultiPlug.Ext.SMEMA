@@ -28,9 +28,9 @@
 
         @Include("MultiPlug.Ext.SMEMA.SMEMA_Settings_Navigation")
 
-        <h3 class="box-header">Events and Subscriptions</h3>
+        <h3 class="box-header">Subscriptions</h3>
         <div class="box">
-            <h4>SMEMA Machine Ready to Receive Subscription</h4>
+            <h4>SMEMA Machine Ready</h4>
             <div class="row-fluid">
                 <div class="well">
                     <div class="row-fluid">
@@ -62,81 +62,83 @@
                     </div>
                 </div>
             </div>
-
-            <h4>SMEMA Good Board Available Event</h4>
-            <div class="row-fluid">
-                <div class="well">
-                    <div class="row-fluid">
-
-                        <div class="span4">
-                            <div class="row-fluid"><div class="span12">Event ID</div></div>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <input name="SMEMABoardAvailableEventId" class="input-block-level" type="text" placeholder="Event ID" value="@Model.Extension.Model.Properties.SMEMABoardAvailableEvent.Id">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="span4">
-                            <div class="span12">
-                                <div class="row-fluid"><div class="span12">Event Description</div></div>
-                                <div class="row-fluid">
-                                    <div class="span12">
-                                        <input name="SMEMABoardAvailableEventDescription" class="input-block-level" type="text" placeholder="Description" value="@Model.Extension.Model.Properties.SMEMABoardAvailableEvent.Description" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="span4">
-                            <div class="row-fluid"><div class="span12">Event Subject</div></div>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <input name="SMEMABoardAvailableEventSubject" class="span12" type="text" value="@Model.Extension.Model.Properties.SMEMABoardAvailableEvent.Subjects[0]">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h4>SMEMA Failed Board Available Event</h4>
-            <div class="row-fluid">
-                <div class="well">
-                    <div class="row-fluid">
-                        <div class="span4">
-                            <div class="row-fluid"><div class="span12">Event ID</div></div>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <input name="SMEMAFailedBoardAvailableEventId" class="input-block-level" type="text" placeholder="Event ID" value="@Model.Extension.Model.Properties.SMEMAFailedBoardAvailableEvent.Id">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="span4">
-                            <div class="span12">
-                                <div class="row-fluid"><div class="span12">Event Description</div></div>
-                                <div class="row-fluid">
-                                    <div class="span12">
-                                        <input name="SMEMAFailedBoardAvailableEventDescription" class="input-block-level" type="text" placeholder="Description" value="@Model.Extension.Model.Properties.SMEMAFailedBoardAvailableEvent.Description" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="span4">
-                            <div class="row-fluid"><div class="span12">Event Subject</div></div>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <input name="SMEMAFailedBoardAvailableEventSubject" class="span12" type="text" value="@Model.Extension.Model.Properties.SMEMAFailedBoardAvailableEvent.Subjects[0]">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
+        <h3 class="box-header">Events</h3>
+        <div class="box">
+                <h4>SMEMA Good Board Available</h4>
+                <div class="row-fluid">
+                    <div class="well">
+                        <div class="row-fluid">
+
+                            <div class="span4">
+                                <div class="row-fluid"><div class="span12">Event ID</div></div>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <input name="SMEMABoardAvailableEventId" class="input-block-level" type="text" placeholder="Event ID" value="@Model.Extension.Model.Properties.SMEMABoardAvailableEvent.Id">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="span4">
+                                <div class="span12">
+                                    <div class="row-fluid"><div class="span12">Event Description</div></div>
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <input name="SMEMABoardAvailableEventDescription" class="input-block-level" type="text" placeholder="Description" value="@Model.Extension.Model.Properties.SMEMABoardAvailableEvent.Description" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="span4">
+                                <div class="row-fluid"><div class="span12">Event Subject</div></div>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <input name="SMEMABoardAvailableEventSubject" class="span12" type="text" value="@Model.Extension.Model.Properties.SMEMABoardAvailableEvent.Subjects[0]">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>SMEMA Bad Board Available</h4>
+                <div class="row-fluid">
+                    <div class="well">
+                        <div class="row-fluid">
+                            <div class="span4">
+                                <div class="row-fluid"><div class="span12">Event ID</div></div>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <input name="SMEMAFailedBoardAvailableEventId" class="input-block-level" type="text" placeholder="Event ID" value="@Model.Extension.Model.Properties.SMEMAFailedBoardAvailableEvent.Id">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="span4">
+                                <div class="span12">
+                                    <div class="row-fluid"><div class="span12">Event Description</div></div>
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <input name="SMEMAFailedBoardAvailableEventDescription" class="input-block-level" type="text" placeholder="Description" value="@Model.Extension.Model.Properties.SMEMAFailedBoardAvailableEvent.Description" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="span4">
+                                <div class="row-fluid"><div class="span12">Event Subject</div></div>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <input name="SMEMAFailedBoardAvailableEventSubject" class="span12" type="text" value="@Model.Extension.Model.Properties.SMEMAFailedBoardAvailableEvent.Subjects[0]">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </section>
 </form>
 

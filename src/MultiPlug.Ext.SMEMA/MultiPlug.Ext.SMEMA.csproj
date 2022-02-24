@@ -102,6 +102,7 @@
     <Compile Include="Models\Components\Interlock\InterlockProperties.cs" />
     <Compile Include="Models\Components\Lane\LaneProperties.cs" />
     <Compile Include="Models\Components\BoardAvailable\BoardAvailableProperties.cs" />
+    <Compile Include="Models\Exchange\Event.cs" />
     <Compile Include="Models\Exchange\Subscription.cs" />
     <Compile Include="Models\Load\LoadLaneComponent.cs" />
     <Compile Include="Models\Load\LoadRoot.cs" />

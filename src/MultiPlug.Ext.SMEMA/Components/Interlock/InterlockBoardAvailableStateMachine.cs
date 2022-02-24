@@ -11,6 +11,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 
         private Event m_BadBoardEvent;
         private Event m_GoodBoardEvent;
+
         private bool m_GoodBoard;
         private bool m_GoodBoardLatch;
         private bool m_GoodBoardDivert;
@@ -20,8 +21,14 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         private bool m_BadBoardDivert;
         private bool m_BadBoardDivertLatch;
 
+        private const string c_GoodBoardDescription = "good";
+        private const string c_BadBoardDescription = "bad";
+
         internal event Action<bool> GoodBoardUpdated;
         internal event Action<bool> BadBoardUpdated;
+
+        private Models.Exchange.Event m_GoodBoardBlockEvent;
+        private Models.Exchange.Event m_BadBoardBlockEvent;
 
         private bool m_GoodBlocked;
         private bool m_BadBlocked;
@@ -29,15 +36,19 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         internal event Action BlockedUpdated;
         internal bool Blocked { get; private set; }
 
-        public InterlockBoardAvailableStateMachine( InterlockSMEMAStateMachine theSMEMAUplineStateMachine,
-                                                    InterlockSMEMAStateMachine theSMEMADownlineStateMachine,
+        public InterlockBoardAvailableStateMachine( InterlockSMEMAStateMachine theSMEMAUplineStateMachine, 
+                                                    InterlockSMEMAStateMachine theSMEMADownlineStateMachine, 
                                                     Event theGoodBoardEvent,
-                                                    Event theBadBoardEvent)
+                                                    Event theBadBoardEvent,
+                                                    Models.Exchange.Event theGoodBoardBlockEvent,
+                                                    Models.Exchange.Event theBadBoardBlockEvent)
         {
             this.m_SMEMAUplineStateMachine = theSMEMAUplineStateMachine;
             this.m_SMEMADownlineStateMachine = theSMEMADownlineStateMachine;
             this.m_GoodBoardEvent = theGoodBoardEvent;
             this.m_BadBoardEvent = theBadBoardEvent;
+            this.m_GoodBoardBlockEvent = theGoodBoardBlockEvent;
+            this.m_BadBoardBlockEvent = theBadBoardBlockEvent;
         }
 
         private void BlockUpdated()
@@ -64,6 +75,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             {
                 m_GoodBlocked = theValue;
                 BlockUpdated();
+                InvokeGoodBoardBlockEvent();
             }
         }
 
@@ -133,6 +145,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             {
                 m_BadBlocked = theValue;
                 BlockUpdated();
+                InvokeBadBoardBlockEvent();
             }
         }
 
@@ -207,6 +220,52 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             new PayloadSubject(m_GoodBoardEvent.Subjects[3], GetStringValue.Invoke(BadBoardDivert)),
             new PayloadSubject(m_GoodBoardEvent.Subjects[4], GetStringValue.Invoke(BadBoardDivertLatch))
             }));
+        }
+
+        private void InvokeGoodBoardBlockEvent()
+        {
+            if (m_GoodBoardBlockEvent.Subjects.Length != 2) // Safety Net
+            {
+                return;
+            }
+
+            if (m_GoodBlocked && m_GoodBoardBlockEvent.BlockedEnabled)
+            {
+                m_GoodBoardBlockEvent.Invoke(new Payload(m_GoodBoardBlockEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(m_GoodBoardBlockEvent.Subjects[0], m_GoodBoardBlockEvent.BlockedValue),
+                new PayloadSubject(m_GoodBoardBlockEvent.Subjects[1], c_GoodBoardDescription)
+                }));
+            }
+            else if (!m_GoodBlocked && m_GoodBoardBlockEvent.UnblockedEnabled)
+            {
+                m_GoodBoardBlockEvent.Invoke(new Payload(m_GoodBoardBlockEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(m_GoodBoardBlockEvent.Subjects[0], m_GoodBoardBlockEvent.UnblockedValue),
+                new PayloadSubject(m_GoodBoardBlockEvent.Subjects[1], c_GoodBoardDescription)
+                }));
+            }
+        }
+
+        private void InvokeBadBoardBlockEvent()
+        {
+            if (m_BadBoardBlockEvent.Subjects.Length != 2) // Safety Net
+            {
+                return;
+            }
+
+            if (m_BadBlocked && m_BadBoardBlockEvent.BlockedEnabled)
+            {
+                m_BadBoardBlockEvent.Invoke(new Payload(m_BadBoardBlockEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(m_BadBoardBlockEvent.Subjects[0], m_BadBoardBlockEvent.BlockedValue),
+                new PayloadSubject(m_GoodBoardBlockEvent.Subjects[1], c_BadBoardDescription)
+                }));
+            }
+            else if (!Blocked && m_BadBoardBlockEvent.UnblockedEnabled)
+            {
+                m_BadBoardBlockEvent.Invoke(new Payload(m_BadBoardBlockEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(m_BadBoardBlockEvent.Subjects[0], m_BadBoardBlockEvent.UnblockedValue),
+                new PayloadSubject(m_GoodBoardBlockEvent.Subjects[1], c_BadBoardDescription)
+                }));
+            }
         }
 
         internal bool GoodBoard
