@@ -55,6 +55,7 @@
     <Compile Include="Components\Interlock\InterlockBoardAvailableStateMachine.cs" />
     <Compile Include="Components\Interlock\InterlockMachineReadyStateMachine.cs" />
     <Compile Include="Components\Interlock\InterlockSMEMAStateMachine.cs" />
+    <Compile Include="Components\Interlock\ObservableValue.cs" />
     <Compile Include="Components\MachineReady\MachineReadyComponent.cs" />
     <Compile Include="Components\Interlock\InterlockComponent.cs" />
     <Compile Include="Components\Lane\LaneComponent.cs" />

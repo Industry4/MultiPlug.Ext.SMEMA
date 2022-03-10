@@ -29,40 +29,38 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
 
         internal void OnGoodBoardEvent(SubscriptionEvent theEvent)
         {
-            PayloadSubject PayloadSubject;
-
-            if (theEvent.TryGetValue(0, out PayloadSubject))
+            foreach( PayloadSubject Subject in theEvent.PayloadSubjects)
             {
-                if (PayloadSubject.Value.Equals(m_Properties.SMEMABoardAvailableSubscription.Value, StringComparison.OrdinalIgnoreCase))
+                if( Subject.Value.Equals(m_Properties.SMEMABoardAvailableSubscription.Value, StringComparison.OrdinalIgnoreCase))
                 {
                     GoodBoardAvailableState = true;
+                    break;
                 }
                 else
                 {
                     GoodBoardAvailableState = false;
                 }
-
-                GoodBoard?.BeginInvoke(GoodBoardAvailableState, GoodBoard.EndInvoke, null);
             }
+
+            GoodBoard?.BeginInvoke(GoodBoardAvailableState, GoodBoard.EndInvoke, null);
         }
 
         internal void OnBadBoardEvent(SubscriptionEvent theEvent)
         {
-            PayloadSubject PayloadSubject;
-
-            if (theEvent.TryGetValue(0, out PayloadSubject))
+            foreach (PayloadSubject Subject in theEvent.PayloadSubjects)
             {
-                if (PayloadSubject.Value.Equals(m_Properties.SMEMAFailedBoardAvailableSubscription.Value, StringComparison.OrdinalIgnoreCase))
+                if (Subject.Value.Equals(m_Properties.SMEMAFailedBoardAvailableSubscription.Value, StringComparison.OrdinalIgnoreCase))
                 {
                     BadBoardAvailableState = true;
+                    break;
                 }
                 else
                 {
                     BadBoardAvailableState = false;
                 }
-
-                BadBoard?.BeginInvoke(BadBoardAvailableState, BadBoard.EndInvoke, null);
             }
+
+            BadBoard?.BeginInvoke(BadBoardAvailableState, BadBoard.EndInvoke, null);
         }
 
     }

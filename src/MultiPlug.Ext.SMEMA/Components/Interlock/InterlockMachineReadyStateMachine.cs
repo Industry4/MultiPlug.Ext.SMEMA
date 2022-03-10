@@ -7,13 +7,14 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
     internal class InterlockMachineReadyStateMachine
     {
         private InterlockSMEMAStateMachine m_SMEMAUplineStateMachine;
-        private InterlockSMEMAStateMachine m_SMEMADownlineStateMachine;
+        internal InterlockSMEMAStateMachine SMEMADownlineStateMachine { get; private set; }
 
         private const string c_ReadyDescription = "ready";
 
         private Event m_MachineReadyEvent;
 
         internal event Action<bool> MachineReadyUpdated;
+        internal event Action<bool> MachineReadyLatchUpdated;
 
         private Models.Exchange.Event m_MachineReadyBlockEvent;
 
@@ -29,7 +30,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                                                     Models.Exchange.Event theMachineReadyBlockEvent)
         {
             this.m_SMEMAUplineStateMachine = theSMEMAUplineStateMachine;
-            this.m_SMEMADownlineStateMachine = theSMEMADownlineStateMachine;
+            this.SMEMADownlineStateMachine = theSMEMADownlineStateMachine;
             this.m_MachineReadyEvent = theMachineReadyEvent;
             this.m_MachineReadyBlockEvent = theMachineReadyBlockEvent;
         }
@@ -78,15 +79,14 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 
         internal void OnSMEMAIOMachineReady(bool theIOState)
         {
-            m_SMEMAUplineStateMachine.MachineReady = theIOState;
+            m_SMEMAUplineStateMachine.MachineReady.Value = theIOState;
 
             if (theIOState)
             {
                 if (MachineReady)
                 {
                     SetBlocked(false);
-                    m_SMEMADownlineStateMachine.MachineReady = true;
-                    MachineReadyUpdated?.BeginInvoke(theIOState, MachineReadyUpdated.EndInvoke, null);
+                    SMEMADownlineStateMachine.MachineReady.Value = true;
                 }
                 else
                 {
@@ -101,8 +101,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 {
                     MachineReady = false;
                 }
-                m_SMEMADownlineStateMachine.MachineReady = false;
-                MachineReadyUpdated?.BeginInvoke(theIOState, MachineReadyUpdated.EndInvoke, null);
+                SMEMADownlineStateMachine.MachineReady.Value = false;
             }
         }
 
@@ -117,12 +116,12 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 if (m_MachineReady != value)
                 {
                     m_MachineReady = value;
+                    MachineReadyUpdated?.Invoke(m_MachineReady);
 
-                    if (m_MachineReady && m_SMEMAUplineStateMachine.MachineReady)
+                    if (m_MachineReady && m_SMEMAUplineStateMachine.MachineReady.Value)
                     {
                         SetBlocked(false);
-                        m_SMEMADownlineStateMachine.MachineReady = true;
-                        MachineReadyUpdated?.BeginInvoke(m_MachineReady, MachineReadyUpdated.EndInvoke, null);
+                        SMEMADownlineStateMachine.MachineReady.Value = true;;
                     }
 
                     InvokeMachineReadyEvent();
@@ -142,6 +141,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 if (m_MachineReadyLatch != value)
                 {
                     m_MachineReadyLatch = value;
+                    MachineReadyLatchUpdated?.Invoke(m_MachineReadyLatch);
                     InvokeMachineReadyEvent();
                 }
             }

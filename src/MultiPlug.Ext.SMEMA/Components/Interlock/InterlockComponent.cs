@@ -6,6 +6,8 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 {
     public class InterlockComponent : InterlockProperties
     {
+        private bool m_RunOnce = true;
+
         internal event Action EventsUpdated;
         internal event Action SubscriptionsUpdated;
 
@@ -86,6 +88,105 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             BoardAvailableStateMachine.BlockedUpdated += OnBlockedStatusUpdated;
         }
 
+        internal void Init()
+        {
+            if (m_RunOnce)
+            {
+                m_RunOnce = false;
+
+                switch (StartupMachineReady)
+                {
+                    case 0:  // Blocked
+                        MachineReadyStateMachine.Latch = false;
+                        MachineReadyStateMachine.MachineReady = false;
+                        break;
+                    case 1: // Blocked and Latched
+                        MachineReadyStateMachine.Latch = true;
+                        MachineReadyStateMachine.MachineReady = false;
+                        break;
+                    case 2: // Unblocked and Latched
+                        MachineReadyStateMachine.Latch = true;
+                        MachineReadyStateMachine.MachineReady = true;
+                        break;
+                    case 3:
+                        // Shutdown State
+                        MachineReadyStateMachine.Latch = PersistentMachineReadyLatch;
+                        MachineReadyStateMachine.MachineReady = PersistentMachineReady;
+                        break;
+                    default:
+                        MachineReadyStateMachine.Latch = false;
+                        MachineReadyStateMachine.MachineReady = false;
+                        break;
+                }
+
+                switch (StartupGoodBoard)
+                {
+                    case 0:  // Blocked
+                        BoardAvailableStateMachine.GoodBoardLatch = false;
+                        BoardAvailableStateMachine.GoodBoard = false;
+                        break;
+                    case 1: // Blocked and Latched
+                        BoardAvailableStateMachine.GoodBoardLatch = true;
+                        BoardAvailableStateMachine.GoodBoard = false;
+                        break;
+                    case 2: // Unblocked and Latched
+                        BoardAvailableStateMachine.GoodBoardLatch = true;
+                        BoardAvailableStateMachine.GoodBoard = true;
+                        break;
+                    case 3:
+                        // Shutdown State
+                        BoardAvailableStateMachine.GoodBoardLatch = PersistentGoodBoardLatch;
+                        BoardAvailableStateMachine.GoodBoard = PersistentGoodBoard;
+                        break;
+                    default:
+                        BoardAvailableStateMachine.GoodBoardLatch = false;
+                        BoardAvailableStateMachine.GoodBoard = false;
+                        break;
+                }
+
+                switch (StartupBadBoard)
+                {
+                    case 0:  // Blocked
+                        BoardAvailableStateMachine.BadBoardLatch = false;
+                        BoardAvailableStateMachine.BadBoard = false;
+                        break;
+                    case 1: // Blocked and Latched
+                        BoardAvailableStateMachine.BadBoardLatch = true;
+                        BoardAvailableStateMachine.BadBoard = false;
+                        break;
+                    case 2: // Unblocked and Latched
+                        BoardAvailableStateMachine.BadBoardLatch = true;
+                        BoardAvailableStateMachine.BadBoard = true;
+                        break;
+                    case 3:
+                        // Shutdown State
+                        BoardAvailableStateMachine.BadBoardLatch = PersistentBadBoardLatch;
+                        BoardAvailableStateMachine.BadBoard = PersistentBadBoard;
+                        break;
+                    default:
+                        BoardAvailableStateMachine.BadBoardLatch = false;
+                        BoardAvailableStateMachine.BadBoard = false;
+                        break;
+                }
+
+                // Manually Sync values here as Event handlers for updates are added below
+                PersistentMachineReady = MachineReadyStateMachine.MachineReady;
+                PersistentMachineReadyLatch = MachineReadyStateMachine.Latch;
+                PersistentGoodBoard = BoardAvailableStateMachine.GoodBoard;
+                PersistentGoodBoardLatch = BoardAvailableStateMachine.GoodBoardLatch;
+                PersistentBadBoard = BoardAvailableStateMachine.BadBoard;
+                PersistentBadBoardLatch = BoardAvailableStateMachine.BadBoardLatch;
+
+                // Now add Event handlers for future syncing updates
+                MachineReadyStateMachine.MachineReadyUpdated += (value) => { PersistentMachineReady = value; };
+                MachineReadyStateMachine.MachineReadyLatchUpdated += (value) => { PersistentMachineReadyLatch = value; };
+                BoardAvailableStateMachine.GoodBoardUpdated += (value) => { PersistentGoodBoard = value; };
+                BoardAvailableStateMachine.GoodBoardLatchedUpdated += (value) => { PersistentGoodBoardLatch = value; };
+                BoardAvailableStateMachine.BadBoardUpdated += (value) => { PersistentBadBoard = value; };
+                BoardAvailableStateMachine.BadBoardLatchedUpdated += (value) => { PersistentBadBoardLatch = value; };
+            }
+        }
+
         internal void UpdateProperties(InterlockProperties theNewProperties)
         {
             bool FlagSubscriptionUpdated = false;
@@ -109,6 +210,23 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 
             if (FlagSubscriptionUpdated) { SubscriptionsUpdated?.Invoke(); }
             if (FlagEventUpdated) { EventsUpdated?.Invoke(); }
+
+            StartupMachineReady = theNewProperties.StartupMachineReady;
+            StartupGoodBoard = theNewProperties.StartupGoodBoard;
+            StartupBadBoard = theNewProperties.StartupBadBoard;
+
+            if(m_RunOnce)
+            {
+                // Load values here temporary, to be loaded once in on Init()
+                PersistentMachineReadyLatch = theNewProperties.PersistentMachineReadyLatch;
+                PersistentMachineReady = theNewProperties.PersistentMachineReady;
+
+                PersistentGoodBoardLatch = theNewProperties.PersistentGoodBoardLatch;
+                PersistentGoodBoard = theNewProperties.PersistentGoodBoard;
+
+                PersistentBadBoardLatch = theNewProperties.PersistentBadBoardLatch;
+                PersistentBadBoard = theNewProperties.PersistentBadBoard;
+            }
         }
 
         private void MergeEvent(Models.Exchange.Event Into, Models.Exchange.Event From )

@@ -3,10 +3,10 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 {
     internal class InterlockSMEMAStateMachine
     {
-        internal bool MachineReady { get; set; }
-        internal bool GoodBoard { get; set; }
-        internal bool GoodBoardDiverted { get; set; }
-        internal bool BadBoard { get; set; }
-        internal bool BadBoardDiverted { get; set; }
+        internal ObservableValue<bool> MachineReady { get; private set; } = new ObservableValue<bool>();
+        internal ObservableValue<bool> GoodBoard { get; private set; } = new ObservableValue<bool>();
+        internal ObservableValue<bool> GoodBoardDiverted { get; private set; } = new ObservableValue<bool>();
+        internal ObservableValue<bool> BadBoard { get; private set; } = new ObservableValue<bool>();
+        internal ObservableValue<bool> BadBoardDiverted { get; private set; } = new ObservableValue<bool>();
     }
 }

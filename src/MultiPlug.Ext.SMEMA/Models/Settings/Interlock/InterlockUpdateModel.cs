@@ -5,6 +5,10 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.Interlock
     {
         public string Guid { get; set; }
 
+        public int StartupMachineReady { get; set; }
+        public int StartupGoodBoard { get; set; }
+        public int StartupBadBoard { get; set; }
+
         public string InterlockSubscriptionId { get; set; }
         public string InterlockSubscriptionReadyValue { get; set; }
 

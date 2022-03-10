@@ -48,6 +48,9 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Interlock
 
             InterlockProperties Properties = new InterlockProperties
             {
+                StartupMachineReady = theModel.StartupMachineReady,
+                StartupGoodBoard = theModel.StartupGoodBoard,
+                StartupBadBoard = theModel.StartupBadBoard,
                 InterlockSubscription = new Models.Exchange.Subscription
                 {
                     Id = theModel.InterlockSubscriptionId,

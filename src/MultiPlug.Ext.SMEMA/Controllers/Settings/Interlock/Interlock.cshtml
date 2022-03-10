@@ -10,6 +10,10 @@
     {
         return (theValue) ? "checked" : string.Empty;
     }
+    string isChecked(int theValue1, int theValue2)
+    {
+        return (theValue1 == theValue2) ? "checked" : string.Empty;
+    }
 }
 
 <form action="" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
@@ -45,16 +49,20 @@
                             <div class="row-fluid">
                                 <div class="span12">
                                     <label class="radio">
-                                        <input type="radio" name="MachineReadyRadios" value="option1" checked>
+                                        <input type="radio" name="StartupMachineReady" value="0" @isChecked(0, Model.Extension.Model.Properties.StartupMachineReady)>
                                         Blocked
                                     </label>
                                     <label class="radio">
-                                        <input type="radio" name="MachineReadyRadios" value="option2">
-                                        Unblocked
+                                        <input type="radio" name="StartupMachineReady" value="1" @isChecked(1, Model.Extension.Model.Properties.StartupMachineReady)>
+                                        Blocked and Latched
                                     </label>
                                     <label class="radio">
-                                        <input type="radio" name="MachineReadyRadios" value="option2">
-                                        Previous Latched State
+                                        <input type="radio" name="StartupMachineReady" value="2" @isChecked(2, Model.Extension.Model.Properties.StartupMachineReady)>
+                                        Unblocked and Latched
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="StartupMachineReady" value="3" @isChecked(3, Model.Extension.Model.Properties.StartupMachineReady)>
+                                        Shutdown State
                                     </label>
                                 </div>
                             </div>
@@ -65,16 +73,20 @@
                             <div class="row-fluid">
                                 <div class="span12">
                                     <label class="radio">
-                                        <input type="radio" name="GoodBoardRadios" value="option1" checked>
+                                        <input type="radio" name="StartupGoodBoard" value="0" @isChecked(0, Model.Extension.Model.Properties.StartupGoodBoard)>
                                         Blocked
                                     </label>
                                     <label class="radio">
-                                        <input type="radio" name="GoodBoardRadios" value="option2">
-                                        Unblocked
+                                        <input type="radio" name="StartupGoodBoard" value="1" @isChecked(1, Model.Extension.Model.Properties.StartupGoodBoard)>
+                                        Blocked and Latched
                                     </label>
                                     <label class="radio">
-                                        <input type="radio" name="GoodBoardRadios" value="option2">
-                                        Previous Latched State
+                                        <input type="radio" name="StartupGoodBoard" value="2" @isChecked(2, Model.Extension.Model.Properties.StartupGoodBoard)>
+                                        Unblocked and Latched
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="StartupGoodBoard" value="3" @isChecked(3, Model.Extension.Model.Properties.StartupGoodBoard)>
+                                        Shutdown State
                                     </label>
                                 </div>
                             </div>
@@ -85,16 +97,20 @@
                             <div class="row-fluid">
                                 <div class="span12">
                                     <label class="radio">
-                                        <input type="radio" name="BadBoardRadios" value="option1" checked>
+                                        <input type="radio" name="StartupBadBoard" value="0" @isChecked(0, Model.Extension.Model.Properties.StartupBadBoard)>
                                         Blocked
                                     </label>
                                     <label class="radio">
-                                        <input type="radio" name="BadBoardRadios" value="option2">
-                                        Unblocked
+                                        <input type="radio" name="StartupBadBoard" value="1" @isChecked(1, Model.Extension.Model.Properties.StartupBadBoard)>
+                                        Blocked and Latched
                                     </label>
                                     <label class="radio">
-                                        <input type="radio" name="BadBoardRadios" value="option2">
-                                        Previous Latched State
+                                        <input type="radio" name="StartupBadBoard" value="2" @isChecked(2, Model.Extension.Model.Properties.StartupBadBoard)>
+                                        Unblocked and Latched
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="StartupBadBoard" value="3" @isChecked(3, Model.Extension.Model.Properties.StartupBadBoard)>
+                                        Shutdown State
                                     </label>
                                 </div>
                             </div>

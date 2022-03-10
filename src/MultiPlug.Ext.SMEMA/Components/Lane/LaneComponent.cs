@@ -34,19 +34,22 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
             Interlock.BlockedUpdated += OnInterlockBlockedStatusUpdated;
 
             MachineReady.StateMachine.MachineReady += Interlock.MachineReadyStateMachine.OnSMEMAIOMachineReady;
-            Interlock.MachineReadyStateMachine.MachineReadyUpdated += BoardAvailable.OnMachineReady;
+            Interlock.MachineReadyStateMachine.SMEMADownlineStateMachine.MachineReady.Updated += BoardAvailable.OnMachineReady;
 
             BoardAvailable.StateMachine.GoodBoard += Interlock.BoardAvailableStateMachine.OnSMEMAIOGoodBoard;
-            Interlock.BoardAvailableStateMachine.GoodBoardUpdated += MachineReady.OnGoodBoard;
+            Interlock.BoardAvailableStateMachine.SMEMADownlineStateMachine.GoodBoard.Updated += MachineReady.StateMachine.OnGoodBoard;
+            Interlock.BoardAvailableStateMachine.SMEMADownlineStateMachine.BadBoardDiverted.Updated += MachineReady.StateMachine.OnGoodBoard;
 
             BoardAvailable.StateMachine.BadBoard += Interlock.BoardAvailableStateMachine.OnSMEMAIOBadBoard;
-            Interlock.BoardAvailableStateMachine.BadBoardUpdated += MachineReady.OnBadBoard;
+            Interlock.BoardAvailableStateMachine.SMEMADownlineStateMachine.BadBoard.Updated += MachineReady.StateMachine.OnBadBoard;
+            Interlock.BoardAvailableStateMachine.SMEMADownlineStateMachine.GoodBoardDiverted.Updated += MachineReady.StateMachine.OnBadBoard;
         }
 
         internal void Init()
         {
             BoardAvailable.StateMachine.Init();
             MachineReady.StateMachine.Init();
+            Interlock.Init();
         }
 
         private void OnEventsUpdated()

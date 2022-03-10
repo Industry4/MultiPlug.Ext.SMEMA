@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MultiPlug.Ext.SMEMA</id>
-    <version>1.0.9</version>
+    <version>1.0.10</version>
     <title>SMEMA MultiPlug Edge Computing Platform Extension</title>
     <authors>4IR.UK</authors>
     <owners>4IR.UK</owners>
@@ -12,6 +12,7 @@
     <description>SMEMA Extension for the MultiPlug .Net Edge Computing Platform</description>
 	<license type="expression">MIT</license>
     <releaseNotes>
+	1.0.10 Work in progress - Settable Startup State in UI
 	1.0.9 Work in progress - Block Events added for Machine Ready, Good Board and Bad Board
 	1.0.8 Work in progress - 1. Added Global Status Event of blocking. 2. Fetch live value of SMEMA values on startup/init
 	1.0.7 Work in progress - State bugs
