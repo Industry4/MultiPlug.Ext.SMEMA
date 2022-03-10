@@ -1,0 +1,249 @@
+﻿
+@functions{
+
+    string DrawEnabledIcon(bool theValue)
+    {
+        return (theValue) ? "<i class=\"fas fa-lg fa-check\"></i>" : "<i class=\"fas fa-lg fa-times\"></i>";
+    }
+
+    string DrawLeftIcon(bool theValue)
+    {
+        return (theValue) ? "<i class=\"fas fa-lg fa-arrow-left\"></i>" : "<i class=\"fas fa-lg fa-times\"></i>";
+    }
+
+    string DrawRightIcon(bool theValue)
+    {
+        return (theValue) ? "<i class=\"fas fa-lg fa-arrow-right\"></i>" : "<i class=\"fas fa-lg fa-times\"></i>";
+    }
+
+    string DrawLatchedIcon(bool theValue)
+    {
+        return (theValue) ? "<i class=\"fas fa-lg fa-lock\"></i>" : "<i class=\"fas fa-lg fa-lock-open\"></i>";
+    }
+
+    string DrawRightDivertedIcon(bool theValue, bool isBadBoard)
+    {
+        int Rotate = (!theValue) ? 0 : isBadBoard ? 315 : 45;
+
+        return "<i style=\"display: inline-block;\" class=\"fas fa-lg fa-arrow-right divert-rotate-" + Rotate + "\"></i>";
+    }
+
+    string DrawLeftDivertedIcon(bool theValue, bool isBadBoard)
+    {
+        int Rotate = (!theValue) ? 0 : isBadBoard ? 45 : 315;
+
+        return "<i style=\"display: inline-block;\" class=\"fas fa-lg fa-arrow-left divert-rotate-" + Rotate + "\"></i>";
+    }
+
+    string DrawButton(string theId, string theAPI, bool theEnabled, string theIcon)
+    {
+        return DrawButton(theId, theAPI, theEnabled, theIcon, string.Empty, string.Empty);
+    }
+
+    string DrawButton(string theId, string theAPI, bool theEnabled, string theIcon, string theEnabledClasses, string theDisabledClasses)
+    {
+        return "<button id=\"" + theId + "\" class=\"btn btn-smema-outline-dark btn-sq-sm " + (theEnabled ? theEnabledClasses : theDisabledClasses) + " btn-apicall\" data-api-href=\"" + theAPI + "&enable=" + (theEnabled ? "false" : "true") + "\">" + theIcon + "</button>";
+    }
+}
+<div class="col-sm">
+    <!--accordion class/id must be unique-->
+    <div class="accordion interlock-smemaio interlock">
+        <div class="card">
+            <a role="button"
+               data-toggle="collapse"
+               href="#collapse-2"
+               aria-expanded="true"
+               aria-controls="collapse-2">
+                <div class="card-header secondary-header" id="heading-2-1">
+                    <h5 class="mb-0" style="display: inline">
+                        Interlock
+                    </h5>
+                </div>
+            </a>
+            <!--data-parent must match unique accordion class/id-->
+            <div id="collapse-2" class="collapse show" data-parent=".interlock-smemaio" aria-labelledby="heading-2-1">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td class="col-lg-2"><h6>R</h6></td>
+                                        <td class="col-lg-5 text-center td-btn-clear">
+                                            @if (!Model.Extension.Model.RightToLeft)
+                                            {
+                                                <div class="btn-group" role="group">
+                                                    @Raw(DrawButton("SMEMAInterlockMachineReadyState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/ready/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockStates.MachineReady,
+                                                        DrawLeftIcon(Model.Extension.Model.SMEMAInterlockStates.MachineReady),
+                                                        "btn-smema-unblocked",
+                                                        "btn-smema-blocked"))
+                                                    @Raw(DrawButton("SMEMAInterlockMachineReadyLatchState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/ready/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockLatchedStates.MachineReady,
+                                                        DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockLatchedStates.MachineReady)))
+                                                </div>
+                                            }
+                                        </td>
+                                        <td class="col-lg-5 text-center td-btn-clear">
+                                            @if (Model.Extension.Model.RightToLeft)
+                                            {
+                                                <div class="btn-group" role="group">
+                                                    @Raw(DrawButton("SMEMAInterlockMachineReadyLatchState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/ready/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockLatchedStates.MachineReady,
+                                                        DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockLatchedStates.MachineReady)))
+                                                    @Raw(DrawButton("SMEMAInterlockMachineReadyState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/ready/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockStates.MachineReady,
+                                                        DrawRightIcon(Model.Extension.Model.SMEMAInterlockStates.MachineReady),
+                                                        "btn-smema-unblocked smema-righttoleft",
+                                                        "btn-smema-blocked smema-righttoleft"))
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-lg-2"><h6>G</h6></td>
+                                        <td class="col-lg-5 text-center td-btn-clear">
+                                            @if (Model.Extension.Model.RightToLeft)
+                                            {
+                                                <div class="btn-group" role="group">
+                                                    @Raw(DrawButton("SMEMAInterlockGoodBoardState",
+                                                            Model.Context.Paths.APIs + "1/lane/interlock/good/?guid=" + Model.Extension.Model.LaneGuid,
+                                                            Model.Extension.Model.SMEMAInterlockStates.GoodBoard,
+                                                            DrawLeftIcon(Model.Extension.Model.SMEMAInterlockStates.GoodBoard),
+                                                            "btn-smema-unblocked smema-righttoleft",
+                                                            "btn-smema-blocked smema-righttoleft"))
+                                                    @Raw(DrawButton("SMEMAInterlockGoodBoardLatchState",
+                                                            Model.Context.Paths.APIs + "1/lane/interlock/good/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                            Model.Extension.Model.SMEMAInterlockLatchedStates.GoodBoard,
+                                                            DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockLatchedStates.GoodBoard)))
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="btn-group" role="group">
+                                                    @Raw(DrawButton("SMEMAInterlockGoodBoardDivertLatchState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/good/divert/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockDivertLatchedStates.GoodBoard,
+                                                        DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockDivertLatchedStates.GoodBoard)))
+                                                    @Raw(DrawButton("SMEMAInterlockGoodBoardDivertState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/good/divert/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockDivertStates.GoodBoard,
+                                                        DrawRightDivertedIcon(Model.Extension.Model.SMEMAInterlockDivertStates.GoodBoard, false),
+                                                        "btn-smema-diverted",
+                                                        "btn-smema-unblocked"))
+                                                </div>
+                                            }
+                                        </td>
+                                        <td class="col-lg-5 text-center td-btn-clear">
+                                            @if (Model.Extension.Model.RightToLeft)
+                                            {
+                                                <div class="btn-group" role="group">
+                                                    @Raw(DrawButton("SMEMAInterlockGoodBoardDivertState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/good/divert/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockDivertStates.GoodBoard,
+                                                        DrawLeftDivertedIcon(Model.Extension.Model.SMEMAInterlockDivertStates.GoodBoard, false),
+                                                        "btn-smema-diverted smema-righttoleft",
+                                                        "btn-smema-unblocked smema-righttoleft"))
+                                                    @Raw(DrawButton("SMEMAInterlockGoodBoardDivertLatchState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/good/divert/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockDivertLatchedStates.GoodBoard,
+                                                        DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockDivertLatchedStates.GoodBoard)))
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="btn-group" role="group">
+                                                    @Raw(DrawButton("SMEMAInterlockGoodBoardLatchState",
+                                                            Model.Context.Paths.APIs + "1/lane/interlock/good/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                            Model.Extension.Model.SMEMAInterlockLatchedStates.GoodBoard,
+                                                            DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockLatchedStates.GoodBoard)))
+                                                    @Raw(DrawButton("SMEMAInterlockGoodBoardState",
+                                                            Model.Context.Paths.APIs + "1/lane/interlock/good/?guid=" + Model.Extension.Model.LaneGuid,
+                                                            Model.Extension.Model.SMEMAInterlockStates.GoodBoard,
+                                                            DrawRightIcon(Model.Extension.Model.SMEMAInterlockStates.GoodBoard),
+                                                            "btn-smema-unblocked",
+                                                            "btn-smema-blocked"))
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-lg-2"><h6>B</h6></td>
+                                        <td class="col-lg-5 text-center td-btn-clear">
+                                            @if (Model.Extension.Model.RightToLeft)
+                                            {
+                                                <div class="btn-group" role="group">
+                                                    @Raw(DrawButton("SMEMAInterlockBadBoardState",
+                                                            Model.Context.Paths.APIs + "1/lane/interlock/bad/?guid=" + Model.Extension.Model.LaneGuid,
+                                                            Model.Extension.Model.SMEMAInterlockStates.BadBoard,
+                                                            DrawRightIcon(Model.Extension.Model.SMEMAInterlockStates.BadBoard),
+                                                            "btn-smema-unblocked smema-righttoleft",
+                                                            "btn-smema-blocked smema-righttoleft"))
+                                                    @Raw(DrawButton("SMEMAInterlockBadBoardLatchState",
+                                                            Model.Context.Paths.APIs + "1/lane/interlock/bad/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                            Model.Extension.Model.SMEMAInterlockLatchedStates.BadBoard,
+                                                            DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockLatchedStates.BadBoard)))
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="btn-group" role="group">
+                                                    @Raw(DrawButton("SMEMAInterlockBadBoardDivertLatchState",
+                                                            Model.Context.Paths.APIs + "1/lane/interlock/bad/divert/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                            Model.Extension.Model.SMEMAInterlockDivertLatchedStates.BadBoard,
+                                                            DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockDivertLatchedStates.BadBoard)))
+                                                    @Raw(DrawButton("SMEMAInterlockBadBoardDivertState",
+                                                            Model.Context.Paths.APIs + "1/lane/interlock/bad/divert/?guid=" + Model.Extension.Model.LaneGuid,
+                                                            Model.Extension.Model.SMEMAInterlockDivertStates.BadBoard,
+                                                            DrawRightDivertedIcon(Model.Extension.Model.SMEMAInterlockDivertStates.BadBoard, true),
+                                                            "btn-smema-diverted",
+                                                            "btn-smema-unblocked"))
+                                                </div>
+                                            }
+                                        </td>
+                                        <td class="col-lg-5 text-center td-btn-clear">
+                                            @if (Model.Extension.Model.RightToLeft)
+                                            {
+                                                <div class="btn-group" role="group">
+                                                    @Raw(DrawButton("SMEMAInterlockBadBoardDivertState",
+                                                            Model.Context.Paths.APIs + "1/lane/interlock/bad/divert/?guid=" + Model.Extension.Model.LaneGuid,
+                                                            Model.Extension.Model.SMEMAInterlockDivertStates.BadBoard,
+                                                            DrawLeftDivertedIcon(Model.Extension.Model.SMEMAInterlockDivertStates.BadBoard, true),
+                                                            "btn-smema-diverted smema-righttoleft",
+                                                            "btn-smema-unblocked smema-righttoleft"))
+                                                    @Raw(DrawButton("SMEMAInterlockBadBoardDivertLatchState",
+                                                            Model.Context.Paths.APIs + "1/lane/interlock/bad/divert/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                            Model.Extension.Model.SMEMAInterlockDivertLatchedStates.BadBoard,
+                                                            DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockDivertLatchedStates.BadBoard)))
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="btn-group" role="group">
+                                                    @Raw(DrawButton("SMEMAInterlockBadBoardLatchState",
+                                                            Model.Context.Paths.APIs + "1/lane/interlock/bad/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                            Model.Extension.Model.SMEMAInterlockLatchedStates.BadBoard,
+                                                            DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockLatchedStates.BadBoard)))
+                                                    @Raw(DrawButton("SMEMAInterlockBadBoardState",
+                                                            Model.Context.Paths.APIs + "1/lane/interlock/bad/?guid=" + Model.Extension.Model.LaneGuid,
+                                                            Model.Extension.Model.SMEMAInterlockStates.BadBoard,
+                                                            DrawRightIcon(Model.Extension.Model.SMEMAInterlockStates.BadBoard),
+                                                            "btn-smema-unblocked",
+                                                            "btn-smema-blocked"))
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

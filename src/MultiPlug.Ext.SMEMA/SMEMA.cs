@@ -48,6 +48,9 @@ namespace MultiPlug.Ext.SMEMA
                     new RazorTemplate(Templates.AppsSMEMAMonitorSMEMAIOContainer, Resources.AppsSMEMAMonitorSMEMAIOContainer),
                     new RazorTemplate(Templates.AppsSMEMAMonitorNotSetup, Resources.AppsSMEMAMonitorNotSetup),
                     new RazorTemplate(Templates.AppsSMEMAMonitorLaneNotFound, Resources.AppsSMEMAMonitorLaneNotFound),
+                    new RazorTemplate(Templates.AppsSMEMAMonitorUplineColumn, Resources.AppsSMEMAMonitorUplineColumn),
+                    new RazorTemplate(Templates.AppsSMEMAMonitorInterlockColumn, Resources.AppsSMEMAMonitorInterlockColumn),
+                    new RazorTemplate(Templates.AppsSMEMAMonitorDownlineColumn, Resources.AppsSMEMAMonitorDownlineColumn),
                     new RazorTemplate(Templates.AppsSMEMAMonitorHome, Resources.AppsSMEMAMonitorHome),
                 };
             }

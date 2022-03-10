@@ -97,6 +97,31 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to @functions{
+        ///
+        ///    string DrawEnabledIcon(bool theValue)
+        ///    {
+        ///        return (theValue) ? &quot;&lt;i class=\&quot;fas fa-lg fa-check\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;fas fa-lg fa-times\&quot;&gt;&lt;/i&gt;&quot;;
+        ///    }
+        ///}
+        ///
+        ///&lt;div class=&quot;col-sm&quot;&gt;
+        ///    &lt;div class=&quot;accordion downline-smemaio smemaio&quot;&gt;
+        ///        &lt;div class=&quot;card&quot;&gt;
+        ///            &lt;a role=&quot;button&quot;
+        ///               data-toggle=&quot;collapse&quot;
+        ///               href=&quot;#collapse-3&quot;
+        ///               aria-expanded=&quot;true&quot;
+        ///               aria-controls=&quot;collapse-3&quot;&gt;
+        ///                &lt;div class=&quot;card-hea [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string AppsSMEMAMonitorDownlineColumn {
+            get {
+                return ResourceManager.GetString("AppsSMEMAMonitorDownlineColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
         ///
         ///&lt;!DOCTYPE html&gt;
@@ -113,6 +138,27 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         internal static string AppsSMEMAMonitorHome {
             get {
                 return ResourceManager.GetString("AppsSMEMAMonitorHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System;
+        ///using System.Collections.Generic;
+        ///using System.Linq;
+        ///using System.Text;
+        ///using System.Threading.Tasks;
+        ///
+        ///namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor.Elements
+        ///{
+        ///    class SMEMAInterlockColumn
+        ///    {
+        ///    }
+        ///}
+        ///.
+        /// </summary>
+        internal static string AppsSMEMAMonitorInterlockColumn {
+            get {
+                return ResourceManager.GetString("AppsSMEMAMonitorInterlockColumn", resourceCulture);
             }
         }
         
@@ -242,29 +288,48 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         /// <summary>
         ///   Looks up a localized string similar to @functions{
         ///
-        ///    string IsSMEMAMachineReadyStateHigh(bool theValue)
+        ///    string DrawEnabledIcon(bool theValue)
+        ///    {
+        ///        return (theValue) ? &quot;&lt;i class=\&quot;fas fa-lg fa-check\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;fas fa-lg fa-times\&quot;&gt;&lt;/i&gt;&quot;;
+        ///    }
+        ///
+        ///    string DrawLeftIcon(bool theValue)
+        ///    {
+        ///        return (theValue) ? &quot;&lt;i class=\&quot;fas fa-lg fa-arrow-left\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;fas fa-lg fa-times\&quot;&gt;&lt;/i&gt;&quot;;
+        ///    }
+        ///
+        ///    string DrawRightIcon(bool theValue)
+        ///    {
+        ///        return (theValue) ? &quot;&lt;i class=\&quot;fas fa-lg fa-arrow-right\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;fas fa-lg fa-times\&quot;&gt;&lt; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string AppsSMEMAMonitorSMEMAIOContainer {
+            get {
+                return ResourceManager.GetString("AppsSMEMAMonitorSMEMAIOContainer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to @functions{
+        ///
+        ///    string DrawEnabledIcon(bool theValue)
         ///    {
         ///        return (theValue) ? &quot;&lt;i class=\&quot;fas fa-lg fa-check\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;fas fa-lg fa-times\&quot;&gt;&lt;/i&gt;&quot;;
         ///    }
         ///}
         ///
-        ///&lt;div class=&quot;container&quot; id=&quot;container1&quot;&gt;
-        ///
-        ///    &lt;div class=&quot;row&quot;&gt;
-        ///        &lt;div class=&quot;col-lg-12 col-md-12&quot;&gt;
-        ///            &lt;nav class=&quot;nav&quot;&gt;
-        ///                &lt;a class=&quot;nav-link active&quot; href=&quot;&quot;&gt;SMEMA I/O&lt;/a&gt;
-        ///            &lt;/nav&gt;
-        ///            &lt;hr&gt;
-        ///        &lt;/div&gt;
-        ///    &lt;/div&gt;
-        ///
-        ///    &lt;div class=&quot;row&quot;&gt;
-        ///        &lt;div cl [rest of string was truncated]&quot;;.
+        ///&lt;div class=&quot;col-sm&quot;&gt;
+        ///    &lt;!--accordion class/id must be unique--&gt;
+        ///    &lt;div class=&quot;accordion upline-smemaio smemaio&quot;&gt;
+        ///        &lt;div class=&quot;card&quot;&gt;
+        ///            &lt;a role=&quot;button&quot;
+        ///               data-toggle=&quot;collapse&quot;
+        ///               href=&quot;#collapse-1&quot;
+        ///               aria-expanded=&quot;true&quot;
+        ///               aria-controls=&quot;collap [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string AppsSMEMAMonitorSMEMAIOContainer {
+        internal static string AppsSMEMAMonitorUplineColumn {
             get {
-                return ResourceManager.GetString("AppsSMEMAMonitorSMEMAIOContainer", resourceCulture);
+                return ResourceManager.GetString("AppsSMEMAMonitorUplineColumn", resourceCulture);
             }
         }
         
@@ -583,15 +648,17 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         ///    {
         ///        return (theValue) ? &quot;&lt;i class=\&quot;icon-ok icon-large\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;icon-remove icon-large\&quot;&gt;&lt;/i&gt;&quot;;
         ///    }
+        ///    string isEnabled(bool theValue)
+        ///    {
+        ///        return (theValue) ? &quot;checked&quot; : string.Empty;
+        ///    }
+        ///    string isChecked(int theValue1, int theValue2)
+        ///    {
+        ///        return (theValue1 == theValue2) ? &quot;checked&quot; : string.Empty;
+        ///    }
         ///}
         ///
-        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
-        ///    &lt;input type=&quot;hidden&quot; name=&quot;Guid&quot; value=&quot;@Model.Extension.Model.Guid&quot;&gt;
-        ///    &lt;section class=&quot;row-fluid&quot;&gt;
-        ///
-        ///        &lt;div class=&quot;row-fluid&quot;&gt;
-        ///            &lt;div class=&quot;box&quot;&gt;
-        ///               [rest of string was truncated]&quot;;.
+        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SettingsInterlock {
             get {
@@ -609,15 +676,16 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         ///        return (@Model.Extension.Model.LoggingLevel == theLevel) ? &quot;selected&quot; : &quot;&quot;;
         ///    }
         ///
+        ///    string isEnabled(bool theValue)
+        ///    {
+        ///        return (theValue) ? &quot;checked&quot; : string.Empty;
+        ///    }
+        ///
         ///}
         ///
         ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
         ///    &lt;input type=&quot;hidden&quot; name=&quot;Guid&quot; value=&quot;@Model.Extension.Model.Guid&quot;&gt;
-        ///    &lt;section class=&quot;row-fluid&quot;&gt;
-        ///
-        ///        &lt;div class=&quot;row-fluid&quot;&gt;
-        ///            &lt;div class=&quot;box&quot;&gt;
-        ///                &lt;div class=&quot;span [rest of string was truncated]&quot;;.
+        ///    &lt;section class=&quot;row [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SettingsLane {
             get {

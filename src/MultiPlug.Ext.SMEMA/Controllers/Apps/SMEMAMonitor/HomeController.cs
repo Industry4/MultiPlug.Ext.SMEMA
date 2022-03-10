@@ -70,6 +70,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
                     LaneGuid = LaneSearch.Guid,
                     MachineName = LaneSearch.MachineId,
                     LaneName = LaneSearch.LaneId,
+                    RightToLeft = LaneSearch.RightToLeft,
 
                     Lanes = Core.Instance.Lanes.Select(Lane => new Models.Apps.LaneUrl { Guid = Lane.Guid, MachineName = Lane.MachineId, LaneName = Lane.LaneId }).ToArray(),
 

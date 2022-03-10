@@ -30,11 +30,19 @@ function DrawLatchedIcon(theSelect, theValue) {
     theSelect.html(theValue == '1' ? '<i class="fas fa-lg fa-lock"></i>' : '<i class="fas fa-lg fa-lock-open"></i>');
 }
 
-function DrawDivertedIcon(theSelect, theValue, isBadBoard)
+function DrawRightDivertedIcon(theSelect, theValue, isBadBoard)
 {
     var Rotate = (theValue == '0') ? 0 : isBadBoard ? 315 : 45;
 
     theSelect.html("<i class=\"fas fa-lg fa-arrow-right divert-rotate-" + Rotate + "\"></i>");
+
+    UpdateColour(theSelect, theValue, "btn-smema-diverted", "btn-smema-unblocked");
+}
+
+function DrawLeftDivertedIcon(theSelect, theValue, isBadBoard) {
+    var Rotate = (theValue == '0') ? 0 : isBadBoard ? 45 : 315;
+
+    theSelect.html("<i class=\"fas fa-lg fa-arrow-left divert-rotate-" + Rotate + "\"></i>");
 
     UpdateColour(theSelect, theValue, "btn-smema-diverted", "btn-smema-unblocked");
 }
@@ -132,7 +140,14 @@ function Initialise(theAPIPath,
             }
             else if (id == theSMEMAInterlockMachineReadySubId) {
                 var item = $('#SMEMAInterlockMachineReadyState');
-                DrawLeftIcon(item, Payload.Subjects[0].Value);
+
+                if (item.hasClass("smema-righttoleft")){
+                    DrawRightIcon(item, Payload.Subjects[0].Value);
+                }
+                else {
+                    DrawLeftIcon(item, Payload.Subjects[0].Value);
+                }
+
                 UpdateApiHref(item, Payload.Subjects[0].Value);
 
                 item = $('#SMEMAInterlockMachineReadyLatchState');
@@ -142,7 +157,12 @@ function Initialise(theAPIPath,
             else if (id == theSMEMAInterlockGoodBoardSubId) {
 
                 var item = $('#SMEMAInterlockGoodBoardState');
-                DrawRightIcon(item, Payload.Subjects[0].Value);
+                if (item.hasClass("smema-righttoleft")) {
+                    DrawLeftIcon(item, Payload.Subjects[0].Value);
+                }
+                else {
+                    DrawRightIcon(item, Payload.Subjects[0].Value);
+                }
                 UpdateApiHref(item, Payload.Subjects[0].Value);
 
                 item = $('#SMEMAInterlockGoodBoardLatchState');
@@ -150,7 +170,13 @@ function Initialise(theAPIPath,
                 UpdateApiHref(item, Payload.Subjects[2].Value);
 
                 item = $('#SMEMAInterlockGoodBoardDivertState');
-                DrawDivertedIcon(item, Payload.Subjects[3].Value, false);
+                if (item.hasClass("smema-righttoleft")) {
+                    DrawLeftDivertedIcon(item, Payload.Subjects[3].Value, false);
+                }
+                else{
+                    DrawRightDivertedIcon(item, Payload.Subjects[3].Value, false);
+                }
+
                 UpdateApiHref(item, Payload.Subjects[3].Value);
 
                 item = $('#SMEMAInterlockGoodBoardDivertLatchState');
@@ -160,7 +186,13 @@ function Initialise(theAPIPath,
             else if (id == theSMEMAInterlockBadBoardSubId) {
 
                 var item = $('#SMEMAInterlockBadBoardState');
-                DrawRightIcon(item, Payload.Subjects[0].Value);
+                if (item.hasClass("smema-righttoleft")) {
+                    DrawLeftIcon(item, Payload.Subjects[0].Value);
+                }
+                else {
+                    DrawRightIcon(item, Payload.Subjects[0].Value);
+                }
+                
                 UpdateApiHref(item, Payload.Subjects[0].Value);
 
                 item = $('#SMEMAInterlockBadBoardLatchState');
@@ -168,7 +200,13 @@ function Initialise(theAPIPath,
                 UpdateApiHref(item, Payload.Subjects[2].Value);
 
                 item = $('#SMEMAInterlockBadBoardDivertState');
-                DrawDivertedIcon(item, Payload.Subjects[3].Value, true);
+                if (item.hasClass("smema-righttoleft")) {
+                    DrawLeftDivertedIcon(item, Payload.Subjects[3].Value, true);
+                }
+                else {
+                    DrawRightDivertedIcon(item, Payload.Subjects[3].Value, true);
+                }
+
                 UpdateApiHref(item, Payload.Subjects[3].Value);
 
                 item = $('#SMEMAInterlockBadBoardDivertLatchState');

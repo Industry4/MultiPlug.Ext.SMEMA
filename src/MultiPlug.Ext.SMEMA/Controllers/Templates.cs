@@ -20,6 +20,8 @@ namespace MultiPlug.Ext.SMEMA.Controllers
         internal const string AppsSMEMAMonitorWebSocketReconnectModal = "SMEMA_Monitor_WebSocketReconnectModal";
         internal const string AppsSMEMAMonitorSelectLaneModal = "SMEMA_Monitor_SelectLaneModal";
         internal const string AppsSMEMAMonitorSMEMAIOContainer = "SMEMA_Monitor_SMEMAIOContainer";
-
+        internal const string AppsSMEMAMonitorUplineColumn = "SMEMA_Monitor_Upline_Column";
+        internal const string AppsSMEMAMonitorDownlineColumn = "SMEMA_Monitor_Downline_Column";
+        internal const string AppsSMEMAMonitorInterlockColumn = "SMEMA_Monitor_Interlock_Column";
     }
 }

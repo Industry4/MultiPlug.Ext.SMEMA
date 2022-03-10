@@ -132,7 +132,13 @@ namespace MultiPlug.Ext.SMEMA
                     NewLane.SubscriptionsUpdated += OnLaneSubscriptionsUpdated;
                     NewLane.StatusUpdated += OnLaneStatusUpdated;
 
-                    NewLane.UpdateProperties(new LaneProperties { LaneId = Lane.LaneId, MachineId = Lane.MachineId });
+                    NewLane.UpdateProperties(new LaneProperties
+                    {
+                        LaneId = Lane.LaneId,
+                        MachineId = Lane.MachineId,
+                        LoggingLevel = Lane.LoggingLevel,
+                        RightToLeft = Lane.RightToLeft
+                    });
 
                     if (Lane.BoardAvailable != null)
                     {

@@ -238,4 +238,13 @@
   <data name="favicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controllers\Assets\Icons\Icons\favicon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AppsSMEMAMonitorUplineColumn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Apps\SMEMAMonitor\Elements\SMEMAUplineColumn.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="AppsSMEMAMonitorDownlineColumn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Apps\SMEMAMonitor\Elements\SMEMADownlineColumn.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="AppsSMEMAMonitorInterlockColumn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Apps\SMEMAMonitor\Elements\SMEMAInterlockColumn.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

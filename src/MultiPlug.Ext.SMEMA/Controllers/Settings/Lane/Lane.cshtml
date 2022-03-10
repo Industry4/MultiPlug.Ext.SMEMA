@@ -7,6 +7,11 @@
         return (@Model.Extension.Model.LoggingLevel == theLevel) ? "selected" : "";
     }
 
+    string isEnabled(bool theValue)
+    {
+        return (theValue) ? "checked" : string.Empty;
+    }
+
 }
 
 <form action="" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
@@ -56,7 +61,7 @@
                     <div class="control-group form-horizontal">
                         <label class="control-label" for="inputLaneID">Right to Left</label>
                         <div class="controls">
-                            <input name="RightToLeft" type="checkbox">
+                            <input name="RightToLeft" type="checkbox" @isEnabled(Model.Extension.Model.RightToLeft)>
                         </div>
                     </div>
                 </div>

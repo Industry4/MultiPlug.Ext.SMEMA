@@ -66,6 +66,8 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
         {
             MachineId = theNewProperties.MachineId;
             LaneId = theNewProperties.LaneId;
+            RightToLeft = theNewProperties.RightToLeft;
+            LoggingLevel = theNewProperties.LoggingLevel;
         }
 
         private void OnInterlockBlockedStatusUpdated()

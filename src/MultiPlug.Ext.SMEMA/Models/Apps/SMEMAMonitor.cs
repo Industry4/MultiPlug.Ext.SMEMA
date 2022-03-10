@@ -9,6 +9,7 @@ namespace MultiPlug.Ext.SMEMA.Models.Apps
         public string LaneName { get; internal set; }
         public LaneUrl[] Lanes { get; internal set; }
         public string MachineName { get; internal set; }
+        public bool RightToLeft { get; internal set; }
 
         public ComponentStates SMEMABoardAvailableStates { get; internal set; }
         public ComponentStates SMEMAInterlockStates { get; internal set; }

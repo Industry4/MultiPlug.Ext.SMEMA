@@ -30,7 +30,8 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Lane
                     LaneId = LaneSearch.LaneId,
                     MachineId = LaneSearch.MachineId,
                     Log = string.Empty,     // TODO
-                    LoggingLevel = 0        // TODO
+                    LoggingLevel = 0,       // TODO
+                    RightToLeft = LaneSearch.RightToLeft
                 },
                 Template = Templates.SettingsLane,
                // Subscriptions = new Subscription[] { new Subscription { Id = LaneSearch.LogEventId } }
@@ -53,7 +54,8 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Lane
             {
                 LaneId = theModel.LaneId,
                 MachineId = theModel.MachineId,
-                LoggingLevel = theModel.LoggingLevel
+                LoggingLevel = theModel.LoggingLevel,
+                RightToLeft = theModel.RightToLeft
             };
 
             LaneSearch.UpdateProperties(LaneProps);

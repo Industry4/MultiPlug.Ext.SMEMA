@@ -20,5 +20,9 @@ namespace MultiPlug.Ext.SMEMA.Models.Load
         public MachineReadyProperties MachineReady { get; set; }
         [DataMember]
         public InterlockProperties Interlock { get; set; }
+        [DataMember]
+        public bool RightToLeft { get; set; }
+        [DataMember]
+        public int LoggingLevel { get; set; } = 0;
     }
 }

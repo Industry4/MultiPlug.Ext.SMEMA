@@ -131,6 +131,9 @@
     <None Include="Controllers\Apps\SMEMAMonitor\Containers\SMEMAIOContainer.cshtml" />
     <None Include="Controllers\Apps\SMEMAMonitor\Elements\NavBar.cshtml" />
     <None Include="Controllers\Apps\SMEMAMonitor\Elements\NavBarSimple.cshtml" />
+    <None Include="Controllers\Apps\SMEMAMonitor\Elements\SMEMADownlineColumn.cshtml" />
+    <None Include="Controllers\Apps\SMEMAMonitor\Elements\SMEMAInterlockColumn.cshtml" />
+    <None Include="Controllers\Apps\SMEMAMonitor\Elements\SMEMAUplineColumn.cshtml" />
     <None Include="Controllers\Apps\SMEMAMonitor\Errors\LaneNotFound.cshtml" />
     <None Include="Controllers\Apps\SMEMAMonitor\Errors\NotSetup.cshtml" />
     <None Include="Controllers\Apps\SMEMAMonitor\Home.cshtml" />
