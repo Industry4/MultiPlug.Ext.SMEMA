@@ -22,8 +22,10 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
 
             var Result = new
             {
-                BadBoard = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard,
-                Latch = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch
+                Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard,
+                Latched = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch,
+                Diverted = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert,
+                DivertedLatched = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivertLatch
             };
 
             return new Response
@@ -48,9 +50,19 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
 
             LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard = enable;
 
+            var Result = new
+            {
+                Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard,
+                Latched = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch,
+                Diverted = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert,
+                DivertedLatched = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivertLatch
+            };
+
             return new Response
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
+                Model = Result,
+                MediaType = "application/json"
             };
         }
     }

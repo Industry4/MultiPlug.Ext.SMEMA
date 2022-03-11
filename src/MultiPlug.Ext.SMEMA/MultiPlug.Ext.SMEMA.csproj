@@ -77,6 +77,7 @@
     <Compile Include="Controllers\API\LanesController.cs" />
     <Compile Include="Controllers\API\Power\RestartController.cs" />
     <Compile Include="Controllers\API\Power\ShutdownController.cs" />
+    <Compile Include="Controllers\API\SMEMA\SMEMAController.cs" />
     <Compile Include="Controllers\API\Utils\GetLane.cs" />
     <Compile Include="Controllers\Apps\SMEMAMonitor\HomeController.cs" />
     <Compile Include="Controllers\Apps\SMEMAMonitor\SMEMAMonitorApp.cs" />

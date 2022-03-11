@@ -22,8 +22,8 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.MachineReady
 
             var Result = new
             {
-                MachineReady = LaneSearch.Interlock.MachineReadyStateMachine.MachineReady,
-                Latch = LaneSearch.Interlock.MachineReadyStateMachine.Latch
+                Ready = LaneSearch.Interlock.MachineReadyStateMachine.MachineReady,
+                Latched = LaneSearch.Interlock.MachineReadyStateMachine.Latch
             };
 
             return new Response
@@ -48,9 +48,17 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.MachineReady
 
             LaneSearch.Interlock.MachineReadyStateMachine.MachineReady = enable;
 
+            var Result = new
+            {
+                Ready = LaneSearch.Interlock.MachineReadyStateMachine.MachineReady,
+                Latched = LaneSearch.Interlock.MachineReadyStateMachine.Latch
+            };
+
             return new Response
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
+                Model = Result,
+                MediaType = "application/json"
             };
         }
     }

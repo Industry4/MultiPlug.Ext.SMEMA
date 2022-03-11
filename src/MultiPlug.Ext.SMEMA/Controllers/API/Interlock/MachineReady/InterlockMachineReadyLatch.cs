@@ -22,9 +22,17 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.MachineReady
 
             LaneSearch.Interlock.MachineReadyStateMachine.Latch = enable;
 
+            var Result = new
+            {
+                Ready = LaneSearch.Interlock.MachineReadyStateMachine.MachineReady,
+                Latched = LaneSearch.Interlock.MachineReadyStateMachine.Latch
+            };
+
             return new Response
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
+                Model = Result,
+                MediaType = "application/json"
             };
         }
     }

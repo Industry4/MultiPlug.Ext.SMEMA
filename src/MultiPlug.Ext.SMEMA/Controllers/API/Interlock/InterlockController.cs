@@ -22,9 +22,35 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock
 
             var Result = new
             {
-                MachineReady = LaneSearch.Interlock.MachineReadyStateMachine.MachineReady,
-                GoodBoard = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard,
-                BadBoard = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard
+                Open = new
+                {
+                    Ready = LaneSearch.Interlock.MachineReadyStateMachine.MachineReady,
+                    Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard,
+                    Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard
+                },
+                Latched = new
+                {
+                    Ready = LaneSearch.Interlock.MachineReadyStateMachine.Latch,
+                    Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardLatch,
+                    Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch
+                },
+                Diverted = new
+                {
+                    Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivert,
+                    Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert
+                },
+                DivertedLatched = new
+                {
+                    Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivertLatch,
+                    Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivertLatch
+                },
+                Blocked = new
+                {
+                    Ready = LaneSearch.Interlock.MachineReadyStateMachine.Blocked,
+                    Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardBlocked,
+                    Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardBlocked
+                }
+
             };
 
             return new Response

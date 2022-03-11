@@ -22,9 +22,19 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.GoodBoard
 
             LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivert = enable;
 
+            var Result = new
+            {
+                Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard,
+                Latched = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardLatch,
+                Diverted = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivert,
+                DivertedLatched = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivertLatch
+            };
+
             return new Response
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
+                Model = Result,
+                MediaType = "application/json"
             };
         }
     }

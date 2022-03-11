@@ -10,9 +10,15 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Power
         {
             if (Core.Instance.DoRestart())
             {
+                var Result = new
+                {
+                };
+
                 return new Response
                 {
                     StatusCode = System.Net.HttpStatusCode.OK,
+                    Model = Result,
+                    MediaType = "application/json"
                 };
             }
             else
