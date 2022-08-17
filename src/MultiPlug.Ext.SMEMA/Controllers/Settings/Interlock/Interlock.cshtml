@@ -120,7 +120,7 @@
                 </div>
             </div>
 
-            <h4>Security</h4>
+            <h4>Permissions</h4>
             <div class="row-fluid">
                 <div class="well">
                     <div class="row-fluid">
@@ -130,13 +130,13 @@
                             <div class="row-fluid">
                                 <div class="span12">
                                     <label class="checkbox inline">
-                                        <input type="checkbox" value="option1" checked> User Interface
+                                        <input name="PermissionInterfaceUI" type="checkbox" value="true" @Raw(isEnabled(Model.Extension.Model.Properties.PermissionInterfaceUI))> User Interface
                                     </label>
                                     <label class="checkbox inline">
-                                        <input type="checkbox" value="option2" checked> REST API
+                                        <input name="PermissionInterfaceREST" type="checkbox" value="true" @Raw(isEnabled(Model.Extension.Model.Properties.PermissionInterfaceREST))> REST API
                                     </label>
                                     <label class="checkbox inline">
-                                        <input type="checkbox" value="option3" checked> MultiPlug Subscriptions
+                                        <input name="PermissionInterfaceSubscriptions" type="checkbox" value="true" @Raw(isEnabled(Model.Extension.Model.Properties.PermissionInterfaceSubscriptions))> MultiPlug Subscriptions
                                     </label>
                                 </div>
                             </div>
@@ -149,46 +149,311 @@
         <h3 class="box-header">Subscriptions</h3>
         <div class="box">
 
-            <h4>Interlock</h4>
+            <h4>Machine Ready Interlock Control</h4>
             <div class="row-fluid">
                 <div class="well">
                     <div class="row-fluid">
 
-                        <div class="span4">
+                        <div class="span3">
                             <div class="row-fluid"><div class="span12">Subscription ID</div></div>
                             <div class="row-fluid">
                                 <div class="span12">
-                                    <input name="InterlockSubscriptionId" autocomplete="off" class="input-block-level mp-event-picker" type="text" value="@Model.Extension.Model.Properties.InterlockSubscription.Id" />
+                                    <input name="MachineReadyInterlockSubscriptionId" autocomplete="off" class="input-block-level mp-event-picker" type="text" value="@Model.Extension.Model.Properties.MachineReadyInterlockSubscription.Id" />
                                 </div>
                             </div>
                         </div>
 
-                        <div class="span4">
-                            <div class="row-fluid"><div class="span12">OKay Value</div></div>
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Block</div></div>
                             <div class="row-fluid">
                                 <div class="span12">
-                                    <input name="InterlockSubscriptionReadyValue" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.InterlockSubscription.Value">
+                                    <input name="MachineReadyInterlockSubscriptionBlock" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.MachineReadyInterlockSubscription.Block">
                                 </div>
                             </div>
                         </div>
-                        <div class="span1">
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Unlock</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="MachineReadyInterlockSubscriptionUnblock" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.MachineReadyInterlockSubscription.Unblock">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+
+                        <div class="span3">
                             <div class="row-fluid"><div class="span12">Connected</div></div>
                             <div class="row-fluid">
                                 <div class="span2">
-                                    @Raw(isConnected(Model.Extension.Model.Properties.InterlockSubscription.Connected))
+                                    @Raw(isConnected(Model.Extension.Model.Properties.MachineReadyInterlockSubscription.Connected))
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Latch On</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="MachineReadyInterlockSubscriptionLatchOn" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.MachineReadyInterlockSubscription.LatchOn">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Latch Off</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="MachineReadyInterlockSubscriptionLatchOff" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.MachineReadyInterlockSubscription.LatchOff">
                                 </div>
                             </div>
                         </div>
 
                     </div>
+
                 </div>
             </div>
+
+            <h4>Good Board Interlock Control</h4>
+            <div class="row-fluid">
+                <div class="well">
+                    <div class="row-fluid">
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Subscription ID</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="GoodBoardInterlockSubscriptionId" autocomplete="off" class="input-block-level mp-event-picker" type="text" value="@Model.Extension.Model.Properties.GoodBoardInterlockSubscription.Id" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Block</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="GoodBoardInterlockSubscriptionBlock" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.GoodBoardInterlockSubscription.Block">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Unblock</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="GoodBoardInterlockSubscriptionUnblock" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.GoodBoardInterlockSubscription.Unblock">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Connected</div></div>
+                            <div class="row-fluid">
+                                <div class="span2">
+                                    @Raw(isConnected(Model.Extension.Model.Properties.GoodBoardInterlockSubscription.Connected))
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Latch On</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="GoodBoardInterlockSubscriptionLatchOn" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.GoodBoardInterlockSubscription.LatchOn">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Latch Off</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="GoodBoardInterlockSubscriptionLatchOff" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.GoodBoardInterlockSubscription.LatchOff">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+
+                        <div class="span3">
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Unblock and Divert On (Bad)</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="GoodBoardInterlockSubscriptionDivertOn" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.GoodBoardInterlockSubscription.DivertOn">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Divert Off (Good)</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="GoodBoardInterlockSubscriptionDivertOff" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.GoodBoardInterlockSubscription.DivertOff">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row-fluid">
+
+                        <div class="span3">
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Divert Latch On</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="GoodBoardInterlockSubscriptionDivertLatchOn" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.GoodBoardInterlockSubscription.DivertLatchOn">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Divert Latch Off</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="GoodBoardInterlockSubscriptionDivertLatchOff" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.GoodBoardInterlockSubscription.DivertLatchOff">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Bad Board Interlock Control</h4>
+            <div class="row-fluid">
+                <div class="well">
+                    <div class="row-fluid">
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Subscription ID</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="BadBoardInterlockSubscriptionId" autocomplete="off" class="input-block-level mp-event-picker" type="text" value="@Model.Extension.Model.Properties.BadBoardInterlockSubscription.Id" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Block</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="BadBoardInterlockSubscriptionBlock" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.BadBoardInterlockSubscription.Block">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Unblock</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="BadBoardInterlockSubscriptionUnblock" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.BadBoardInterlockSubscription.Unblock">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Connected</div></div>
+                            <div class="row-fluid">
+                                <div class="span2">
+                                    @Raw(isConnected(Model.Extension.Model.Properties.BadBoardInterlockSubscription.Connected))
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Latch On</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="BadBoardInterlockSubscriptionLatchOn" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.BadBoardInterlockSubscription.LatchOn">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Latch Off</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="BadBoardInterlockSubscriptionLatchOff" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.BadBoardInterlockSubscription.LatchOff">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row-fluid">
+
+                        <div class="span3">
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Unblock and Divert On (Good)</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="BadBoardInterlockSubscriptionDivertOn" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.BadBoardInterlockSubscription.DivertOn">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Divert Off (Bad)</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="BadBoardInterlockSubscriptionDivertOff" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.BadBoardInterlockSubscription.DivertOff">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row-fluid">
+
+                        <div class="span3">
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Divert Latch On</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="BadBoardInterlockSubscriptionDivertLatchOn" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.BadBoardInterlockSubscription.DivertLatchOn">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Divert Latch Off</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="BadBoardInterlockSubscriptionDivertLatchOff" autocomplete="off" class="span12" type="text" value="@Model.Extension.Model.Properties.BadBoardInterlockSubscription.DivertLatchOff">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <h3 class="box-header">Events</h3>
         <div class="box">
 
-            <h4>Machine Ready Block</h4>
+            <h4>Machine Ready Block and Unblock</h4>
             <div class="row-fluid">
                 <div class="well">
                     <div class="row-fluid">
@@ -266,7 +531,7 @@
                 </div>
             </div>
 
-            <h4>Good Board Block</h4>
+            <h4>Good Board Block and Unblock</h4>
             <div class="row-fluid">
                 <div class="well">
                     <div class="row-fluid">
@@ -344,7 +609,7 @@
                 </div>
             </div>
 
-            <h4>Bad Board Block</h4>
+            <h4>Bad Board Block and Unblock</h4>
             <div class="row-fluid">
                 <div class="well">
                     <div class="row-fluid">

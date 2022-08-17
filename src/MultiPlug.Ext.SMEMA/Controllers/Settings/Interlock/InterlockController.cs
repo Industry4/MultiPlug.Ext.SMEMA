@@ -51,10 +51,40 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Interlock
                 StartupMachineReady = theModel.StartupMachineReady,
                 StartupGoodBoard = theModel.StartupGoodBoard,
                 StartupBadBoard = theModel.StartupBadBoard,
-                InterlockSubscription = new Models.Exchange.Subscription
+                PermissionInterfaceUI = theModel.PermissionInterfaceUI,
+                PermissionInterfaceREST = theModel.PermissionInterfaceREST,
+                PermissionInterfaceSubscriptions = theModel.PermissionInterfaceSubscriptions,
+                MachineReadyInterlockSubscription = new Models.Exchange.MachineReadyInterlockSubscription
                 {
-                    Id = theModel.InterlockSubscriptionId,
-                    Value = theModel.InterlockSubscriptionReadyValue
+                    Id = theModel.MachineReadyInterlockSubscriptionId,
+                    Block = theModel.MachineReadyInterlockSubscriptionBlock,
+                    Unblock = theModel.MachineReadyInterlockSubscriptionUnblock,
+                    LatchOn = theModel.MachineReadyInterlockSubscriptionLatchOn,
+                    LatchOff = theModel.MachineReadyInterlockSubscriptionLatchOff
+                },
+                GoodBoardInterlockSubscription = new Models.Exchange.GoodBadInterlockSubscription
+                {
+                    Id = theModel.GoodBoardInterlockSubscriptionId,
+                    Block = theModel.GoodBoardInterlockSubscriptionBlock,
+                    Unblock = theModel.GoodBoardInterlockSubscriptionUnblock,
+                    LatchOn = theModel.GoodBoardInterlockSubscriptionLatchOn,
+                    LatchOff = theModel.GoodBoardInterlockSubscriptionLatchOff,
+                    DivertOn = theModel.GoodBoardInterlockSubscriptionDivertOn,
+                    DivertOff = theModel.GoodBoardInterlockSubscriptionDivertOff,
+                    DivertLatchOn = theModel.GoodBoardInterlockSubscriptionDivertLatchOn,
+                    DivertLatchOff = theModel.GoodBoardInterlockSubscriptionDivertLatchOff
+                },
+                BadBoardInterlockSubscription = new Models.Exchange.GoodBadInterlockSubscription
+                {
+                    Id = theModel.BadBoardInterlockSubscriptionId,
+                    Block = theModel.BadBoardInterlockSubscriptionBlock,
+                    Unblock = theModel.BadBoardInterlockSubscriptionUnblock,
+                    LatchOn = theModel.BadBoardInterlockSubscriptionLatchOn,
+                    LatchOff = theModel.BadBoardInterlockSubscriptionLatchOff,
+                    DivertOn = theModel.BadBoardInterlockSubscriptionDivertOn,
+                    DivertOff = theModel.BadBoardInterlockSubscriptionDivertOff,
+                    DivertLatchOn = theModel.BadBoardInterlockSubscriptionDivertLatchOn,
+                    DivertLatchOff = theModel.BadBoardInterlockSubscriptionDivertLatchOff
                 },
                 MachineReadyBlockEvent = new Models.Exchange.Event
                 {

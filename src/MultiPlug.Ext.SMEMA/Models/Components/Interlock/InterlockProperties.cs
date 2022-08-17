@@ -7,7 +7,13 @@ namespace MultiPlug.Ext.SMEMA.Models.Components.Interlock
     public class InterlockProperties : MultiPlugBase
     {
         [DataMember]
-        public Exchange.Subscription InterlockSubscription { get; set; }
+        public Exchange.MachineReadyInterlockSubscription MachineReadyInterlockSubscription { get; set; }
+
+        [DataMember]
+        public Exchange.GoodBadInterlockSubscription GoodBoardInterlockSubscription { get; set; }
+
+        [DataMember]
+        public Exchange.GoodBadInterlockSubscription BadBoardInterlockSubscription { get; set; }
 
         /// 
         /// Interlock Machine Ready
@@ -80,5 +86,12 @@ namespace MultiPlug.Ext.SMEMA.Models.Components.Interlock
 
         [DataMember]
         public bool PersistentBadBoardLatch { get; set; }
+
+        [DataMember]
+        public bool? PermissionInterfaceUI { get; set; } = true;
+        [DataMember]
+        public bool? PermissionInterfaceREST { get; set; } = true;
+        [DataMember]
+        public bool? PermissionInterfaceSubscriptions { get; set; } = true;
     }
 }

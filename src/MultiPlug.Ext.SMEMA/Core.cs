@@ -196,7 +196,9 @@ namespace MultiPlug.Ext.SMEMA
             {
                 SubscriptionsList.Add(Lane.BoardAvailable.SMEMABoardAvailableSubscription);
                 SubscriptionsList.Add(Lane.BoardAvailable.SMEMAFailedBoardAvailableSubscription);
-                SubscriptionsList.Add(Lane.Interlock.InterlockSubscription);
+                SubscriptionsList.Add(Lane.Interlock.MachineReadyInterlockSubscription);
+                SubscriptionsList.Add(Lane.Interlock.GoodBoardInterlockSubscription);
+                SubscriptionsList.Add(Lane.Interlock.BadBoardInterlockSubscription);
                 SubscriptionsList.Add(Lane.MachineReady.SMEMAMachineReadySubscription);
             }
 
