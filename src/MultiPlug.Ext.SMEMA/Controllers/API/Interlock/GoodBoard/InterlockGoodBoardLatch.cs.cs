@@ -20,7 +20,10 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.GoodBoard
                 };
             }
 
-            LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardLatch = enable;
+            if (LaneSearch.Interlock.PermissionInterfaceREST == true)
+            {
+                LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardLatch = enable;
+            }
 
             var Result = new
             {
@@ -32,7 +35,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.GoodBoard
 
             return new Response
             {
-                StatusCode = System.Net.HttpStatusCode.OK,
+                StatusCode = LaneSearch.Interlock.PermissionInterfaceREST == true ? System.Net.HttpStatusCode.OK : System.Net.HttpStatusCode.Forbidden,
                 Model = Result,
                 MediaType = "application/json"
             };

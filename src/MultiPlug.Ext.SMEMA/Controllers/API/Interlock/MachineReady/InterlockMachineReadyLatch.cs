@@ -20,7 +20,10 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.MachineReady
                 };
             }
 
-            LaneSearch.Interlock.MachineReadyStateMachine.Latch = enable;
+            if (LaneSearch.Interlock.PermissionInterfaceREST == true)
+            {
+                LaneSearch.Interlock.MachineReadyStateMachine.Latch = enable;
+            }
 
             var Result = new
             {
@@ -30,7 +33,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.MachineReady
 
             return new Response
             {
-                StatusCode = System.Net.HttpStatusCode.OK,
+                StatusCode = LaneSearch.Interlock.PermissionInterfaceREST == true ? System.Net.HttpStatusCode.OK : System.Net.HttpStatusCode.Forbidden,
                 Model = Result,
                 MediaType = "application/json"
             };
