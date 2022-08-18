@@ -130,10 +130,10 @@
                             <div class="row-fluid">
                                 <div class="span12">
                                     <label class="checkbox inline">
-                                        <input name="PermissionInterfaceUI" type="checkbox" value="true" @Raw(isEnabled(Model.Extension.Model.Properties.PermissionInterfaceUI))> User Interface
+                                        <input name="PermissionInterfaceUI" id="InterfaceUICheckbox" type="checkbox" value="true" @Raw(isEnabled(Model.Extension.Model.Properties.PermissionInterfaceUI))> User Interface
                                     </label>
                                     <label class="checkbox inline">
-                                        <input name="PermissionInterfaceREST" type="checkbox" value="true" @Raw(isEnabled(Model.Extension.Model.Properties.PermissionInterfaceREST))> REST API
+                                        <input name="PermissionInterfaceREST" id="InterfaceRESTCheckbox" type="checkbox" value="true" @Raw(isEnabled(Model.Extension.Model.Properties.PermissionInterfaceREST))> REST API
                                     </label>
                                     <label class="checkbox inline">
                                         <input name="PermissionInterfaceSubscriptions" type="checkbox" value="true" @Raw(isEnabled(Model.Extension.Model.Properties.PermissionInterfaceSubscriptions))> MultiPlug Subscriptions
@@ -689,3 +689,19 @@
         </div>
     </section>
 </form>
+
+<script>
+    var InterfaceUICheckbox = document.getElementById("InterfaceUICheckbox");
+    InterfaceUICheckbox.onclick = function (event) {
+        if (InterfaceUICheckbox.checked) {
+            document.getElementById("InterfaceRESTCheckbox").checked = true;
+        }
+    }
+
+    var InterfaceRESTCheckbox = document.getElementById("InterfaceRESTCheckbox");
+    InterfaceRESTCheckbox.onclick = function (event) {
+        if (!InterfaceRESTCheckbox.checked) {
+            document.getElementById("InterfaceUICheckbox").checked = false;
+        }
+    }
+</script>

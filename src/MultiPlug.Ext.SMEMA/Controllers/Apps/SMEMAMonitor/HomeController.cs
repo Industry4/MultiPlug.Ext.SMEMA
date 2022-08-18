@@ -71,6 +71,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
                     MachineName = LaneSearch.MachineId,
                     LaneName = LaneSearch.LaneId,
                     RightToLeft = LaneSearch.RightToLeft,
+                    UIEnabled = LaneSearch.Interlock.PermissionInterfaceUI,
 
                     Lanes = Core.Instance.Lanes.Select(Lane => new Models.Apps.LaneUrl { Guid = Lane.Guid, MachineName = Lane.MachineId, LaneName = Lane.LaneId }).ToArray(),
 
