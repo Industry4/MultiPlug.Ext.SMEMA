@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MultiPlug.Ext.SMEMA</id>
-    <version>1.0.12</version>
+    <version>1.0.13</version>
     <title>SMEMA MultiPlug Edge Computing Platform Extension</title>
     <authors>4IR.UK</authors>
     <owners>4IR.UK</owners>
@@ -12,6 +12,9 @@
     <description>SMEMA Extension for the MultiPlug .Net Edge Computing Platform</description>
 	<license type="expression">MIT</license>
     <releaseNotes>
+1.0.13 Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/3
+Bug https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/2
+Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/1
 	1.0.12 Improvements to REST API - See Wiki for documentation: https://github.com/Industry4/MultiPlug.Ext.SMEMA/wiki/REST-API 
 	1.0.11 Settable Line Direction - Left to Right, Right to Left
 	1.0.10 Settable Startup State in UI
