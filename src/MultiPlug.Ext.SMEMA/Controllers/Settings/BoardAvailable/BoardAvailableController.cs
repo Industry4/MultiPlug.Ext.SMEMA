@@ -49,7 +49,8 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.BoardAvailable
                 SMEMAMachineReadyEvent = new Base.Exchange.Event
                 {
                     Id = theModel.SMEMAMachineReadyEventId,
-                    Description = theModel.SMEMAMachineReadyEventDescription
+                    Description = theModel.SMEMAMachineReadyEventDescription,
+                    Subjects = new string[] { theModel.SMEMAMachineReadyEventSubject }
                 },
                 SMEMABoardAvailableSubscription = new Models.Exchange.Subscription
                 {
