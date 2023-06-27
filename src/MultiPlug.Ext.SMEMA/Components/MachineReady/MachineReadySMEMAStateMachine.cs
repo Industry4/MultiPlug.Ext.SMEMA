@@ -27,11 +27,24 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
 
         internal void Init()
         {
-            OnMachineReady(m_Properties.SMEMAMachineReadySubscription.Cache());
+            if (m_Properties.SMEMAMachineReadyAlways == true)
+            {
+                MachineReadyState = true;
+                MachineReady?.BeginInvoke(MachineReadyState, MachineReady.EndInvoke, null);
+            }
+            else
+            {
+                OnMachineReady(m_Properties.SMEMAMachineReadySubscription.Cache());
+            }
         }
 
         internal void OnMachineReady(SubscriptionEvent theEvent)
         {
+            if (m_Properties.SMEMAMachineReadyAlways == true)
+            {
+                return;
+            }
+
             foreach (PayloadSubject Subject in theEvent.PayloadSubjects)
             {
                 if (Subject.Value.Equals(m_Properties.SMEMAMachineReadySubscription.Value, StringComparison.OrdinalIgnoreCase))

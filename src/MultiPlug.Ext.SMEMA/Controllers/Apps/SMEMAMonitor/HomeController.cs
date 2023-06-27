@@ -75,6 +75,10 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
 
                     Lanes = Core.Instance.Lanes.Select(Lane => new Models.Apps.LaneUrl { Guid = Lane.Guid, MachineName = Lane.MachineId, LaneName = Lane.LaneId }).ToArray(),
 
+                    SMEMABoardAvailableAlways = LaneSearch.BoardAvailable.SMEMABoardAvailableAlways.Value,
+                    SMEMAFailedBoardAvailableAlways = LaneSearch.BoardAvailable.SMEMAFailedBoardAvailableAlways.Value,
+                    SMEMAMachineReadyAlways = LaneSearch.MachineReady.SMEMAMachineReadyAlways.Value,
+
                     SMEMABoardAvailableStates = new Models.Apps.ComponentStates
                     {
                         MachineReady = LaneSearch.BoardAvailable.StateMachine.MachineReadyState,
@@ -82,7 +86,6 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
                         BadBoard = LaneSearch.BoardAvailable.StateMachine.BadBoardAvailableState
 
                     },
-
                     SMEMAInterlockStates = new Models.Apps.ComponentStates
                     {
                         MachineReady = LaneSearch.Interlock.MachineReadyStateMachine.MachineReady,

@@ -63,7 +63,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.MachineReady
                     Description = theModel.SMEMAFailedBoardAvailableEventDescription,
                     Subjects = new string[] { theModel.SMEMAFailedBoardAvailableEventSubject }
                 },
-
+                SMEMAMachineReadyAlways = theModel.SMEMAMachineReadyAlways
             };
 
             LaneSearch.MachineReady.UpdateProperties(Properties);

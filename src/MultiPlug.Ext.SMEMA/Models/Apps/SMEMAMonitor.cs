@@ -19,6 +19,9 @@ namespace MultiPlug.Ext.SMEMA.Models.Apps
         public ComponentStates SMEMAInterlockDivertStates { get; internal set; }
         public ComponentStates SMEMAInterlockDivertLatchedStates { get; internal set; }
         public bool? UIEnabled { get; internal set; }
+        public bool SMEMABoardAvailableAlways { get; internal set; }
+        public bool SMEMAFailedBoardAvailableAlways { get; internal set; }
+        public bool SMEMAMachineReadyAlways { get; internal set; }
     }
 
     [Serializable]

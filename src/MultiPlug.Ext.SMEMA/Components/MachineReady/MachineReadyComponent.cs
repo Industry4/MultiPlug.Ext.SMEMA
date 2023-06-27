@@ -16,6 +16,7 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
 
         public MachineReadyComponent(string theGuid, string theEventSuffix)
         {
+            SMEMAMachineReadyAlways = false;
             StateMachine = new MachineReadySMEMAStateMachine(this);
 
             SMEMAMachineReadySubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Value = "1" };
@@ -45,6 +46,12 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
             }
 
             SMEMAMachineReadySubscription.Value = theNewProperties.SMEMAMachineReadySubscription.Value;
+
+            if(theNewProperties.SMEMAMachineReadyAlways != null && theNewProperties.SMEMAMachineReadyAlways != SMEMAMachineReadyAlways)
+            {
+                SMEMAMachineReadyAlways = theNewProperties.SMEMAMachineReadyAlways;
+                StateMachine.Init();
+            }
 
             if (FlagSubscriptionUpdated) { SubscriptionsUpdated?.Invoke(); }
             if (FlagEventUpdated) { EventsUpdated?.Invoke(); }

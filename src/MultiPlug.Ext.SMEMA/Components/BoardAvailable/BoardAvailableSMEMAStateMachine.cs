@@ -24,12 +24,33 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
 
         internal void Init()
         {
-            OnGoodBoardEvent(m_Properties.SMEMABoardAvailableSubscription.Cache());
-            OnBadBoardEvent(m_Properties.SMEMAFailedBoardAvailableSubscription.Cache());
+            if( m_Properties.SMEMABoardAvailableAlways == true)
+            {
+                GoodBoardAvailableState = true;
+                GoodBoard?.BeginInvoke(GoodBoardAvailableState, GoodBoard.EndInvoke, null);
+            }
+            else
+            {
+                OnGoodBoardEvent(m_Properties.SMEMABoardAvailableSubscription.Cache());
+            }
+
+            if(m_Properties.SMEMAFailedBoardAvailableAlways == true)
+            {
+                BadBoardAvailableState = true;
+                BadBoard?.BeginInvoke(BadBoardAvailableState, BadBoard.EndInvoke, null);
+            }
+            else
+            {
+                OnBadBoardEvent(m_Properties.SMEMAFailedBoardAvailableSubscription.Cache());
+            }
         }
 
         internal void OnGoodBoardEvent(SubscriptionEvent theEvent)
         {
+            if (m_Properties.SMEMABoardAvailableAlways == true)
+            {
+                return;
+            }
             foreach( PayloadSubject Subject in theEvent.PayloadSubjects)
             {
                 if( Subject.Value.Equals(m_Properties.SMEMABoardAvailableSubscription.Value, StringComparison.OrdinalIgnoreCase))
@@ -48,6 +69,10 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
 
         internal void OnBadBoardEvent(SubscriptionEvent theEvent)
         {
+            if (m_Properties.SMEMAFailedBoardAvailableAlways == true)
+            {
+                return;
+            }
             foreach (PayloadSubject Subject in theEvent.PayloadSubjects)
             {
                 if (Subject.Value.Equals(m_Properties.SMEMAFailedBoardAvailableSubscription.Value, StringComparison.OrdinalIgnoreCase))

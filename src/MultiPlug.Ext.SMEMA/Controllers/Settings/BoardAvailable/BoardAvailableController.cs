@@ -54,12 +54,16 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.BoardAvailable
                 },
                 SMEMABoardAvailableSubscription = new Models.Exchange.Subscription
                 {
-                    Id = theModel.SMEMABoardAvailableSubscriptionId
+                    Id = theModel.SMEMABoardAvailableSubscriptionId,
+                    Value = theModel.SMEMABoardAvailableSubscriptionAvailableValue
                 },
                 SMEMAFailedBoardAvailableSubscription = new Models.Exchange.Subscription
                 {
-                    Id = theModel.SMEMAFailedBoardAvailableSubscriptionId
-                }
+                    Id = theModel.SMEMAFailedBoardAvailableSubscriptionId,
+                    Value = theModel.SMEMAFailedBoardAvailableSubscriptionAvailableValue
+                },
+                SMEMABoardAvailableAlways = theModel.SMEMABoardAvailableAlways,
+                SMEMAFailedBoardAvailableAlways = theModel.SMEMAFailedBoardAvailableAlways
             };
 
             LaneSearch.BoardAvailable.UpdateProperties(Properties);

@@ -25,5 +25,8 @@ namespace MultiPlug.Ext.SMEMA.Models.Components.MachineReady
 
         [DataMember]
         public Event SMEMAFailedBoardAvailableEvent { get; set; }
+
+        [DataMember]
+        public bool? SMEMAMachineReadyAlways { get; set; }
     }
 }

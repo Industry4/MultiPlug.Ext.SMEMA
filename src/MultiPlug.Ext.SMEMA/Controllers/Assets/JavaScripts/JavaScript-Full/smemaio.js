@@ -86,7 +86,11 @@ function Initialise(theAPIPath,
 
     theSMEMADownlineMachineReadySubId,
     theSMEMADownlineGoodBoardSubId,
-    theSMEMADownlineBadBoardSubId) {
+    theSMEMADownlineBadBoardSubId,
+    
+    theSMEMAUplineGoodBoardAlways,
+    theSMEMAUplineBadBoardAlways,
+    theSMEMADownlineMachineReadyAlways) {
     g_APIPath = theAPIPath;
 
     $(".btn-shutdown").click(function (event) {
@@ -126,6 +130,21 @@ function Initialise(theAPIPath,
         });
     });
 
+    if (theSMEMAUplineGoodBoardAlways)
+    {
+        DrawLatchedIcon($('#SMEMAUplineGoodBoardState'), '1');
+    }
+
+    if (theSMEMAUplineBadBoardAlways)
+    {
+        DrawLatchedIcon($('#SMEMAUplineBadBoardState'), '1');
+    }
+
+    if (theSMEMADownlineMachineReadyAlways)
+    {
+        DrawLatchedIcon($('#SMEMADownlineMachineReadyState'), '1');
+    }
+
     window.addEventListener("multiplugReady", function (e) {
         $.connection.wS.on("Send", function (id, Payload) {
 
@@ -133,9 +152,11 @@ function Initialise(theAPIPath,
                 DrawEnabledIcon($('#SMEMAUplineMachineReadyState'), Payload.Subjects[0].Value);
             }
             else if (id == theSMEMAUplineGoodBoardSubId) {
+                if (theSMEMAUplineGoodBoardAlways){ return; }
                 DrawEnabledIcon($('#SMEMAUplineGoodBoardState'), Payload.Subjects[0].Value);
             }
             else if (id == theSMEMAUplineBadBoardSubId) {
+                if (theSMEMAUplineBadBoardAlways) { return; }
                 DrawEnabledIcon($('#SMEMAUplineBadBoardState'), Payload.Subjects[0].Value);
             }
             else if (id == theSMEMAInterlockMachineReadySubId) {
@@ -214,6 +235,7 @@ function Initialise(theAPIPath,
                 UpdateApiHref(item, Payload.Subjects[4].Value);
             }
             else if (id == theSMEMADownlineMachineReadySubId) {
+                if (theSMEMADownlineMachineReadyAlways) { return;}
                 DrawEnabledIcon($('#SMEMADownlineMachineReadyState'), Payload.Subjects[0].Value);
             }
             else if (id == theSMEMADownlineGoodBoardSubId) {

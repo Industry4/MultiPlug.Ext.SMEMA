@@ -26,6 +26,9 @@
 
 <body>
     <input type="hidden" id="LaneGuid" name="LaneGuid" value="@Model.Extension.Model.LaneGuid">
+    <style>
+        .table { margin-bottom: 0; }
+    </style>
 
     @Include("MultiPlug.Ext.SMEMA.SMEMA_Monitor_WebSocketReconnectModal")
 
@@ -62,7 +65,10 @@
                     "@Model.Extension.GetSubscriptionByGuid("ILBad")",
                     "@Model.Extension.GetSubscriptionByGuid("DSReady")",
                     "@Model.Extension.GetSubscriptionByGuid("DSGood")",
-                    "@Model.Extension.GetSubscriptionByGuid("DSBad")");
+                    "@Model.Extension.GetSubscriptionByGuid("DSBad")",
+                    @Model.Extension.Model.SMEMABoardAvailableAlways.ToString().ToLower(),
+                    @Model.Extension.Model.SMEMAFailedBoardAvailableAlways.ToString().ToLower(),
+                    @Model.Extension.Model.SMEMAMachineReadyAlways.ToString().ToLower() );
     </script>
 </body>
 
