@@ -1,6 +1,7 @@
 ﻿using System;
 using MultiPlug.Base.Exchange;
 using MultiPlug.Ext.SMEMA.Models.Components.BoardAvailable;
+using MultiPlug.Ext.SMEMA.Components.Utils;
 
 namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
 {
@@ -61,6 +62,18 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
             }
 
             BadBoard?.BeginInvoke(BadBoardAvailableState, BadBoard.EndInvoke, null);
+        }
+
+        internal void OnMachineReady(bool isTrue)
+        {
+            if (MachineReadyState != isTrue)
+            {
+                MachineReadyState = isTrue;
+
+                m_Properties.SMEMAMachineReadyEvent.Invoke(new Payload(m_Properties.SMEMAMachineReadyEvent.Id, new PayloadSubject[] {
+                    new PayloadSubject(m_Properties.SMEMAMachineReadyEvent.Subjects[0], GetStringValue.Invoke( isTrue ) )
+                    }));
+            }
         }
 
     }

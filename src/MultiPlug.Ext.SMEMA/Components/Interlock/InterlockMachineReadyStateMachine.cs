@@ -121,7 +121,12 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                     if (m_MachineReady && m_SMEMAUplineStateMachine.MachineReady.Value)
                     {
                         SetBlocked(false);
-                        SMEMADownlineStateMachine.MachineReady.Value = true;;
+                        SMEMADownlineStateMachine.MachineReady.Value = true;
+                    }
+                    else if(m_SMEMAUplineStateMachine.MachineReady.Value)
+                    {
+                        SetBlocked(true);
+                        SMEMADownlineStateMachine.MachineReady.Value = false;
                     }
 
                     InvokeMachineReadyEvent();
