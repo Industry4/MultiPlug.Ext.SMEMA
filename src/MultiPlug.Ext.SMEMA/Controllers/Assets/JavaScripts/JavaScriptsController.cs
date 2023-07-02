@@ -19,7 +19,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Assets
                     break;
 
                 case "smemaio.js":
-                    Result = Resources.smemaio_js;
+                    Result = Resources.smemaio_min_js;
                     break;
 
                 case "jquery-3.4.1.min.js":

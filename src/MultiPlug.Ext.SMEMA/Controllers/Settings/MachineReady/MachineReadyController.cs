@@ -63,6 +63,12 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.MachineReady
                     Description = theModel.SMEMAFailedBoardAvailableEventDescription,
                     Subjects = new string[] { theModel.SMEMAFailedBoardAvailableEventSubject }
                 },
+                SMEMAFlipBoardEvent = new Base.Exchange.Event
+                {
+                    Id = theModel.SMEMAFlipBoardEventId,
+                    Description = theModel.SMEMAFlipBoardEventDescription,
+                    Subjects = new string[] { theModel.SMEMAFlipBoardEventSubject }
+                },
                 SMEMAMachineReadyAlways = theModel.SMEMAMachineReadyAlways
             };
 

@@ -5,8 +5,8 @@ using MultiPlug.Ext.SMEMA.Controllers.API.Utils;
 
 namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
 {
-    [Route("1/lane/interlock/bad/divert")]
-    public class InterlockBadBoardDivert : APIController
+    [Route("1/lane/interlock/bad/flip")]
+    public class InterlockBadBoardFlip : APIController
     {
         public Response Post(string index, string guid, bool enable)
         {
@@ -22,7 +22,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
 
             if (LaneSearch.Interlock.PermissionInterfaceREST == true)
             {
-                LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert = enable;
+                LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardFlip(enable);
             }
 
             var Result = new
@@ -32,7 +32,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
                 Diverted = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert,
                 DivertedLatched = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivertLatch,
                 Flip = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoard,
-                FlipLatched = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoardLatch
+                FlipLatched = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoardLatch,
             };
 
             return new Response

@@ -21,7 +21,23 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 
         public InterlockComponent(string theGuid, string theEventSuffix)
         {
-            MachineReadyInterlockSubscription = new Models.Exchange.MachineReadyInterlockSubscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty };
+            // Defaults Start - Set them here and not in InterlockProperties
+            StartupMachineReady = 0;
+            StartupGoodBoard = 0;
+            StartupBadBoard = 0;
+            StartupFlipBoard = 0;
+            PermissionInterfaceUI = true;
+            PermissionInterfaceREST = true;
+            PermissionInterfaceSubscriptions = true;
+            TriggerBlockGoodBoardOnMachineNotReady = false;
+            TriggerBlockBadBoardOnMachineNotReady = false;
+            TriggerBlockFlipBoardOnMachineNotReady = false;
+            TriggerBlockFlipBoardOnGoodBoardNotAvailable = false;
+            TriggerBlockFlipBoardOnBadBoardNotAvailable = false;
+            DelayFlipThenBoardAvailable = 0;
+            // Defaults End
+
+            MachineReadyInterlockSubscription = new Models.Exchange.MachineReadyAndFlipInterlockSubscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty };
             MachineReadyInterlockSubscription.Event += OnMachineReadyInterlockEvent;
 
             GoodBoardInterlockSubscription = new Models.Exchange.GoodBadInterlockSubscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty };
@@ -29,6 +45,10 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 
             BadBoardInterlockSubscription = new Models.Exchange.GoodBadInterlockSubscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty };
             BadBoardInterlockSubscription.Event += OnBadBoardInterlockEvent;
+
+            FlipBoardInterlockSubscription = new Models.Exchange.MachineReadyAndFlipInterlockSubscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty };
+            FlipBoardInterlockSubscription.Event += OnFlipBoardInterlockEvent;
+
 
             MachineReadyEvent = new Event
             {
@@ -50,6 +70,13 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 Id = "Interlock.BadBoard",
                 Description = "Bad Board Interlock",
                 Subjects = new[] { "value", "enabled", "interlock-latched", "divert", "divert-latched" }
+            };
+            FlipBoardEvent = new Event
+            {
+                Guid = Guid.NewGuid().ToString(),
+                Id = "Interlock.FlipBoard",
+                Description = "Flip Board Interlock",
+                Subjects = new[] { "value", "enabled", "interlock-latched" }
             };
 
             MachineReadyBlockEvent = new Models.Exchange.Event
@@ -76,6 +103,16 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 Subjects = new[] { "blocked", "smema" }
             };
 
+            FlipBoardBlockEvent = new Models.Exchange.Event
+            {
+                Guid = Guid.NewGuid().ToString(),
+                Id = "Interlock.FlipBoard.Block",
+                Description = "Flip Board Interlock Blocking",
+                Subjects = new[] { "blocked", "smema" },
+                BlockedEnabled = false,
+                UnblockedEnabled = false
+            };
+
             MachineReadyStateMachine = new InterlockMachineReadyStateMachine(
                 m_SMEMAUplineStateMachine,
                 m_SMEMADownlineStateMachine,
@@ -85,12 +122,15 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             MachineReadyStateMachine.BlockedUpdated += OnBlockedStatusUpdated;
 
             BoardAvailableStateMachine = new InterlockBoardAvailableStateMachine(
+                this,
                 m_SMEMAUplineStateMachine,
                 m_SMEMADownlineStateMachine,
                 GoodBoardEvent,
                 BadBoardEvent,
+                FlipBoardEvent,
                 GoodBoardBlockEvent,
-                BadBoardBlockEvent);
+                BadBoardBlockEvent,
+                FlipBoardBlockEvent);
 
             BoardAvailableStateMachine.BlockedUpdated += OnBlockedStatusUpdated;
         }
@@ -136,6 +176,22 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 {
                     BoardAvailableStateMachine.BadBoardDivertLatch = false;
                 }
+                else if ((!string.IsNullOrEmpty(BadBoardInterlockSubscription.UnblockFlipOn)) && PayloadSubject.Value.Equals(BadBoardInterlockSubscription.UnblockFlipOn))
+                {
+                    BoardAvailableStateMachine.BadBoardFlip(true);
+                }
+                else if ((!string.IsNullOrEmpty(BadBoardInterlockSubscription.BlockFlipOff)) && PayloadSubject.Value.Equals(BadBoardInterlockSubscription.BlockFlipOff))
+                {
+                    BoardAvailableStateMachine.BadBoardFlip(false);
+                }
+                else if ((!string.IsNullOrEmpty(BadBoardInterlockSubscription.DivertOnFlipOn)) && PayloadSubject.Value.Equals(BadBoardInterlockSubscription.DivertOnFlipOn))
+                {
+                    BoardAvailableStateMachine.BadBoardDivertFlip(true);
+                }
+                else if ((!string.IsNullOrEmpty(BadBoardInterlockSubscription.DivertOffFlipOff)) && PayloadSubject.Value.Equals(BadBoardInterlockSubscription.DivertOffFlipOff))
+                {
+                    BoardAvailableStateMachine.BadBoardDivertFlip(false);
+                }
             }
         }
 
@@ -180,8 +236,51 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 {
                     BoardAvailableStateMachine.GoodBoardDivertLatch = false;
                 }
+                else if ((!string.IsNullOrEmpty(GoodBoardInterlockSubscription.UnblockFlipOn)) && PayloadSubject.Value.Equals(GoodBoardInterlockSubscription.UnblockFlipOn))
+                {
+                    BoardAvailableStateMachine.GoodBoardFlip(true);
+                }
+                else if ((!string.IsNullOrEmpty(GoodBoardInterlockSubscription.BlockFlipOff)) && PayloadSubject.Value.Equals(GoodBoardInterlockSubscription.BlockFlipOff))
+                {
+                    BoardAvailableStateMachine.GoodBoardFlip(false);
+                }
+                else if ((!string.IsNullOrEmpty(GoodBoardInterlockSubscription.DivertOnFlipOn)) && PayloadSubject.Value.Equals(GoodBoardInterlockSubscription.DivertOnFlipOn))
+                {
+                    BoardAvailableStateMachine.GoodBoardDivertFlip(true);
+                }
+                else if ((!string.IsNullOrEmpty(GoodBoardInterlockSubscription.DivertOffFlipOff)) && PayloadSubject.Value.Equals(GoodBoardInterlockSubscription.DivertOffFlipOff))
+                {
+                    BoardAvailableStateMachine.GoodBoardDivertFlip(false);
+                }
+            }
+        }
+
+        private void OnFlipBoardInterlockEvent(SubscriptionEvent theSubscriptionEvent)
+        {
+            if (PermissionInterfaceSubscriptions == false)
+            {
+                return;
             }
 
+            foreach (var PayloadSubject in theSubscriptionEvent.PayloadSubjects)
+            {
+                if ((!string.IsNullOrEmpty(FlipBoardInterlockSubscription.Unblock)) && PayloadSubject.Value.Equals(FlipBoardInterlockSubscription.Unblock))
+                {
+                    BoardAvailableStateMachine.FlipBoard = true;
+                }
+                else if ((!string.IsNullOrEmpty(FlipBoardInterlockSubscription.Block)) && PayloadSubject.Value.Equals(FlipBoardInterlockSubscription.Block))
+                {
+                    BoardAvailableStateMachine.FlipBoard = false;
+                }
+                else if (!string.IsNullOrEmpty((FlipBoardInterlockSubscription.LatchOn)) && PayloadSubject.Value.Equals(FlipBoardInterlockSubscription.LatchOn))
+                {
+                    BoardAvailableStateMachine.FlipBoardLatch = true;
+                }
+                else if ((!string.IsNullOrEmpty(FlipBoardInterlockSubscription.LatchOff)) && PayloadSubject.Value.Equals(FlipBoardInterlockSubscription.LatchOff))
+                {
+                    BoardAvailableStateMachine.FlipBoardLatch = false;
+                }
+            }
         }
 
         private void OnMachineReadyInterlockEvent(SubscriptionEvent theSubscriptionEvent)
@@ -293,6 +392,31 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                         break;
                 }
 
+                switch (StartupFlipBoard)
+                {
+                    case 0:  // Blocked
+                        BoardAvailableStateMachine.FlipBoardLatch = false;
+                        BoardAvailableStateMachine.FlipBoard = false;
+                        break;
+                    case 1: // Blocked and Latched
+                        BoardAvailableStateMachine.FlipBoardLatch = true;
+                        BoardAvailableStateMachine.FlipBoard = false;
+                        break;
+                    case 2: // Unblocked and Latched
+                        BoardAvailableStateMachine.FlipBoardLatch = true;
+                        BoardAvailableStateMachine.FlipBoard = true;
+                        break;
+                    case 3:
+                        // Shutdown State
+                        BoardAvailableStateMachine.FlipBoardLatch = PersistentFlipBoardLatch;
+                        BoardAvailableStateMachine.FlipBoard = PersistentFlipBoard;
+                        break;
+                    default:
+                        BoardAvailableStateMachine.FlipBoardLatch = false;
+                        BoardAvailableStateMachine.FlipBoard = false;
+                        break;
+                }
+
                 // Manually Sync values here as Event handlers for updates are added below
                 PersistentMachineReady = MachineReadyStateMachine.MachineReady;
                 PersistentMachineReadyLatch = MachineReadyStateMachine.Latch;
@@ -300,6 +424,8 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 PersistentGoodBoardLatch = BoardAvailableStateMachine.GoodBoardLatch;
                 PersistentBadBoard = BoardAvailableStateMachine.BadBoard;
                 PersistentBadBoardLatch = BoardAvailableStateMachine.BadBoardLatch;
+                PersistentFlipBoard = BoardAvailableStateMachine.FlipBoard;
+                PersistentFlipBoardLatch = BoardAvailableStateMachine.FlipBoardLatch;
 
                 // Now add Event handlers for future syncing updates
                 MachineReadyStateMachine.MachineReadyUpdated += (value) => { PersistentMachineReady = value; };
@@ -308,6 +434,8 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 BoardAvailableStateMachine.GoodBoardLatchedUpdated += (value) => { PersistentGoodBoardLatch = value; };
                 BoardAvailableStateMachine.BadBoardUpdated += (value) => { PersistentBadBoard = value; };
                 BoardAvailableStateMachine.BadBoardLatchedUpdated += (value) => { PersistentBadBoardLatch = value; };
+                BoardAvailableStateMachine.FlipBoardUpdated += (value) => { PersistentFlipBoard = value; };
+                BoardAvailableStateMachine.FlipBoardLatchedUpdated += (value) => { PersistentFlipBoardLatch = value; };
             }
         }
 
@@ -316,38 +444,78 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             bool FlagSubscriptionUpdated = false;
             bool FlagEventUpdated = false;
 
-            if (Subscription.Merge(MachineReadyInterlockSubscription, theNewProperties.MachineReadyInterlockSubscription)) { FlagSubscriptionUpdated = true; }
+            if (theNewProperties.MachineReadyInterlockSubscription != null)
+            {
+                if (Subscription.Merge(MachineReadyInterlockSubscription, theNewProperties.MachineReadyInterlockSubscription)) { FlagSubscriptionUpdated = true; }
+                MergeSubscription(MachineReadyInterlockSubscription, theNewProperties.MachineReadyInterlockSubscription);
+            }
 
-            MergeSubscription(MachineReadyInterlockSubscription, theNewProperties.MachineReadyInterlockSubscription);
+            if (theNewProperties.GoodBoardInterlockSubscription != null)
+            {
+                if (Subscription.Merge(GoodBoardInterlockSubscription, theNewProperties.GoodBoardInterlockSubscription)) { FlagSubscriptionUpdated = true; }
+                MergeSubscription(GoodBoardInterlockSubscription, theNewProperties.GoodBoardInterlockSubscription);
+            }
 
-            if (Subscription.Merge(GoodBoardInterlockSubscription, theNewProperties.GoodBoardInterlockSubscription)) { FlagSubscriptionUpdated = true; }
+            if (theNewProperties.BadBoardInterlockSubscription != null)
+            {
+                if (Subscription.Merge(BadBoardInterlockSubscription, theNewProperties.BadBoardInterlockSubscription)) { FlagSubscriptionUpdated = true; }
+                MergeSubscription(BadBoardInterlockSubscription, theNewProperties.BadBoardInterlockSubscription);
+            }
 
-            MergeSubscription(GoodBoardInterlockSubscription, theNewProperties.GoodBoardInterlockSubscription);
+            if (theNewProperties.FlipBoardInterlockSubscription != null)
+            {
+                if (Subscription.Merge(FlipBoardInterlockSubscription, theNewProperties.FlipBoardInterlockSubscription)) { FlagSubscriptionUpdated = true; }
+                MergeSubscription(FlipBoardInterlockSubscription, theNewProperties.FlipBoardInterlockSubscription);
+            }
 
-            if (Subscription.Merge(BadBoardInterlockSubscription, theNewProperties.BadBoardInterlockSubscription)) { FlagSubscriptionUpdated = true; }
+            if (theNewProperties.MachineReadyBlockEvent != null)
+            {
+                if (Event.Merge(MachineReadyBlockEvent, theNewProperties.MachineReadyBlockEvent)) { FlagEventUpdated = true; }
+                MergeEvent(MachineReadyBlockEvent, theNewProperties.MachineReadyBlockEvent);
+            }
 
-            MergeSubscription(BadBoardInterlockSubscription, theNewProperties.BadBoardInterlockSubscription);
+            if (theNewProperties.GoodBoardBlockEvent != null)
+            {
+                if (Event.Merge(GoodBoardBlockEvent, theNewProperties.GoodBoardBlockEvent)) { FlagEventUpdated = true; }
+                MergeEvent(GoodBoardBlockEvent, theNewProperties.GoodBoardBlockEvent);
+            }
 
-            if (Event.Merge( MachineReadyBlockEvent, theNewProperties.MachineReadyBlockEvent)) { FlagEventUpdated = true; }
+            if (theNewProperties.BadBoardBlockEvent != null)
+            {
+                if (Event.Merge(BadBoardBlockEvent, theNewProperties.BadBoardBlockEvent)) { FlagEventUpdated = true; }
+                MergeEvent(BadBoardBlockEvent, theNewProperties.BadBoardBlockEvent);
+            }
 
-            MergeEvent(MachineReadyBlockEvent, theNewProperties.MachineReadyBlockEvent);
-
-            if (Event.Merge(GoodBoardBlockEvent, theNewProperties.GoodBoardBlockEvent)) { FlagEventUpdated = true; }
-
-            MergeEvent(GoodBoardBlockEvent, theNewProperties.GoodBoardBlockEvent);
-
-            if (Event.Merge(BadBoardBlockEvent, theNewProperties.BadBoardBlockEvent)) { FlagEventUpdated = true; }
-
-            MergeEvent(BadBoardBlockEvent, theNewProperties.BadBoardBlockEvent);
+            if(theNewProperties.FlipBoardBlockEvent != null)
+            {
+                if (Event.Merge(FlipBoardBlockEvent, theNewProperties.FlipBoardBlockEvent)) { FlagEventUpdated = true; }
+                MergeEvent(FlipBoardBlockEvent, theNewProperties.FlipBoardBlockEvent);
+            }
 
             if (FlagSubscriptionUpdated) { SubscriptionsUpdated?.Invoke(); }
             if (FlagEventUpdated) { EventsUpdated?.Invoke(); }
 
-            StartupMachineReady = theNewProperties.StartupMachineReady;
-            StartupGoodBoard = theNewProperties.StartupGoodBoard;
-            StartupBadBoard = theNewProperties.StartupBadBoard;
+            if(theNewProperties.StartupMachineReady != null)
+            {
+                StartupMachineReady = theNewProperties.StartupMachineReady;
+            }
 
-            if(theNewProperties.PermissionInterfaceUI != null)
+            if(theNewProperties.StartupGoodBoard != null)
+            {
+                StartupGoodBoard = theNewProperties.StartupGoodBoard;
+            }
+
+            if(theNewProperties.StartupBadBoard != null)
+            {
+                StartupBadBoard = theNewProperties.StartupBadBoard;
+            }
+
+            if(theNewProperties.StartupFlipBoard != null)
+            {
+                StartupFlipBoard = theNewProperties.StartupFlipBoard;
+            }
+
+            if (theNewProperties.PermissionInterfaceUI != null)
             {
                 PermissionInterfaceUI = theNewProperties.PermissionInterfaceUI;
             }
@@ -362,7 +530,37 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 PermissionInterfaceSubscriptions = theNewProperties.PermissionInterfaceSubscriptions;
             }
 
-            if(m_RunOnce)
+            if (theNewProperties.TriggerBlockGoodBoardOnMachineNotReady != null)
+            {
+                TriggerBlockGoodBoardOnMachineNotReady = theNewProperties.TriggerBlockGoodBoardOnMachineNotReady;
+            }
+
+            if (theNewProperties.TriggerBlockGoodBoardOnMachineNotReady != null)
+            {
+                TriggerBlockBadBoardOnMachineNotReady = theNewProperties.TriggerBlockBadBoardOnMachineNotReady;
+            }
+
+            if (theNewProperties.TriggerBlockFlipBoardOnMachineNotReady != null)
+            {
+                TriggerBlockFlipBoardOnMachineNotReady = theNewProperties.TriggerBlockFlipBoardOnMachineNotReady;
+            }
+
+            if (theNewProperties.TriggerBlockFlipBoardOnGoodBoardNotAvailable != null)
+            {
+                TriggerBlockFlipBoardOnGoodBoardNotAvailable = theNewProperties.TriggerBlockFlipBoardOnGoodBoardNotAvailable;
+            }
+
+            if (theNewProperties.TriggerBlockFlipBoardOnBadBoardNotAvailable != null)
+            {
+                TriggerBlockFlipBoardOnBadBoardNotAvailable = theNewProperties.TriggerBlockFlipBoardOnBadBoardNotAvailable;
+            }
+
+            if(theNewProperties.DelayFlipThenBoardAvailable != null)
+            {
+                DelayFlipThenBoardAvailable = theNewProperties.DelayFlipThenBoardAvailable;
+            }
+
+            if (m_RunOnce)
             {
                 // Load values here temporary, to be loaded once in on Init()
                 PersistentMachineReadyLatch = theNewProperties.PersistentMachineReadyLatch;
@@ -373,6 +571,9 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 
                 PersistentBadBoardLatch = theNewProperties.PersistentBadBoardLatch;
                 PersistentBadBoard = theNewProperties.PersistentBadBoard;
+
+                PersistentFlipBoardLatch = theNewProperties.PersistentFlipBoardLatch;
+                PersistentFlipBoard = theNewProperties.PersistentFlipBoard;
             }
         }
 
@@ -389,7 +590,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             Into.UnblockedValue = From.UnblockedValue;
         }
 
-        private void MergeSubscription(Models.Exchange.MachineReadyInterlockSubscription Into, Models.Exchange.MachineReadyInterlockSubscription From)
+        private void MergeSubscription(Models.Exchange.MachineReadyAndFlipInterlockSubscription Into, Models.Exchange.MachineReadyAndFlipInterlockSubscription From)
         {
             if(From == null || Into == null)
             {
@@ -417,7 +618,11 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             Into.DivertOff = From.DivertOff;
             Into.DivertLatchOn = From.DivertLatchOn;
             Into.DivertLatchOff = From.DivertLatchOff;
-        }
+            Into.UnblockFlipOn = From.UnblockFlipOn;
+            Into.BlockFlipOff = From.BlockFlipOff;
+            Into.DivertOnFlipOn = From.DivertOnFlipOn;
+            Into.DivertOffFlipOff = From.DivertOffFlipOff;
+    }
 
         private void OnBlockedStatusUpdated()
         {

@@ -232,9 +232,6 @@
   <data name="popper_min_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controllers\Assets\JavaScripts\JavaScripts\popper.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="smemaio_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Controllers\Assets\JavaScripts\JavaScript-Full\smemaio.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="favicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controllers\Assets\Icons\Icons\favicon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -246,5 +243,8 @@
   </data>
   <data name="AppsSMEMAMonitorInterlockColumn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controllers\Apps\SMEMAMonitor\Elements\SMEMAInterlockColumn.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="smemaio_min_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Assets\JavaScripts\JavaScripts\smemaio.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

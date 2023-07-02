@@ -43,6 +43,10 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
             BoardAvailable.StateMachine.BadBoard += Interlock.BoardAvailableStateMachine.OnSMEMAIOBadBoard;
             Interlock.BoardAvailableStateMachine.SMEMADownlineStateMachine.BadBoard.Updated += MachineReady.StateMachine.OnBadBoard;
             Interlock.BoardAvailableStateMachine.SMEMADownlineStateMachine.GoodBoardDiverted.Updated += MachineReady.StateMachine.OnGoodBoardDiverted;
+            BoardAvailable.StateMachine.FlipBoard += Interlock.BoardAvailableStateMachine.OnSMEMAIOFlipBoard;
+            Interlock.BoardAvailableStateMachine.SMEMADownlineStateMachine.FlipBoard.Updated += MachineReady.StateMachine.OnFlipBoard;
+
+            MachineReady.StateMachine.MachineReady += Interlock.BoardAvailableStateMachine.OnSMEMAIOMachineReady;
         }
 
         internal void Init()

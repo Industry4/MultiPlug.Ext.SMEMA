@@ -2,7 +2,7 @@
 
 namespace MultiPlug.Ext.SMEMA.Models.Exchange
 {
-    public class MachineReadyInterlockSubscription : Base.Exchange.Subscription
+    public class MachineReadyAndFlipInterlockSubscription : Base.Exchange.Subscription
     {
         [DataMember]
         public string Block { get; set; } = string.Empty;

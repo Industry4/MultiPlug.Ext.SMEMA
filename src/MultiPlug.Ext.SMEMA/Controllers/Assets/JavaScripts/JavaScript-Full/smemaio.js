@@ -79,17 +79,21 @@ function Initialise(theAPIPath,
     theSMEMAUplineMachineReadySubId,
     theSMEMAUplineGoodBoardSubId,
     theSMEMAUplineBadBoardSubId,
+    theSMEMAUplineFlipBoardSubId,
     
     theSMEMAInterlockMachineReadySubId,
     theSMEMAInterlockGoodBoardSubId,
-    theSMEMAInterlockBadBoardSubId,   
+    theSMEMAInterlockBadBoardSubId,
+    theSMEMAInterlockFlipBoardSubId,
 
     theSMEMADownlineMachineReadySubId,
     theSMEMADownlineGoodBoardSubId,
     theSMEMADownlineBadBoardSubId,
+    theSMEMADownlineFlipBoardSubId,
     
     theSMEMAUplineGoodBoardAlways,
     theSMEMAUplineBadBoardAlways,
+    theSMEMAUplineFlipBoardAlways,
     theSMEMADownlineMachineReadyAlways) {
     g_APIPath = theAPIPath;
 
@@ -140,6 +144,10 @@ function Initialise(theAPIPath,
         DrawLatchedIcon($('#SMEMAUplineBadBoardState'), '1');
     }
 
+    if (theSMEMAUplineFlipBoardAlways) {
+        DrawLatchedIcon($('#SMEMAUplineFlipBoardState'), '1');
+    }
+
     if (theSMEMADownlineMachineReadyAlways)
     {
         DrawLatchedIcon($('#SMEMADownlineMachineReadyState'), '1');
@@ -151,15 +159,19 @@ function Initialise(theAPIPath,
             if (id == theSMEMAUplineMachineReadySubId) {
                 DrawEnabledIcon($('#SMEMAUplineMachineReadyState'), Payload.Subjects[0].Value);
             }
-            else if (id == theSMEMAUplineGoodBoardSubId) {
+            if (id == theSMEMAUplineGoodBoardSubId) {
                 if (theSMEMAUplineGoodBoardAlways){ return; }
                 DrawEnabledIcon($('#SMEMAUplineGoodBoardState'), Payload.Subjects[0].Value);
             }
-            else if (id == theSMEMAUplineBadBoardSubId) {
+            if (id == theSMEMAUplineBadBoardSubId) {
                 if (theSMEMAUplineBadBoardAlways) { return; }
                 DrawEnabledIcon($('#SMEMAUplineBadBoardState'), Payload.Subjects[0].Value);
             }
-            else if (id == theSMEMAInterlockMachineReadySubId) {
+            if (id == theSMEMAUplineFlipBoardSubId) {
+                if (theSMEMAUplineFlipBoardAlways) { return; }
+                DrawEnabledIcon($('#SMEMAUplineFlipBoardState'), Payload.Subjects[0].Value);
+            }
+            if (id == theSMEMAInterlockMachineReadySubId) {
                 var item = $('#SMEMAInterlockMachineReadyState');
 
                 if (item.hasClass("smema-righttoleft")){
@@ -175,7 +187,7 @@ function Initialise(theAPIPath,
                 DrawLatchedIcon(item, Payload.Subjects[2].Value);
                 UpdateApiHref(item, Payload.Subjects[2].Value);
             }
-            else if (id == theSMEMAInterlockGoodBoardSubId) {
+            if (id == theSMEMAInterlockGoodBoardSubId) {
 
                 var item = $('#SMEMAInterlockGoodBoardState');
                 if (item.hasClass("smema-righttoleft")) {
@@ -204,7 +216,7 @@ function Initialise(theAPIPath,
                 DrawLatchedIcon(item, Payload.Subjects[4].Value);
                 UpdateApiHref(item, Payload.Subjects[4].Value);
             }
-            else if (id == theSMEMAInterlockBadBoardSubId) {
+            if (id == theSMEMAInterlockBadBoardSubId) {
 
                 var item = $('#SMEMAInterlockBadBoardState');
                 if (item.hasClass("smema-righttoleft")) {
@@ -234,15 +246,34 @@ function Initialise(theAPIPath,
                 DrawLatchedIcon(item, Payload.Subjects[4].Value);
                 UpdateApiHref(item, Payload.Subjects[4].Value);
             }
-            else if (id == theSMEMADownlineMachineReadySubId) {
+            if (id == theSMEMAInterlockFlipBoardSubId) {
+                var item = $('#SMEMAInterlockFlipBoardState');
+
+                if (item.hasClass("smema-righttoleft")) {
+                    DrawLeftIcon(item, Payload.Subjects[0].Value);
+                }
+                else {
+                    DrawRightIcon(item, Payload.Subjects[0].Value);
+                }
+
+                UpdateApiHref(item, Payload.Subjects[0].Value);
+
+                item = $('#SMEMAInterlockFlipBoardLatchState');
+                DrawLatchedIcon(item, Payload.Subjects[2].Value);
+                UpdateApiHref(item, Payload.Subjects[2].Value);
+            }
+            if (id == theSMEMADownlineMachineReadySubId) {
                 if (theSMEMADownlineMachineReadyAlways) { return;}
                 DrawEnabledIcon($('#SMEMADownlineMachineReadyState'), Payload.Subjects[0].Value);
             }
-            else if (id == theSMEMADownlineGoodBoardSubId) {
+            if (id == theSMEMADownlineGoodBoardSubId) {
                 DrawEnabledIcon($('#SMEMADownlineGoodBoardState'), Payload.Subjects[0].Value);
             }
-            else if (id == theSMEMADownlineBadBoardSubId) {
+            if (id == theSMEMADownlineBadBoardSubId) {
                 DrawEnabledIcon($('#SMEMADownlineBadBoardState'), Payload.Subjects[0].Value);
+            }
+            if (id == theSMEMADownlineFlipBoardSubId) {
+                DrawEnabledIcon($('#SMEMADownlineFlipBoardState'), Payload.Subjects[0].Value);
             }
         });
     });

@@ -8,5 +8,6 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         internal ObservableValue<bool> GoodBoardDiverted { get; private set; } = new ObservableValue<bool>();
         internal ObservableValue<bool> BadBoard { get; private set; } = new ObservableValue<bool>();
         internal ObservableValue<bool> BadBoardDiverted { get; private set; } = new ObservableValue<bool>();
+        internal ObservableValue<bool> FlipBoard { get; private set; } = new ObservableValue<bool>();
     }
 }

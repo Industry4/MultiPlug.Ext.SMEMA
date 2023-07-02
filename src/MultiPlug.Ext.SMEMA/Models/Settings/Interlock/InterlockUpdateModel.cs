@@ -8,10 +8,17 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.Interlock
         public int StartupMachineReady { get; set; }
         public int StartupGoodBoard { get; set; }
         public int StartupBadBoard { get; set; }
+        public int StartupFlipBoard { get; set; }
 
         public bool PermissionInterfaceUI { get; set; }
         public bool PermissionInterfaceREST { get; set; }
         public bool PermissionInterfaceSubscriptions { get; set; }
+
+        public bool TriggerBlockGoodBoardOnMachineNotReady { get; set; }
+        public bool TriggerBlockBadBoardOnMachineNotReady { get; set; }
+        public bool TriggerBlockFlipBoardOnMachineNotReady { get; set; }
+        public bool TriggerBlockFlipBoardOnGoodBoardNotAvailable { get; set; }
+        public bool TriggerBlockFlipBoardOnBadBoardNotAvailable { get; set; }
 
         public string MachineReadyInterlockSubscriptionId { get; set; }
         public string MachineReadyInterlockSubscriptionBlock { get; set; }
@@ -28,6 +35,10 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.Interlock
         public string GoodBoardInterlockSubscriptionDivertOff { get; set; }
         public string GoodBoardInterlockSubscriptionDivertLatchOn { get; set; }
         public string GoodBoardInterlockSubscriptionDivertLatchOff { get; set; }
+        public string GoodBoardInterlockSubscriptionUnblockFlipOn { get; set; }
+        public string GoodBoardInterlockSubscriptionBlockFlipOff { get; set; }
+        public string GoodBoardInterlockSubscriptionDivertOnFlipOn { get; set; }
+        public string GoodBoardInterlockSubscriptionDivertOffFlipOff { get; set; }
 
         public string BadBoardInterlockSubscriptionId { get; set; }
         public string BadBoardInterlockSubscriptionBlock { get; set; }
@@ -38,6 +49,16 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.Interlock
         public string BadBoardInterlockSubscriptionDivertOff { get; set; }
         public string BadBoardInterlockSubscriptionDivertLatchOn { get; set; }
         public string BadBoardInterlockSubscriptionDivertLatchOff { get; set; }
+        public string BadBoardInterlockSubscriptionUnblockFlipOn { get; set; }
+        public string BadBoardInterlockSubscriptionBlockFlipOff { get; set; }
+        public string BadBoardInterlockSubscriptionDivertOnFlipOn { get; set; }
+        public string BadBoardInterlockSubscriptionDivertOffFlipOff { get; set; }
+
+        public string FlipBoardInterlockSubscriptionId { get; set; }
+        public string FlipBoardInterlockSubscriptionBlock { get; set; }
+        public string FlipBoardInterlockSubscriptionUnblock { get; set; }
+        public string FlipBoardInterlockSubscriptionLatchOn { get; set; }
+        public string FlipBoardInterlockSubscriptionLatchOff { get; set; }
 
         public string MachineReadyBlockEventId { get; set; }
         public string MachineReadyBlockEventDescription { get; set; }
@@ -63,5 +84,14 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.Interlock
         public string BadBoardBlockEventUnblockedValue { get; set; }
         public string BadBoardBlockEventBlockedValue { get; set; }
 
+        public string FlipBoardBlockEventId { get; set; }
+        public string FlipBoardBlockEventDescription { get; set; }
+        public bool FlipBoardBlockEventBlockedEnabled { get; set; }
+        public bool FlipBoardBlockEventUnblockedEnabled { get; set; }
+        public string FlipBoardBlockEventSubject { get; set; }
+        public string FlipBoardBlockEventUnblockedValue { get; set; }
+        public string FlipBoardBlockEventBlockedValue { get; set; }
+
+        public int DelayFlipThenBoardAvailable { get; set; }
     }
 }

@@ -7,13 +7,16 @@ namespace MultiPlug.Ext.SMEMA.Models.Components.Interlock
     public class InterlockProperties : MultiPlugBase
     {
         [DataMember]
-        public Exchange.MachineReadyInterlockSubscription MachineReadyInterlockSubscription { get; set; }
+        public Exchange.MachineReadyAndFlipInterlockSubscription MachineReadyInterlockSubscription { get; set; }
 
         [DataMember]
         public Exchange.GoodBadInterlockSubscription GoodBoardInterlockSubscription { get; set; }
 
         [DataMember]
         public Exchange.GoodBadInterlockSubscription BadBoardInterlockSubscription { get; set; }
+
+        [DataMember]
+        public Exchange.MachineReadyAndFlipInterlockSubscription FlipBoardInterlockSubscription { get; set; }
 
         /// 
         /// Interlock Machine Ready
@@ -51,23 +54,41 @@ namespace MultiPlug.Ext.SMEMA.Models.Components.Interlock
         [DataMember]
         public Exchange.Event BadBoardBlockEvent { get; set; }
 
-        /// <summary>
-        /// 0 = Blocked, 1 = Unblocked and Latched, 2 = Shutdown Latched State
-        /// </summary>
+        /// 
+        /// Interlock Machine Ready Block
+        ///
         [DataMember]
-        public int StartupMachineReady { get; set; }
+        public Exchange.Event FlipBoardBlockEvent { get; set; }
+
+        /// 
+        /// Interlock Flip Board
+        ///
+        [DataMember]
+        public Event FlipBoardEvent { get; set; }
 
         /// <summary>
         /// 0 = Blocked, 1 = Unblocked and Latched, 2 = Shutdown Latched State
         /// </summary>
         [DataMember]
-        public int StartupGoodBoard { get; set; }
+        public int? StartupMachineReady { get; set; }
 
         /// <summary>
         /// 0 = Blocked, 1 = Unblocked and Latched, 2 = Shutdown Latched State
         /// </summary>
         [DataMember]
-        public int StartupBadBoard { get; set; }
+        public int? StartupGoodBoard { get; set; }
+
+        /// <summary>
+        /// 0 = Blocked, 1 = Unblocked and Latched, 2 = Shutdown Latched State
+        /// </summary>
+        [DataMember]
+        public int? StartupBadBoard { get; set; }
+
+        /// <summary>
+        /// 0 = Blocked, 1 = Unblocked and Latched, 2 = Shutdown Latched State
+        /// </summary>
+        [DataMember]
+        public int? StartupFlipBoard { get; set; }
 
         [DataMember]
         public bool PersistentMachineReady { get; set; }
@@ -88,10 +109,29 @@ namespace MultiPlug.Ext.SMEMA.Models.Components.Interlock
         public bool PersistentBadBoardLatch { get; set; }
 
         [DataMember]
-        public bool? PermissionInterfaceUI { get; set; } = true;
+        public bool PersistentFlipBoard { get; set; }
+
         [DataMember]
-        public bool? PermissionInterfaceREST { get; set; } = true;
+        public bool PersistentFlipBoardLatch { get; set; }
+
         [DataMember]
-        public bool? PermissionInterfaceSubscriptions { get; set; } = true;
+        public bool? PermissionInterfaceUI { get; set; }
+        [DataMember]
+        public bool? PermissionInterfaceREST { get; set; }
+        [DataMember]
+        public bool? PermissionInterfaceSubscriptions { get; set; }
+
+        [DataMember]
+        public bool? TriggerBlockGoodBoardOnMachineNotReady { get; set; }
+        [DataMember]
+        public bool? TriggerBlockBadBoardOnMachineNotReady { get; set; }
+        [DataMember]
+        public bool? TriggerBlockFlipBoardOnMachineNotReady { get; set; }
+        [DataMember]
+        public bool? TriggerBlockFlipBoardOnGoodBoardNotAvailable { get; set; }
+        [DataMember]
+        public bool? TriggerBlockFlipBoardOnBadBoardNotAvailable { get; set; }
+        [DataMember]
+        public int? DelayFlipThenBoardAvailable { get; set; }
     }
 }

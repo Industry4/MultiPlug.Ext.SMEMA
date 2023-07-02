@@ -65,11 +65,17 @@
     <Compile Include="Controllers\API\APIController.cs" />
     <Compile Include="Controllers\API\Interlock\BadBoard\InterlockBadBoard.cs" />
     <Compile Include="Controllers\API\Interlock\BadBoard\InterlockBadBoardDivert.cs" />
+    <Compile Include="Controllers\API\Interlock\BadBoard\InterlockBadBoardDivertFlip.cs" />
     <Compile Include="Controllers\API\Interlock\BadBoard\InterlockBadBoardDivertLatch.cs" />
+    <Compile Include="Controllers\API\Interlock\BadBoard\InterlockBadBoardFlip.cs" />
     <Compile Include="Controllers\API\Interlock\BadBoard\InterlockBadBoardLatch.cs" />
+    <Compile Include="Controllers\API\Interlock\FlipBoard\InterlockFlipBoard.cs" />
+    <Compile Include="Controllers\API\Interlock\FlipBoard\InterlockFlipBoardLatch.cs" />
     <Compile Include="Controllers\API\Interlock\GoodBoard\InterlockGoodBoard.cs" />
     <Compile Include="Controllers\API\Interlock\GoodBoard\InterlockGoodBoardDivert.cs" />
+    <Compile Include="Controllers\API\Interlock\GoodBoard\InterlockGoodBoardDivertFlip.cs" />
     <Compile Include="Controllers\API\Interlock\GoodBoard\InterlockGoodBoardDivertLatch.cs" />
+    <Compile Include="Controllers\API\Interlock\GoodBoard\InterlockGoodBoardFlip.cs" />
     <Compile Include="Controllers\API\Interlock\GoodBoard\InterlockGoodBoardLatch.cs.cs" />
     <Compile Include="Controllers\API\Interlock\InterlockController.cs" />
     <Compile Include="Controllers\API\Interlock\MachineReady\InterlockMachineReady.cs" />
@@ -106,7 +112,7 @@
     <Compile Include="Models\Components\BoardAvailable\BoardAvailableProperties.cs" />
     <Compile Include="Models\Exchange\Event.cs" />
     <Compile Include="Models\Exchange\GoodBadInterlockSubscription.cs" />
-    <Compile Include="Models\Exchange\MachineReadyInterlockSubscription.cs" />
+    <Compile Include="Models\Exchange\MachineReadyAndFlipInterlockSubscription.cs" />
     <Compile Include="Models\Exchange\Subscription.cs" />
     <Compile Include="Models\Load\LoadLaneComponent.cs" />
     <Compile Include="Models\Load\LoadRoot.cs" />
@@ -222,6 +228,7 @@
     <Content Include="Controllers\Assets\JavaScripts\JavaScripts\jquery-3.4.1.min.js" />
     <Content Include="Controllers\Assets\JavaScripts\JavaScripts\mdb.min.js" />
     <Content Include="Controllers\Assets\JavaScripts\JavaScripts\popper.min.js" />
+    <Content Include="Controllers\Assets\JavaScripts\JavaScripts\smemaio.min.js" />
     <Content Include="Controllers\Assets\JavaScripts\JavaScripts\solid.min.js" />
     <Content Include="Controllers\Assets\JavaScripts\JavaScripts\v4-shims.min.js" />
     <Content Include="Controllers\Assets\SVGs\SVGs\cog.svg" />

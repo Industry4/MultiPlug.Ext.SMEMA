@@ -30,7 +30,9 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
                 Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard,
                 Latched = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch,
                 Diverted = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert,
-                DivertedLatched = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivertLatch
+                DivertedLatched = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivertLatch,
+                Flip = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoard,
+                FlipLatched = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoardLatch
             };
 
             return new Response

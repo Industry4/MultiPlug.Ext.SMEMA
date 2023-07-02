@@ -24,10 +24,19 @@ namespace MultiPlug.Ext.SMEMA.Models.Components.BoardAvailable
         [DataMember]
         public Exchange.Subscription SMEMAFailedBoardAvailableSubscription { get; set; }
 
+        ///
+        /// SMEMA Flip Board
+        ///
+        [DataMember]
+        public Exchange.Subscription SMEMAFlipBoardSubscription { get; set; }
+
         [DataMember]
         public bool? SMEMABoardAvailableAlways { get; set; }
 
         [DataMember]
         public bool? SMEMAFailedBoardAvailableAlways { get; set; }
+
+        [DataMember]
+        public bool? SMEMAFlipBoardAlways { get; set; }
     }
 }

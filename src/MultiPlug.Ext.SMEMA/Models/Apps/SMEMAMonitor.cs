@@ -21,6 +21,7 @@ namespace MultiPlug.Ext.SMEMA.Models.Apps
         public bool? UIEnabled { get; internal set; }
         public bool SMEMABoardAvailableAlways { get; internal set; }
         public bool SMEMAFailedBoardAvailableAlways { get; internal set; }
+        public bool SMEMAFlipBoardAlways { get; internal set; }
         public bool SMEMAMachineReadyAlways { get; internal set; }
     }
 
@@ -30,5 +31,6 @@ namespace MultiPlug.Ext.SMEMA.Models.Apps
         public bool MachineReady { get; set; }
         public bool GoodBoard { get; set; }
         public bool BadBoard { get; set; }
+        public bool FlipBoard { get; set; }
     }
 }

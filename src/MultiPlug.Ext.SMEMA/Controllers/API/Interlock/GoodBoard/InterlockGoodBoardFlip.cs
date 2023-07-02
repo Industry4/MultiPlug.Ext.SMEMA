@@ -3,10 +3,10 @@ using MultiPlug.Base.Http;
 using MultiPlug.Ext.SMEMA.Components.Lane;
 using MultiPlug.Ext.SMEMA.Controllers.API.Utils;
 
-namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
+namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.GoodBoard
 {
-    [Route("1/lane/interlock/bad/divert")]
-    public class InterlockBadBoardDivert : APIController
+    [Route("1/lane/interlock/good/flip")]
+    public class InterlockGoodBoardFlip : APIController
     {
         public Response Post(string index, string guid, bool enable)
         {
@@ -22,17 +22,17 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
 
             if (LaneSearch.Interlock.PermissionInterfaceREST == true)
             {
-                LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert = enable;
+                LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardFlip(enable);
             }
 
             var Result = new
             {
-                Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard,
-                Latched = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch,
-                Diverted = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert,
-                DivertedLatched = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivertLatch,
+                Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard,
+                Latched = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardLatch,
+                Diverted = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivert,
+                DivertedLatched = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivertLatch,
                 Flip = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoard,
-                FlipLatched = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoardLatch
+                FlipLatched = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoardLatch,
             };
 
             return new Response

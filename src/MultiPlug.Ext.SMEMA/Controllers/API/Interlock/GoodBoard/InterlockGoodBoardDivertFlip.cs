@@ -2,11 +2,16 @@
 using MultiPlug.Base.Http;
 using MultiPlug.Ext.SMEMA.Components.Lane;
 using MultiPlug.Ext.SMEMA.Controllers.API.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
+namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.GoodBoard
 {
-    [Route("1/lane/interlock/bad/divert")]
-    public class InterlockBadBoardDivert : APIController
+    [Route("1/lane/interlock/good/divert/flip")]
+    public class InterlockGoodBoardDivertFlip : APIController
     {
         public Response Post(string index, string guid, bool enable)
         {
@@ -22,15 +27,15 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
 
             if (LaneSearch.Interlock.PermissionInterfaceREST == true)
             {
-                LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert = enable;
+                LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivertFlip(enable);
             }
 
             var Result = new
             {
-                Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard,
-                Latched = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch,
-                Diverted = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert,
-                DivertedLatched = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivertLatch,
+                Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard,
+                Latched = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardLatch,
+                Diverted = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivert,
+                DivertedLatched = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivertLatch,
                 Flip = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoard,
                 FlipLatched = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoardLatch
             };

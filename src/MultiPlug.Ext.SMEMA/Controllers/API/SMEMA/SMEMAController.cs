@@ -26,19 +26,22 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.SMEMA
                 {
                     Ready = LaneSearch.BoardAvailable.StateMachine.MachineReadyState,
                     Good = LaneSearch.BoardAvailable.StateMachine.GoodBoardAvailableState,
-                    Bad = LaneSearch.BoardAvailable.StateMachine.BadBoardAvailableState
+                    Bad = LaneSearch.BoardAvailable.StateMachine.BadBoardAvailableState,
+                    Flip = LaneSearch.BoardAvailable.StateMachine.FlipBoardState
                 },
                 Downline = new
                 {
                     Ready = LaneSearch.MachineReady.StateMachine.MachineReadyState,
                     Good = LaneSearch.MachineReady.StateMachine.GoodBoardAvailableState,
-                    Bad = LaneSearch.MachineReady.StateMachine.BadBoardAvailableState
+                    Bad = LaneSearch.MachineReady.StateMachine.BadBoardAvailableState,
+                    Flip = LaneSearch.MachineReady.StateMachine.FlipBoardState
                 },
                 Blocked = new
                 {
                     Ready = LaneSearch.Interlock.MachineReadyStateMachine.Blocked,
                     Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardBlocked,
-                    Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardBlocked
+                    Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardBlocked,
+                    Flip = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoardBlocked
                 }
             };
 

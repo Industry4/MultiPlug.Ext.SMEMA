@@ -14,5 +14,8 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.BoardAvailable
         public string SMEMAFailedBoardAvailableSubscriptionId { get; set; }
         public string SMEMAFailedBoardAvailableSubscriptionAvailableValue { get; set; }
         public bool SMEMAFailedBoardAvailableAlways { get; set; }
+        public string SMEMAFlipBoardSubscriptionId { get; set; }
+        public string SMEMAFlipBoardSubscriptionFlipValue { get; set; }
+        public bool SMEMAFlipBoardAlways { get; set; }
     }
 }

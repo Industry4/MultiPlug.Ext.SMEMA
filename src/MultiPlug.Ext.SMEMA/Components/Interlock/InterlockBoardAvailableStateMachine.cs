@@ -1,6 +1,9 @@
 ﻿using System;
 using MultiPlug.Base.Exchange;
 using MultiPlug.Ext.SMEMA.Components.Utils;
+using System.Threading.Tasks;
+using System.Threading;
+using MultiPlug.Ext.SMEMA.Models.Components.Interlock;
 
 namespace MultiPlug.Ext.SMEMA.Components.Interlock
 {
@@ -11,6 +14,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 
         private Event m_BadBoardEvent;
         private Event m_GoodBoardEvent;
+        private Event m_FlipBoardEvent;
 
         private bool m_GoodBoard;
         private bool m_GoodBoardLatch;
@@ -18,36 +22,94 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         private bool m_GoodBoardDivertLatch;
         private bool m_BadBoard;
         private bool m_BadBoardLatch;
+
         private bool m_BadBoardDivert;
         private bool m_BadBoardDivertLatch;
+        private bool m_FlipBoard;
+        private bool m_FlipBoardLatch;
 
         private const string c_GoodBoardDescription = "good";
         private const string c_BadBoardDescription = "bad";
+        private const string c_FlipBoardDescription = "flip";
 
         internal event Action<bool> GoodBoardUpdated;
         internal event Action<bool> GoodBoardLatchedUpdated;
         internal event Action<bool> BadBoardUpdated;
         internal event Action<bool> BadBoardLatchedUpdated;
+        internal event Action<bool> FlipBoardUpdated;
+        internal event Action<bool> FlipBoardLatchedUpdated;
 
         private Models.Exchange.Event m_GoodBoardBlockEvent;
         private Models.Exchange.Event m_BadBoardBlockEvent;
+        private Models.Exchange.Event m_FlipBoardBlockEvent;
 
         internal event Action BlockedUpdated;
-        internal bool Blocked { get; private set; }
 
-        public InterlockBoardAvailableStateMachine( InterlockSMEMAStateMachine theSMEMAUplineStateMachine, 
+        private CancellationTokenSource m_FlipTimerCancellationToken;
+
+        internal bool Blocked { get; private set; }
+        internal bool GoodBoardBlocked { get; private set; }
+        internal bool BadBoardBlocked { get; private set; }
+        internal bool FlipBoardBlocked { get; private set; }
+
+        private InterlockProperties m_InterlockProperties;
+
+        public InterlockBoardAvailableStateMachine( InterlockProperties theProperties,
+                                                    InterlockSMEMAStateMachine theSMEMAUplineStateMachine, 
                                                     InterlockSMEMAStateMachine theSMEMADownlineStateMachine, 
                                                     Event theGoodBoardEvent,
                                                     Event theBadBoardEvent,
+                                                    Event theFlipBoardEvent,
                                                     Models.Exchange.Event theGoodBoardBlockEvent,
-                                                    Models.Exchange.Event theBadBoardBlockEvent)
+                                                    Models.Exchange.Event theBadBoardBlockEvent,
+                                                    Models.Exchange.Event theFlipBoardBlockEvent)
         {
-            this.m_SMEMAUplineStateMachine = theSMEMAUplineStateMachine;
-            this.SMEMADownlineStateMachine = theSMEMADownlineStateMachine;
-            this.m_GoodBoardEvent = theGoodBoardEvent;
-            this.m_BadBoardEvent = theBadBoardEvent;
-            this.m_GoodBoardBlockEvent = theGoodBoardBlockEvent;
-            this.m_BadBoardBlockEvent = theBadBoardBlockEvent;
+            m_InterlockProperties = theProperties;
+            m_SMEMAUplineStateMachine = theSMEMAUplineStateMachine;
+            SMEMADownlineStateMachine = theSMEMADownlineStateMachine;
+            m_GoodBoardEvent = theGoodBoardEvent;
+            m_BadBoardEvent = theBadBoardEvent;
+            m_FlipBoardEvent = theFlipBoardEvent;
+            m_GoodBoardBlockEvent = theGoodBoardBlockEvent;
+            m_BadBoardBlockEvent = theBadBoardBlockEvent;
+            m_FlipBoardBlockEvent = theFlipBoardBlockEvent;
+        }
+
+        internal void OnSMEMAIOMachineReady(bool theIOState)
+        {
+            if(theIOState == false)
+            {
+                BlockGoodBoardOnSMEMAMachineNotReady();
+                BlockBadBoardOnSMEMAMachineNotReady();
+                BlockFlipBoardOnSMEMAMachineNotReady();
+            }
+        }
+
+        internal void OnSMEMAIOGoodBoard(bool theIOState)
+        {
+            m_SMEMAUplineStateMachine.GoodBoard.Value = theIOState;
+            if (theIOState == false)
+            {
+                BlockFlipBoardOnSMEMAGoodBoardNotAvailable();
+            }
+
+            OnGoodBoardUpdate();
+        }
+
+        internal void OnSMEMAIOBadBoard(bool theIOState)
+        {
+            m_SMEMAUplineStateMachine.BadBoard.Value = theIOState;
+            if(theIOState == false)
+            {
+                BlockFlipBoardOnSMEMABadBoardNotAvailable();
+            }
+            OnBadBoardUpdate();
+        }
+
+        internal void OnSMEMAIOFlipBoard(bool theIOState)
+        {
+            m_SMEMAUplineStateMachine.FlipBoard.Value = theIOState;
+            OnFlipBoardUpdate();
         }
 
         private void BlockUpdated()
@@ -61,20 +123,32 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             }
         }
 
-        internal void OnSMEMAIOGoodBoard(bool theIOState)
+        private void SetGoodBlocked(bool isBlocked)
         {
-            m_SMEMAUplineStateMachine.GoodBoard.Value = theIOState;
-
-            OnGoodBoardUpdate();
-        }
-
-        private void SetGoodBlocked(bool theValue)
-        {
-            if (theValue != GoodBoardBlocked)
+            if (isBlocked != GoodBoardBlocked)
             {
-                GoodBoardBlocked = theValue;
+                GoodBoardBlocked = isBlocked;
                 BlockUpdated();
                 InvokeGoodBoardBlockEvent();
+            }
+        }
+
+        private void SetBadBlocked(bool isBlocked)
+        {
+            if (isBlocked != BadBoardBlocked)
+            {
+                BadBoardBlocked = isBlocked;
+                BlockUpdated();
+                InvokeBadBoardBlockEvent();
+            }
+        }
+
+        private void SetFlipBlocked(bool isBlocked)
+        {
+            if (isBlocked != FlipBoardBlocked)
+            {
+                FlipBoardBlocked = isBlocked;
+                InvokeFlipBoardBlockEvent();
             }
         }
 
@@ -155,23 +229,6 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                         SMEMADownlineStateMachine.GoodBoard.Value = false;
                     }
                 }
-            }
-        }
-
-        internal void OnSMEMAIOBadBoard(bool theIOState)
-        {
-            m_SMEMAUplineStateMachine.BadBoard.Value = theIOState;
-
-            OnBadBoardUpdate();
-        }
-
-        private void SetBadBlocked(bool theValue)
-        {
-            if(theValue != BadBoardBlocked)
-            {
-                BadBoardBlocked = theValue;
-                BlockUpdated();
-                InvokeBadBoardBlockEvent();
             }
         }
 
@@ -257,6 +314,38 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             }
         }
 
+        private void OnFlipBoardUpdate()
+        {
+            if (m_SMEMAUplineStateMachine.FlipBoard.Value)
+            {
+                if (FlipBoard)
+                {
+                    SetFlipBlocked(false);
+                    SMEMADownlineStateMachine.FlipBoard.Value = true;
+                }
+                else
+                {
+                    SetFlipBlocked(true);
+                    SMEMADownlineStateMachine.FlipBoard.Value = false;
+                }
+            }
+            else
+            {
+                SetFlipBlocked(false);
+
+                if (SMEMADownlineStateMachine.FlipBoard.Value)
+                {
+                    if (!FlipBoardLatch)
+                    {
+                        m_FlipBoard = false;
+                        InvokeFlipBoardEvent();
+                    }
+
+                    SMEMADownlineStateMachine.FlipBoard.Value = false;
+                }
+            }
+        }
+
         private void InvokeGoodBoardEvent()
         {
             m_GoodBoardEvent.Invoke(new Payload(m_GoodBoardEvent.Id, new PayloadSubject[] {
@@ -276,6 +365,15 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             new PayloadSubject(m_BadBoardEvent.Subjects[2], GetStringValue.Invoke(BadBoardLatch)),
             new PayloadSubject(m_GoodBoardEvent.Subjects[3], GetStringValue.Invoke(BadBoardDivert)),
             new PayloadSubject(m_GoodBoardEvent.Subjects[4], GetStringValue.Invoke(BadBoardDivertLatch))
+            }));
+        }
+
+        private void InvokeFlipBoardEvent()
+        {
+            m_FlipBoardEvent.Invoke(new Payload(m_FlipBoardEvent.Id, new PayloadSubject[] {
+            new PayloadSubject(m_FlipBoardEvent.Subjects[0], GetStringValue.Invoke(FlipBoard)),
+            new PayloadSubject(m_FlipBoardEvent.Subjects[1], GetStringValue.Invoke(FlipBoard)),
+            new PayloadSubject(m_FlipBoardEvent.Subjects[2], GetStringValue.Invoke(FlipBoardLatch))
             }));
         }
 
@@ -313,14 +411,37 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             {
                 m_BadBoardBlockEvent.Invoke(new Payload(m_BadBoardBlockEvent.Id, new PayloadSubject[] {
                 new PayloadSubject(m_BadBoardBlockEvent.Subjects[0], m_BadBoardBlockEvent.BlockedValue),
-                new PayloadSubject(m_GoodBoardBlockEvent.Subjects[1], c_BadBoardDescription)
+                new PayloadSubject(m_BadBoardBlockEvent.Subjects[1], c_BadBoardDescription)
                 }));
             }
-            else if (!Blocked && m_BadBoardBlockEvent.UnblockedEnabled)
+            else if (!BadBoardBlocked && m_BadBoardBlockEvent.UnblockedEnabled)
             {
                 m_BadBoardBlockEvent.Invoke(new Payload(m_BadBoardBlockEvent.Id, new PayloadSubject[] {
                 new PayloadSubject(m_BadBoardBlockEvent.Subjects[0], m_BadBoardBlockEvent.UnblockedValue),
-                new PayloadSubject(m_GoodBoardBlockEvent.Subjects[1], c_BadBoardDescription)
+                new PayloadSubject(m_BadBoardBlockEvent.Subjects[1], c_BadBoardDescription)
+                }));
+            }
+        }
+
+        private void InvokeFlipBoardBlockEvent()
+        {
+            if (m_FlipBoardBlockEvent.Subjects.Length != 2) // Safety Net
+            {
+                return;
+            }
+
+            if (FlipBoardBlocked && m_FlipBoardBlockEvent.BlockedEnabled)
+            {
+                m_FlipBoardBlockEvent.Invoke(new Payload(m_FlipBoardBlockEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(m_FlipBoardBlockEvent.Subjects[0], m_FlipBoardBlockEvent.BlockedValue),
+                new PayloadSubject(m_FlipBoardBlockEvent.Subjects[1], c_FlipBoardDescription)
+                }));
+            }
+            else if (!FlipBoardBlocked && m_FlipBoardBlockEvent.UnblockedEnabled)
+            {
+                m_FlipBoardBlockEvent.Invoke(new Payload(m_FlipBoardBlockEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(m_FlipBoardBlockEvent.Subjects[0], m_FlipBoardBlockEvent.UnblockedValue),
+                new PayloadSubject(m_FlipBoardBlockEvent.Subjects[1], c_FlipBoardDescription)
                 }));
             }
         }
@@ -379,6 +500,44 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             }
         }
 
+        internal void GoodBoardFlip(bool isEnabled)
+        {
+            if (isEnabled)
+            {
+                if (FlipBoard == false)
+                {
+                    FlipBoard = true;
+                    FlipDelayWait();
+                }
+
+                GoodBoard = true;
+            }
+            else
+            {
+                FlipBoard = false;
+                GoodBoard = false;
+            }
+        }
+
+        internal void GoodBoardDivertFlip(bool isEnabled)
+        {
+            if (isEnabled)
+            {
+                if (FlipBoard == false)
+                {
+                    FlipBoard = true;
+                    FlipDelayWait();
+                }
+
+                GoodBoardDivert = true;
+            }
+            else
+            {
+                FlipBoard = false;
+                GoodBoardDivert = false;
+            }
+        }
+
         private void GoodBoardDivertReset()
         {
             if (!GoodBoardDivertLatch)
@@ -407,7 +566,6 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 }
             }
         }
-        internal bool GoodBoardBlocked { get; private set; }
 
         internal bool BadBoard
         {
@@ -463,6 +621,44 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             }
         }
 
+        internal void BadBoardFlip(bool isEnabled)
+        {
+            if (isEnabled)
+            {
+                if (FlipBoard == false)
+                {
+                    FlipBoard = true;
+                    FlipDelayWait();
+                }
+
+                BadBoard = true;
+            }
+            else
+            {
+                FlipBoard = false;
+                BadBoard = false;
+            }
+        }
+
+        internal void BadBoardDivertFlip(bool isEnabled)
+        {
+            if (isEnabled)
+            {
+                if (FlipBoard == false)
+                {
+                    FlipBoard = true;
+                    FlipDelayWait();
+                }
+
+                BadBoardDivert = true;
+            }
+            else
+            {
+                FlipBoard = false;
+                BadBoardDivert = false;
+            }
+        }
+
         private void BadBoardDivertReset()
         {
             if (!BadBoardDivertLatch)
@@ -492,6 +688,118 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             }
         }
 
-        internal bool BadBoardBlocked { get; private set; }
+        private void BlockFlipBoardOnSMEMABadBoardNotAvailable()
+        {
+            if(m_InterlockProperties.TriggerBlockFlipBoardOnBadBoardNotAvailable.Value && ! FlipBoardLatch)
+            {
+                FlipBoard = false;
+            }
+        }
+
+        private void BlockFlipBoardOnSMEMAGoodBoardNotAvailable()
+        {
+            if (m_InterlockProperties.TriggerBlockFlipBoardOnGoodBoardNotAvailable.Value && !FlipBoardLatch)
+            {
+                FlipBoard = false;
+            }
+        }
+
+        private void BlockGoodBoardOnSMEMAMachineNotReady()
+        {
+            if (m_InterlockProperties.TriggerBlockGoodBoardOnMachineNotReady.Value)
+            {
+                if (!GoodBoardLatch)
+                {
+                    GoodBoard = false;
+                }
+
+                if (!GoodBoardDivertLatch)
+                {
+                    GoodBoardDivert = false;
+                }
+            }
+        }
+
+        private void BlockBadBoardOnSMEMAMachineNotReady()
+        {
+            if (m_InterlockProperties.TriggerBlockBadBoardOnMachineNotReady.Value)
+            {
+                if (!BadBoardLatch)
+                {
+                    BadBoard = false;
+                }
+
+                if (!BadBoardDivertLatch)
+                {
+                    BadBoardDivert = false;
+                }
+            }
+        }
+
+        private void BlockFlipBoardOnSMEMAMachineNotReady()
+        {
+            if (m_InterlockProperties.TriggerBlockFlipBoardOnMachineNotReady.Value)
+            {
+                if (!FlipBoardLatch)
+                {
+                    FlipBoard = false;
+                }
+            }
+        }
+
+        internal bool FlipBoard
+        {
+            get
+            {
+                return m_FlipBoard;
+            }
+            set
+            {
+                if (m_FlipBoard != value)
+                {
+                    m_FlipBoard = value;
+                    FlipBoardUpdated?.Invoke(m_FlipBoard);
+                    InvokeFlipBoardEvent();
+                    OnFlipBoardUpdate();
+                }
+            }
+        }
+
+        internal bool FlipBoardLatch
+        {
+            get
+            {
+                return m_FlipBoardLatch;
+            }
+
+            set
+            {
+                if (m_FlipBoardLatch != value)
+                {
+                    m_FlipBoardLatch = value;
+                    FlipBoardLatchedUpdated?.Invoke(m_FlipBoardLatch);
+                    InvokeFlipBoardEvent();
+                }
+            }
+        }
+
+        private void FlipDelayWait()
+        {
+            if (m_FlipTimerCancellationToken != null)
+            {
+                m_FlipTimerCancellationToken.Cancel();
+            }
+
+            m_FlipTimerCancellationToken = new CancellationTokenSource();
+            Task FlipDelay = Task.Delay(m_InterlockProperties.DelayFlipThenBoardAvailable.Value);
+            try
+            {
+                FlipDelay.Wait(m_FlipTimerCancellationToken.Token);
+            }
+            catch (OperationCanceledException)
+            {
+            }
+        }
+
     }
 }

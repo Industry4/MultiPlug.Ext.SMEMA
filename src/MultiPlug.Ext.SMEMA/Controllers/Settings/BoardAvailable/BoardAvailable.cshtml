@@ -117,6 +117,49 @@
                     </div>
                 </div>
             </div>
+
+            <h4>SMEMA Flip Board</h4>
+            <div class="row-fluid">
+                <div class="well">
+                    <div class="row-fluid">
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Subscription ID</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="SMEMAFlipBoardSubscriptionId" class="input-block-level mp-event-picker" type="text" value="@Model.Extension.Model.Properties.SMEMAFlipBoardSubscription.Id" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Flip Value</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input name="SMEMAFlipBoardSubscriptionFlipValue" class="span12" type="text" value="@Model.Extension.Model.Properties.SMEMAFlipBoardSubscription.Value">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Connected</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    @Raw(isConnected(Model.Extension.Model.Properties.SMEMAFlipBoardSubscription.Connected))
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <div class="row-fluid"><div class="span12">Always Flip</div></div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <input type="checkbox" name="SMEMAFlipBoardAlways" value="true" @isEnabled(@Model.Extension.Model.Properties.SMEMAFlipBoardAlways)>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <h3 class="box-header">Events</h3>
         <div class="box">

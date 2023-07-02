@@ -16,5 +16,9 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.MachineReady
         public string SMEMAFailedBoardAvailableEventId { get; set; }
         public string SMEMAFailedBoardAvailableEventDescription { get; set; }
         public string SMEMAFailedBoardAvailableEventSubject { get; set; }
+
+        public string SMEMAFlipBoardEventId { get; set; }
+        public string SMEMAFlipBoardEventDescription { get; set; }
+        public string SMEMAFlipBoardEventSubject { get; set; }
     }
 }

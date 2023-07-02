@@ -2,11 +2,16 @@
 using MultiPlug.Base.Http;
 using MultiPlug.Ext.SMEMA.Components.Lane;
 using MultiPlug.Ext.SMEMA.Controllers.API.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
 {
-    [Route("1/lane/interlock/bad/divert")]
-    public class InterlockBadBoardDivert : APIController
+    [Route("1/lane/interlock/bad/divert/flip")]
+    public class InterlockBadBoardDivertFlip : APIController
     {
         public Response Post(string index, string guid, bool enable)
         {
@@ -22,7 +27,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.BadBoard
 
             if (LaneSearch.Interlock.PermissionInterfaceREST == true)
             {
-                LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivert = enable;
+                LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardDivertFlip(enable);
             }
 
             var Result = new

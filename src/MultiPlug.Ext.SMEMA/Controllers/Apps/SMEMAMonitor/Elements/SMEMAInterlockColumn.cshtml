@@ -238,6 +238,44 @@
                                             }
                                         </td>
                                     </tr>
+
+                                    <tr>
+                                        <td class="col-lg-2"><h6>F</h6></td>
+                                        <td class="col-lg-5 text-center td-btn-clear">
+                                            @if (Model.Extension.Model.RightToLeft)
+                                            {
+                                                <div class="btn-group" role="group">
+                                                    @Raw(DrawButton(Model.Extension.Model.UIEnabled, "SMEMAInterlockFlipBoardState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/flip/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockStates.FlipBoard,
+                                                        DrawLeftIcon(Model.Extension.Model.SMEMAInterlockStates.FlipBoard),
+                                                        "btn-smema-unblocked smema-righttoleft",
+                                                        "btn-smema-blocked smema-righttoleft"))
+                                                    @Raw(DrawButton(Model.Extension.Model.UIEnabled, "SMEMAInterlockFlipBoardLatchState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/flip/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockLatchedStates.FlipBoard,
+                                                        DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockLatchedStates.FlipBoard)))
+                                                </div>
+                                            }
+                                        </td>
+                                        <td class="col-lg-5 text-center td-btn-clear">
+                                            @if (!Model.Extension.Model.RightToLeft)
+                                            {
+                                                <div class="btn-group" role="group">
+                                                    @Raw(DrawButton(Model.Extension.Model.UIEnabled, "SMEMAInterlockFlipBoardLatchState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/flip/latch/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockLatchedStates.FlipBoard,
+                                                        DrawLatchedIcon(Model.Extension.Model.SMEMAInterlockLatchedStates.FlipBoard)))
+                                                    @Raw(DrawButton(Model.Extension.Model.UIEnabled, "SMEMAInterlockFlipBoardState",
+                                                        Model.Context.Paths.APIs + "1/lane/interlock/flip/?guid=" + Model.Extension.Model.LaneGuid,
+                                                        Model.Extension.Model.SMEMAInterlockStates.FlipBoard,
+                                                        DrawRightIcon(Model.Extension.Model.SMEMAInterlockStates.FlipBoard),
+                                                        "btn-smema-unblocked",
+                                                        "btn-smema-blocked"))
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

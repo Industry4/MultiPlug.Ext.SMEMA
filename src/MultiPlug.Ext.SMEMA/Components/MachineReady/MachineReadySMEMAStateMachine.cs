@@ -14,6 +14,7 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
         internal bool MachineReadyState { get; private set; }
         internal bool BadBoardAvailableState { get; private set; }
         internal bool GoodBoardAvailableState { get; private set; }
+        public bool FlipBoardState { get; internal set; }
 
         private bool m_BadBoard;
         private bool m_GoodBoardDiverted;
@@ -30,7 +31,7 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
             if (m_Properties.SMEMAMachineReadyAlways == true)
             {
                 MachineReadyState = true;
-                MachineReady?.BeginInvoke(MachineReadyState, MachineReady.EndInvoke, null);
+                MachineReady?.Invoke(MachineReadyState);
             }
             else
             {
@@ -58,7 +59,7 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
                 }
             }
 
-            MachineReady?.BeginInvoke(MachineReadyState, MachineReady.EndInvoke, null);
+            MachineReady?.Invoke(MachineReadyState);
         }
 
         private void InvokeGoodBoardEvent()
@@ -123,6 +124,22 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
                 m_GoodBoardDiverted = isTrue;
                 InvokeBadBoardEvent();
             }
+        }
+
+        internal void OnFlipBoard(bool isTrue)
+        {
+            if (FlipBoardState != isTrue)
+            {
+                FlipBoardState = isTrue;
+                InvokeFlipBoardEvent();
+            }
+        }
+
+        private void InvokeFlipBoardEvent()
+        {
+            m_Properties.SMEMAFlipBoardEvent.Invoke(new Payload(m_Properties.SMEMAFlipBoardEvent.Id, new PayloadSubject[] {
+                new PayloadSubject(m_Properties.SMEMAFlipBoardEvent.Subjects[0], GetStringValue.Invoke( FlipBoardState ) )
+                }));
         }
     }
 }

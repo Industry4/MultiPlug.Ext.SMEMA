@@ -58,12 +58,15 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
                     new Subscription { Guid = "USReady", Id = LaneSearch.BoardAvailable.SMEMAMachineReadyEvent.Id },
                     new Subscription { Guid = "USGood", Id = LaneSearch.BoardAvailable.SMEMABoardAvailableSubscription.Id },
                     new Subscription { Guid = "USBad", Id = LaneSearch.BoardAvailable.SMEMAFailedBoardAvailableSubscription.Id },
+                    new Subscription { Guid = "USFlip", Id = LaneSearch.BoardAvailable.SMEMAFlipBoardSubscription.Id },
                     new Subscription { Guid = "ILReady", Id = LaneSearch.Interlock.MachineReadyEvent.Id },
                     new Subscription { Guid = "ILGood", Id = LaneSearch.Interlock.GoodBoardEvent.Id },
                     new Subscription { Guid = "ILBad", Id = LaneSearch.Interlock.BadBoardEvent.Id },
+                    new Subscription { Guid = "ILFlip", Id = LaneSearch.Interlock.FlipBoardEvent.Id },
                     new Subscription { Guid = "DSReady", Id = LaneSearch.MachineReady.SMEMAMachineReadySubscription.Id },
                     new Subscription { Guid = "DSGood", Id = LaneSearch.MachineReady.SMEMABoardAvailableEvent.Id },
-                    new Subscription { Guid = "DSBad", Id = LaneSearch.MachineReady.SMEMAFailedBoardAvailableEvent.Id }
+                    new Subscription { Guid = "DSBad", Id = LaneSearch.MachineReady.SMEMAFailedBoardAvailableEvent.Id },
+                    new Subscription { Guid = "DSFlip", Id = LaneSearch.MachineReady.SMEMAFlipBoardEvent.Id }
                 },
                 Model = new Models.Apps.SMEMAMonitor
                 {
@@ -77,26 +80,30 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
 
                     SMEMABoardAvailableAlways = LaneSearch.BoardAvailable.SMEMABoardAvailableAlways.Value,
                     SMEMAFailedBoardAvailableAlways = LaneSearch.BoardAvailable.SMEMAFailedBoardAvailableAlways.Value,
+                    SMEMAFlipBoardAlways = LaneSearch.BoardAvailable.SMEMAFlipBoardAlways.Value,
                     SMEMAMachineReadyAlways = LaneSearch.MachineReady.SMEMAMachineReadyAlways.Value,
 
                     SMEMABoardAvailableStates = new Models.Apps.ComponentStates
                     {
                         MachineReady = LaneSearch.BoardAvailable.StateMachine.MachineReadyState,
                         GoodBoard = LaneSearch.BoardAvailable.StateMachine.GoodBoardAvailableState,
-                        BadBoard = LaneSearch.BoardAvailable.StateMachine.BadBoardAvailableState
+                        BadBoard = LaneSearch.BoardAvailable.StateMachine.BadBoardAvailableState,
+                        FlipBoard = LaneSearch.BoardAvailable.StateMachine.FlipBoardState
 
                     },
                     SMEMAInterlockStates = new Models.Apps.ComponentStates
                     {
                         MachineReady = LaneSearch.Interlock.MachineReadyStateMachine.MachineReady,
                         GoodBoard = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard,
-                        BadBoard = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard
+                        BadBoard = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard,
+                        FlipBoard = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoard
                     },
                     SMEMAInterlockLatchedStates = new Models.Apps.ComponentStates
                     {
                         MachineReady = LaneSearch.Interlock.MachineReadyStateMachine.Latch,
                         GoodBoard = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardLatch,
-                        BadBoard = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch
+                        BadBoard = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch,
+                        FlipBoard = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoardLatch
                     },
 
                     SMEMAInterlockDivertStates = new Models.Apps.ComponentStates
@@ -116,6 +123,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
                         MachineReady = LaneSearch.MachineReady.StateMachine.MachineReadyState,
                         GoodBoard = LaneSearch.MachineReady.StateMachine.GoodBoardAvailableState,
                         BadBoard = LaneSearch.MachineReady.StateMachine.BadBoardAvailableState,
+                        FlipBoard = LaneSearch.MachineReady.StateMachine.FlipBoardState,
                     }
                 },
                 Template = Templates.AppsSMEMAMonitorHome

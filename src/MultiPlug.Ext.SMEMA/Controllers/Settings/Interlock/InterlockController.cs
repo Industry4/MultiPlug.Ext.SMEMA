@@ -51,10 +51,17 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Interlock
                 StartupMachineReady = theModel.StartupMachineReady,
                 StartupGoodBoard = theModel.StartupGoodBoard,
                 StartupBadBoard = theModel.StartupBadBoard,
+                StartupFlipBoard = theModel.StartupFlipBoard,
                 PermissionInterfaceUI = theModel.PermissionInterfaceUI,
                 PermissionInterfaceREST = theModel.PermissionInterfaceREST,
                 PermissionInterfaceSubscriptions = theModel.PermissionInterfaceSubscriptions,
-                MachineReadyInterlockSubscription = new Models.Exchange.MachineReadyInterlockSubscription
+                TriggerBlockGoodBoardOnMachineNotReady = theModel.TriggerBlockGoodBoardOnMachineNotReady,
+                TriggerBlockBadBoardOnMachineNotReady = theModel.TriggerBlockBadBoardOnMachineNotReady,
+                TriggerBlockFlipBoardOnMachineNotReady = theModel.TriggerBlockFlipBoardOnMachineNotReady,
+                TriggerBlockFlipBoardOnGoodBoardNotAvailable = theModel.TriggerBlockFlipBoardOnGoodBoardNotAvailable,
+                TriggerBlockFlipBoardOnBadBoardNotAvailable = theModel.TriggerBlockFlipBoardOnBadBoardNotAvailable,
+                DelayFlipThenBoardAvailable = theModel.DelayFlipThenBoardAvailable,
+                MachineReadyInterlockSubscription = new Models.Exchange.MachineReadyAndFlipInterlockSubscription
                 {
                     Id = theModel.MachineReadyInterlockSubscriptionId,
                     Block = theModel.MachineReadyInterlockSubscriptionBlock,
@@ -72,7 +79,11 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Interlock
                     DivertOn = theModel.GoodBoardInterlockSubscriptionDivertOn,
                     DivertOff = theModel.GoodBoardInterlockSubscriptionDivertOff,
                     DivertLatchOn = theModel.GoodBoardInterlockSubscriptionDivertLatchOn,
-                    DivertLatchOff = theModel.GoodBoardInterlockSubscriptionDivertLatchOff
+                    DivertLatchOff = theModel.GoodBoardInterlockSubscriptionDivertLatchOff,
+                    UnblockFlipOn = theModel.GoodBoardInterlockSubscriptionUnblockFlipOn,
+                    BlockFlipOff = theModel.GoodBoardInterlockSubscriptionBlockFlipOff,
+                    DivertOnFlipOn = theModel.GoodBoardInterlockSubscriptionDivertOnFlipOn,
+                    DivertOffFlipOff = theModel.GoodBoardInterlockSubscriptionDivertOffFlipOff
                 },
                 BadBoardInterlockSubscription = new Models.Exchange.GoodBadInterlockSubscription
                 {
@@ -84,7 +95,19 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Interlock
                     DivertOn = theModel.BadBoardInterlockSubscriptionDivertOn,
                     DivertOff = theModel.BadBoardInterlockSubscriptionDivertOff,
                     DivertLatchOn = theModel.BadBoardInterlockSubscriptionDivertLatchOn,
-                    DivertLatchOff = theModel.BadBoardInterlockSubscriptionDivertLatchOff
+                    DivertLatchOff = theModel.BadBoardInterlockSubscriptionDivertLatchOff,
+                    UnblockFlipOn = theModel.BadBoardInterlockSubscriptionUnblockFlipOn,
+                    BlockFlipOff = theModel.BadBoardInterlockSubscriptionBlockFlipOff,
+                    DivertOnFlipOn = theModel.BadBoardInterlockSubscriptionDivertOnFlipOn,
+                    DivertOffFlipOff = theModel.BadBoardInterlockSubscriptionDivertOffFlipOff
+                },
+                FlipBoardInterlockSubscription = new Models.Exchange.MachineReadyAndFlipInterlockSubscription
+                {
+                    Id = theModel.FlipBoardInterlockSubscriptionId,
+                    Block = theModel.FlipBoardInterlockSubscriptionBlock,
+                    Unblock = theModel.FlipBoardInterlockSubscriptionUnblock,
+                    LatchOn = theModel.FlipBoardInterlockSubscriptionLatchOn,
+                    LatchOff = theModel.FlipBoardInterlockSubscriptionLatchOff
                 },
                 MachineReadyBlockEvent = new Models.Exchange.Event
                 {
@@ -115,6 +138,16 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Interlock
                     BlockedValue = theModel.BadBoardBlockEventBlockedValue,
                     UnblockedEnabled = theModel.BadBoardBlockEventUnblockedEnabled,
                     UnblockedValue = theModel.BadBoardBlockEventUnblockedValue
+                },
+                FlipBoardBlockEvent = new Models.Exchange.Event
+                {
+                    Id = theModel.FlipBoardBlockEventId,
+                    Description = theModel.FlipBoardBlockEventDescription,
+                    Subjects = new string[] { theModel.FlipBoardBlockEventSubject, "smema" },
+                    BlockedEnabled = theModel.FlipBoardBlockEventBlockedEnabled,
+                    BlockedValue = theModel.FlipBoardBlockEventBlockedValue,
+                    UnblockedEnabled = theModel.FlipBoardBlockEventUnblockedEnabled,
+                    UnblockedValue = theModel.FlipBoardBlockEventUnblockedValue
                 }
 
             };

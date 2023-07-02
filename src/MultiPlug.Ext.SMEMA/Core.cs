@@ -177,11 +177,14 @@ namespace MultiPlug.Ext.SMEMA
                 EventsList.Add(Lane.Interlock.MachineReadyEvent);
                 EventsList.Add(Lane.Interlock.GoodBoardEvent);
                 EventsList.Add(Lane.Interlock.BadBoardEvent);
+                EventsList.Add(Lane.Interlock.FlipBoardEvent);
                 EventsList.Add(Lane.Interlock.MachineReadyBlockEvent);
                 EventsList.Add(Lane.Interlock.GoodBoardBlockEvent);
                 EventsList.Add(Lane.Interlock.BadBoardBlockEvent);
+                EventsList.Add(Lane.Interlock.FlipBoardBlockEvent);
                 EventsList.Add(Lane.MachineReady.SMEMABoardAvailableEvent);
                 EventsList.Add(Lane.MachineReady.SMEMAFailedBoardAvailableEvent);
+                EventsList.Add(Lane.MachineReady.SMEMAFlipBoardEvent);
             }
 
             Events = EventsList.ToArray();
@@ -196,9 +199,11 @@ namespace MultiPlug.Ext.SMEMA
             {
                 SubscriptionsList.Add(Lane.BoardAvailable.SMEMABoardAvailableSubscription);
                 SubscriptionsList.Add(Lane.BoardAvailable.SMEMAFailedBoardAvailableSubscription);
+                SubscriptionsList.Add(Lane.BoardAvailable.SMEMAFlipBoardSubscription);
                 SubscriptionsList.Add(Lane.Interlock.MachineReadyInterlockSubscription);
                 SubscriptionsList.Add(Lane.Interlock.GoodBoardInterlockSubscription);
                 SubscriptionsList.Add(Lane.Interlock.BadBoardInterlockSubscription);
+                SubscriptionsList.Add(Lane.Interlock.FlipBoardInterlockSubscription);
                 SubscriptionsList.Add(Lane.MachineReady.SMEMAMachineReadySubscription);
             }
 

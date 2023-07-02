@@ -3,10 +3,10 @@ using MultiPlug.Base.Http;
 using MultiPlug.Ext.SMEMA.Components.Lane;
 using MultiPlug.Ext.SMEMA.Controllers.API.Utils;
 
-namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.GoodBoard
+namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.FlipBoard
 {
-    [Route("1/lane/interlock/good")]
-    public class InterlockGoodBoard : APIController
+    [Route("1/lane/interlock/flip")]
+    public class InterlockFlipBoard : APIController
     {
         public Response Get(string index, string guid)
         {
@@ -22,10 +22,6 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.GoodBoard
 
             var Result = new
             {
-                Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard,
-                Latched = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardLatch,
-                Diverted = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivert,
-                DivertedLatched = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivertLatch,
                 Flip = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoard,
                 FlipLatched = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoardLatch,
             };
@@ -52,15 +48,11 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock.GoodBoard
 
             if (LaneSearch.Interlock.PermissionInterfaceREST == true)
             {
-                LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard = enable;
+                LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoard = enable;
             }
 
             var Result = new
             {
-                Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard,
-                Latched = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardLatch,
-                Diverted = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivert,
-                DivertedLatched = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardDivertLatch,
                 Flip = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoard,
                 FlipLatched = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoardLatch,
             };

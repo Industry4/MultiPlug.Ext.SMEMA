@@ -19,6 +19,7 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
         {
             SMEMABoardAvailableAlways = false;
             SMEMAFailedBoardAvailableAlways = false;
+            SMEMAFlipBoardAlways = false;
             StateMachine = new BoardAvailableSMEMAStateMachine(this);
 
             SMEMAMachineReadyEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = SMEMAMachineReadyEventId + theEventSuffix, Description = "SMEMA Machine Ready", Subjects = new[] { "value" } };
@@ -26,6 +27,8 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
             SMEMABoardAvailableSubscription.Event += StateMachine.OnGoodBoardEvent;
             SMEMAFailedBoardAvailableSubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Value = "1" };
             SMEMAFailedBoardAvailableSubscription.Event += StateMachine.OnBadBoardEvent;
+            SMEMAFlipBoardSubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Value = "1" };
+            SMEMAFlipBoardSubscription.Event += StateMachine.OnFlipBoardEvent;
         }
 
         internal void OnMachineReady(bool isTrue)
@@ -55,12 +58,31 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
                 FlagAvailableAlwaysUpdated = true;
             }
 
-            if (Subscription.Merge(SMEMABoardAvailableSubscription, theNewProperties.SMEMABoardAvailableSubscription)) { FlagSubscriptionUpdated = true; }
-            if (Subscription.Merge(SMEMAFailedBoardAvailableSubscription, theNewProperties.SMEMAFailedBoardAvailableSubscription)) { FlagSubscriptionUpdated = true; }
-            if (Event.Merge(SMEMAMachineReadyEvent, theNewProperties.SMEMAMachineReadyEvent)) { FlagEventUpdated = true; }
+            if(theNewProperties.SMEMAFlipBoardAlways != null && theNewProperties.SMEMAFlipBoardAlways != SMEMAFlipBoardAlways)
+            {
+                SMEMAFlipBoardAlways = theNewProperties.SMEMAFlipBoardAlways;
+                FlagAvailableAlwaysUpdated = true;
+            }
 
-            SMEMABoardAvailableSubscription.Value = theNewProperties.SMEMABoardAvailableSubscription.Value;
-            SMEMAFailedBoardAvailableSubscription.Value = theNewProperties.SMEMAFailedBoardAvailableSubscription.Value;
+            if (theNewProperties.SMEMABoardAvailableSubscription != null && Subscription.Merge(SMEMABoardAvailableSubscription, theNewProperties.SMEMABoardAvailableSubscription)) { FlagSubscriptionUpdated = true; }
+            if (theNewProperties.SMEMAFailedBoardAvailableSubscription != null && Subscription.Merge(SMEMAFailedBoardAvailableSubscription, theNewProperties.SMEMAFailedBoardAvailableSubscription)) { FlagSubscriptionUpdated = true; }
+            if (theNewProperties.SMEMAFlipBoardSubscription != null && Subscription.Merge(SMEMAFlipBoardSubscription, theNewProperties.SMEMAFlipBoardSubscription)) { FlagSubscriptionUpdated = true; }
+            if (theNewProperties.SMEMAMachineReadyEvent != null && Event.Merge(SMEMAMachineReadyEvent, theNewProperties.SMEMAMachineReadyEvent)) { FlagEventUpdated = true; }
+
+            if(theNewProperties.SMEMABoardAvailableSubscription != null)
+            {
+                SMEMABoardAvailableSubscription.Value = theNewProperties.SMEMABoardAvailableSubscription.Value;
+            }
+
+            if(theNewProperties.SMEMAFailedBoardAvailableSubscription != null)
+            {
+                SMEMAFailedBoardAvailableSubscription.Value = theNewProperties.SMEMAFailedBoardAvailableSubscription.Value;
+            }
+
+            if(theNewProperties.SMEMAFlipBoardSubscription != null)
+            {
+                SMEMAFlipBoardSubscription.Value = theNewProperties.SMEMAFlipBoardSubscription.Value;
+            }
 
             if (FlagAvailableAlwaysUpdated) { StateMachine.Init(); }
             if (FlagSubscriptionUpdated) { SubscriptionsUpdated?.Invoke(); }

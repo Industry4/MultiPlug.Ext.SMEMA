@@ -20,5 +20,14 @@ namespace MultiPlug.Ext.SMEMA.Models.Exchange
         public string DivertLatchOn { get; set; } = string.Empty;
         [DataMember]
         public string DivertLatchOff { get; set; } = string.Empty;
+        [DataMember]
+        public string UnblockFlipOn { get; set; } = string.Empty;
+        [DataMember]
+        public string BlockFlipOff { get; set; } = string.Empty;
+        [DataMember]
+        public string DivertOnFlipOn { get; set; } = string.Empty;
+        [DataMember]
+        public string DivertOffFlipOff { get; set; } = string.Empty;
+
     }
 }

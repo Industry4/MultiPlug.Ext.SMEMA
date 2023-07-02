@@ -13,9 +13,11 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
 
         internal bool GoodBoardAvailableState { get; private set; }
         internal bool BadBoardAvailableState { get; private set; }
+        internal bool FlipBoardState { get; private set; }
 
         internal event Action<bool> GoodBoard;
         internal event Action<bool> BadBoard;
+        internal event Action<bool> FlipBoard;
 
         public BoardAvailableSMEMAStateMachine(BoardAvailableProperties theBoardAvailableProperties)
         {
@@ -42,6 +44,16 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
             else
             {
                 OnBadBoardEvent(m_Properties.SMEMAFailedBoardAvailableSubscription.Cache());
+            }
+
+            if (m_Properties.SMEMAFlipBoardAlways == true)
+            {
+                FlipBoardState = true;
+                FlipBoard?.BeginInvoke(FlipBoardState, FlipBoard.EndInvoke, null);
+            }
+            else
+            {
+                OnFlipBoardEvent(m_Properties.SMEMAFlipBoardSubscription.Cache());
             }
         }
 
@@ -87,6 +99,28 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
             }
 
             BadBoard?.BeginInvoke(BadBoardAvailableState, BadBoard.EndInvoke, null);
+        }
+
+        internal void OnFlipBoardEvent(SubscriptionEvent theEvent)
+        {
+            if (m_Properties.SMEMAFlipBoardAlways == true)
+            {
+                return;
+            }
+            foreach (PayloadSubject Subject in theEvent.PayloadSubjects)
+            {
+                if (Subject.Value.Equals(m_Properties.SMEMAFlipBoardSubscription.Value, StringComparison.OrdinalIgnoreCase))
+                {
+                    FlipBoardState = true;
+                    break;
+                }
+                else
+                {
+                    FlipBoardState = false;
+                }
+            }
+
+            FlipBoard?.BeginInvoke(FlipBoardState, FlipBoard.EndInvoke, null);
         }
 
         internal void OnMachineReady(bool isTrue)

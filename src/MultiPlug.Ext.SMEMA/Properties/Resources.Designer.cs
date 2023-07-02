@@ -142,19 +142,22 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to using System;
-        ///using System.Collections.Generic;
-        ///using System.Linq;
-        ///using System.Text;
-        ///using System.Threading.Tasks;
+        ///   Looks up a localized string similar to 
+        ///@functions{
         ///
-        ///namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor.Elements
-        ///{
-        ///    class SMEMAInterlockColumn
+        ///    string DrawEnabledIcon(bool theValue)
         ///    {
+        ///        return (theValue) ? &quot;&lt;i class=\&quot;fas fa-lg fa-check\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;fas fa-lg fa-times\&quot;&gt;&lt;/i&gt;&quot;;
         ///    }
-        ///}
-        ///.
+        ///
+        ///    string DrawLeftIcon(bool theValue)
+        ///    {
+        ///        return (theValue) ? &quot;&lt;i class=\&quot;fas fa-lg fa-arrow-left\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;fas fa-lg fa-times\&quot;&gt;&lt;/i&gt;&quot;;
+        ///    }
+        ///
+        ///    string DrawRightIcon(bool theValue)
+        ///    {
+        ///        return (theValue) ? &quot;&lt;i class=\&quot;fas fa-lg fa-arrow-right\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;fas fa-lg fa-times\&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string AppsSMEMAMonitorInterlockColumn {
             get {
@@ -287,20 +290,28 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to @functions{
-        ///
-        ///    string DrawEnabledIcon(bool theValue)
+        ///    string DrawDirectionIcon(bool theValue)
         ///    {
-        ///        return (theValue) ? &quot;&lt;i class=\&quot;fas fa-lg fa-check\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;fas fa-lg fa-times\&quot;&gt;&lt;/i&gt;&quot;;
+        ///        return (theValue) ? &quot;&lt;i class=\&quot;fas fa-lg fa-angle-double-left\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;fas fa-lg fa-angle-double-right\&quot;&gt;&lt;/i&gt;&quot;;
+        ///    }
+        ///}
+        ///
+        ///&lt;style&gt;
+        ///    .btn-sq-sm {
+        ///      width: 50px;
+        ///      height: 50px;
+        ///      margin: 0px;
+        ///      padding: inherit;
+        ///      margin-top: 2px;
         ///    }
         ///
-        ///    string DrawLeftIcon(bool theValue)
-        ///    {
-        ///        return (theValue) ? &quot;&lt;i class=\&quot;fas fa-lg fa-arrow-left\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;fas fa-lg fa-times\&quot;&gt;&lt;/i&gt;&quot;;
+        ///    table.table td.td-btn-clear {
+        ///        padding: 0px;
         ///    }
         ///
-        ///    string DrawRightIcon(bool theValue)
-        ///    {
-        ///        return (theValue) ? &quot;&lt;i class=\&quot;fas fa-lg fa-arrow-right\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;fas fa-lg fa-times\&quot;&gt;&lt; [rest of string was truncated]&quot;;.
+        ///    .divert-rotate-45 {
+        ///        -webkit-transform: rotate(45deg);
+        ///        -moz-transf [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string AppsSMEMAMonitorSMEMAIOContainer {
             get {
@@ -604,15 +615,15 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         ///    {
         ///        return (theValue) ? &quot;&lt;i class=\&quot;icon-ok icon-large\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;icon-remove icon-large\&quot;&gt;&lt;/i&gt;&quot;;
         ///    }
+        ///    string isEnabled(bool? theValue)
+        ///    {
+        ///        return (theValue.Value) ? &quot;checked&quot; : &quot;&quot;;
+        ///    }
         ///}
         ///
         ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
         ///    &lt;input type=&quot;hidden&quot; name=&quot;Guid&quot; value=&quot;@Model.Extension.Model.Guid&quot;&gt;
-        ///    &lt;section class=&quot;row-fluid&quot;&gt;
-        ///
-        ///        &lt;div class=&quot;row-fluid&quot;&gt;
-        ///            &lt;div class=&quot;box&quot;&gt;
-        ///               [rest of string was truncated]&quot;;.
+        ///    &lt;secti [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SettingsBoardAvailable {
             get {
@@ -652,13 +663,13 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         ///    {
         ///        return (theValue) ? &quot;checked&quot; : string.Empty;
         ///    }
+        ///    string isEnabled(bool? theValue)
+        ///    {
+        ///        return (theValue.Value) ? &quot;checked&quot; : string.Empty;
+        ///    }
         ///    string isChecked(int theValue1, int theValue2)
         ///    {
-        ///        return (theValue1 == theValue2) ? &quot;checked&quot; : string.Empty;
-        ///    }
-        ///}
-        ///
-        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot; [rest of string was truncated]&quot;;.
+        ///        return [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SettingsInterlock {
             get {
@@ -702,15 +713,15 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         ///    {
         ///        return (theValue) ? &quot;&lt;i class=\&quot;icon-ok icon-large\&quot;&gt;&lt;/i&gt;&quot; : &quot;&lt;i class=\&quot;icon-remove icon-large\&quot;&gt;&lt;/i&gt;&quot;;
         ///    }
+        ///    string isEnabled(bool? theValue)
+        ///    {
+        ///        return (theValue.Value) ? &quot;checked&quot; : &quot;&quot;;
+        ///    }
         ///}
         ///
         ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
         ///    &lt;input type=&quot;hidden&quot; name=&quot;Guid&quot; value=&quot;@Model.Extension.Model.Guid&quot;&gt;
-        ///    &lt;section class=&quot;row-fluid&quot;&gt;
-        ///
-        ///        &lt;div class=&quot;row-fluid&quot;&gt;
-        ///            &lt;div class=&quot;box&quot;&gt;
-        ///               [rest of string was truncated]&quot;;.
+        ///    &lt;secti [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SettingsMachineReady {
             get {
@@ -762,20 +773,11 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to window.addEventListener(&quot;multiplugReconnecting&quot;, function (e) {
-        ///    $(&apos;#Connection-modal&apos;).modal(&apos;show&apos;);
-        ///
-        ///    $(&quot;#Connection-modalTitle&quot;).text(&quot;Connection Disconnected&quot;);
-        ///    $(&quot;#Connection-modalDescription&quot;).text(&quot;The connection to the SMEMA interlock device has been lost. Attempts are being made to restore the connection.&quot;);
-        ///});
-        ///
-        ///window.addEventListener(&quot;multiplugReconnected&quot;, function (e) {
-        ///    $(&quot;#Connection-modalTitle&quot;).text(&quot;Connection Restored&quot;);
-        ///    $(&quot;#Connection-modalDescription&quot;).text(&quot; [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to function DrawEnabledIcon(e, a) { e.html(&quot;1&quot; == a ? &apos;&lt;i class=&quot;fas fa-lg fa-check&quot;&gt;&lt;/i&gt;&apos; : &apos;&lt;i class=&quot;fas fa-lg fa-times&quot;&gt;&lt;/i&gt;&apos;) } function DrawLeftIcon(e, a) { e.html(&quot;1&quot; == a ? &apos;&lt;i class=&quot;fas fa-lg fa-arrow-left&quot;&gt;&lt;/i&gt;&apos; : &apos;&lt;i class=&quot;fas fa-lg fa-times&quot;&gt;&lt;/i&gt;&apos;), UpdateColour(e, a, &quot;btn-smema-unblocked&quot;, &quot;btn-smema-blocked&quot;) } function DrawRightIcon(e, a) { e.html(&quot;1&quot; == a ? &apos;&lt;i class=&quot;fas fa-lg fa-arrow-right&quot;&gt;&lt;/i&gt;&apos; : &apos;&lt;i class=&quot;fas fa-lg fa-times&quot;&gt;&lt;/i&gt;&apos;), UpdateColour(e, a, &quot;btn-smema-unblocked&quot;, &quot;btn-smema- [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string smemaio_js {
+        internal static string smemaio_min_js {
             get {
-                return ResourceManager.GetString("smemaio_js", resourceCulture);
+                return ResourceManager.GetString("smemaio_min_js", resourceCulture);
             }
         }
         

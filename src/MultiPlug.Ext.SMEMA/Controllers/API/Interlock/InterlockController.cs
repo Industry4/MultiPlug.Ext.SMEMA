@@ -26,13 +26,15 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock
                 {
                     Ready = LaneSearch.Interlock.MachineReadyStateMachine.MachineReady,
                     Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoard,
-                    Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard
+                    Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoard,
+                    Flip = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoard
                 },
                 Latched = new
                 {
                     Ready = LaneSearch.Interlock.MachineReadyStateMachine.Latch,
                     Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardLatch,
-                    Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch
+                    Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardLatch,
+                    Flip = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoardLatch
                 },
                 Diverted = new
                 {
@@ -48,9 +50,9 @@ namespace MultiPlug.Ext.SMEMA.Controllers.API.Interlock
                 {
                     Ready = LaneSearch.Interlock.MachineReadyStateMachine.Blocked,
                     Good = LaneSearch.Interlock.BoardAvailableStateMachine.GoodBoardBlocked,
-                    Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardBlocked
+                    Bad = LaneSearch.Interlock.BoardAvailableStateMachine.BadBoardBlocked,
+                    Flip = LaneSearch.Interlock.BoardAvailableStateMachine.FlipBoardBlocked
                 }
-
             };
 
             return new Response
