@@ -53,7 +53,7 @@ namespace MultiPlug.Ext.SMEMA
 
         internal void LaneAdd(string theLaneId, string theMachineName)
         {
-            string NewLaneGuid = Guid.NewGuid().ToString();
+            string NewLaneGuid = Guid.NewGuid().ToString().Substring(9, 4);
 
             LaneComponent NewLane = new LaneComponent(NewLaneGuid);
             NewLane.EventsUpdated += OnLaneEventsUpdated;
