@@ -19,7 +19,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         private InterlockSMEMAStateMachine m_SMEMAUplineStateMachine = new InterlockSMEMAStateMachine();
         private InterlockSMEMAStateMachine m_SMEMADownlineStateMachine = new InterlockSMEMAStateMachine();
 
-        public InterlockComponent(string theGuid, string theEventSuffix)
+        public InterlockComponent(string theGuid)
         {
             // Defaults Start - Set them here and not in InterlockProperties
             StartupMachineReady = 0;
@@ -53,64 +53,72 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             MachineReadyEvent = new Event
             {
                 Guid = Guid.NewGuid().ToString(),
-                Id = "Interlock.MachineReady",
+                Id = theGuid + "-Interlock.MachineReady",
                 Description = "Machine Ready Interlock",
-                Subjects = new[] { "value", "enabled", "interlock-latched" }
+                Subjects = new[] { "value", "enabled", "interlock-latched" },
+                Group = theGuid
             };
             GoodBoardEvent = new Event
             {
                 Guid = Guid.NewGuid().ToString(),
-                Id = "Interlock.GoodBoard",
+                Id = theGuid + "-Interlock.GoodBoard",
                 Description = "Good Board Interlock",
-                Subjects = new[] { "value", "enabled", "interlock-latched", "divert", "divert-latched" }
+                Subjects = new[] { "value", "enabled", "interlock-latched", "divert", "divert-latched" },
+                Group = theGuid
             };
             BadBoardEvent = new Event
             {
                 Guid = Guid.NewGuid().ToString(),
-                Id = "Interlock.BadBoard",
+                Id = theGuid + "-Interlock.BadBoard",
                 Description = "Bad Board Interlock",
-                Subjects = new[] { "value", "enabled", "interlock-latched", "divert", "divert-latched" }
+                Subjects = new[] { "value", "enabled", "interlock-latched", "divert", "divert-latched" },
+                Group = theGuid
             };
             FlipBoardEvent = new Event
             {
                 Guid = Guid.NewGuid().ToString(),
-                Id = "Interlock.FlipBoard",
+                Id = theGuid + "-Interlock.FlipBoard",
                 Description = "Flip Board Interlock",
-                Subjects = new[] { "value", "enabled", "interlock-latched" }
+                Subjects = new[] { "value", "enabled", "interlock-latched" },
+                Group = theGuid
             };
 
             MachineReadyBlockEvent = new Models.Exchange.Event
             {
                 Guid = Guid.NewGuid().ToString(),
-                Id = "Interlock.MachineReady.Block",
+                Id = theGuid + "-Interlock.MachineReady.Block",
                 Description = "Machine Ready Interlock Blocking",
-                Subjects = new[] { "blocked", "smema" }
+                Subjects = new[] { "blocked", "smema" },
+                Group = theGuid
             };
 
             GoodBoardBlockEvent = new Models.Exchange.Event
             {
                 Guid = Guid.NewGuid().ToString(),
-                Id = "Interlock.GoodBoard.Block",
+                Id = theGuid + "-Interlock.GoodBoard.Block",
                 Description = "Good Board Interlock Blocking",
-                Subjects = new[] { "blocked", "smema" }
+                Subjects = new[] { "blocked", "smema" },
+                Group = theGuid
             };
 
             BadBoardBlockEvent = new Models.Exchange.Event
             {
                 Guid = Guid.NewGuid().ToString(),
-                Id = "Interlock.BadBoard.Block",
+                Id = theGuid + "-Interlock.BadBoard.Block",
                 Description = "Bad Board Interlock Blocking",
-                Subjects = new[] { "blocked", "smema" }
+                Subjects = new[] { "blocked", "smema" },
+                Group = theGuid
             };
 
             FlipBoardBlockEvent = new Models.Exchange.Event
             {
                 Guid = Guid.NewGuid().ToString(),
-                Id = "Interlock.FlipBoard.Block",
+                Id = theGuid + "-Interlock.FlipBoard.Block",
                 Description = "Flip Board Interlock Blocking",
                 Subjects = new[] { "blocked", "smema" },
                 BlockedEnabled = false,
-                UnblockedEnabled = false
+                UnblockedEnabled = false,
+                Group = theGuid
             };
 
             MachineReadyStateMachine = new InterlockMachineReadyStateMachine(

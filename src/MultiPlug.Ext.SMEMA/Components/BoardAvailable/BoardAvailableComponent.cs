@@ -15,17 +15,17 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
 
         internal BoardAvailableSMEMAStateMachine StateMachine { get; private set; }
 
-        public BoardAvailableComponent(string theGuid, string theEventSuffix)
+        public BoardAvailableComponent(string theGuid)
         {
             SMEMABoardAvailableAlways = false;
             SMEMAFailedBoardAvailableAlways = false;
             SMEMAFlipBoardAlways = false;
             StateMachine = new BoardAvailableSMEMAStateMachine(this);
 
-            SMEMAMachineReadyEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = SMEMAMachineReadyEventId + theEventSuffix, Description = "SMEMA Machine Ready", Subjects = new[] { "value" } };
+            SMEMAMachineReadyEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = theGuid + "-" + SMEMAMachineReadyEventId, Description = "SMEMA Machine Ready", Subjects = new[] { "value" }, Group = theGuid };
             SMEMABoardAvailableSubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Value = "1" };
             SMEMABoardAvailableSubscription.Event += StateMachine.OnGoodBoardEvent;
-            SMEMAFailedBoardAvailableSubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Value = "1" };
+            SMEMAFailedBoardAvailableSubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Value = "1"};
             SMEMAFailedBoardAvailableSubscription.Event += StateMachine.OnBadBoardEvent;
             SMEMAFlipBoardSubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Value = "1" };
             SMEMAFlipBoardSubscription.Event += StateMachine.OnFlipBoardEvent;

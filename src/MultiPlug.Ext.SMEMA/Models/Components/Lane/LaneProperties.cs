@@ -22,15 +22,6 @@ namespace MultiPlug.Ext.SMEMA.Models.Components.Lane
         public string MachineId { get; set; }
         [DataMember]
         public bool RightToLeft { get; set; }
-
-        public string EventSuffix
-        {
-            get
-            {
-                return ":Machine:" + MachineId + ":Lane:" + LaneId;
-            }
-        }
-
         [DataMember]
         public int LoggingLevel { get; set; } = 0;
     }

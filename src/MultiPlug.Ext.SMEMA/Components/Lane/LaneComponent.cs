@@ -20,14 +20,14 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
                 Guid = theGuid;
             }
 
-            BoardAvailable = new BoardAvailableComponent(theGuid, EventSuffix);
+            BoardAvailable = new BoardAvailableComponent(theGuid);
             BoardAvailable.EventsUpdated += OnEventsUpdated;
             BoardAvailable.SubscriptionsUpdated += OnSubscriptionsUpdated;
-            MachineReady = new MachineReadyComponent(theGuid, EventSuffix);
+            MachineReady = new MachineReadyComponent(theGuid);
             MachineReady.EventsUpdated += OnEventsUpdated;
             MachineReady.SubscriptionsUpdated += OnSubscriptionsUpdated;
 
-            Interlock = new InterlockComponent(theGuid, EventSuffix);
+            Interlock = new InterlockComponent(theGuid);
             Interlock.EventsUpdated += OnEventsUpdated;
             Interlock.SubscriptionsUpdated += OnSubscriptionsUpdated;
 

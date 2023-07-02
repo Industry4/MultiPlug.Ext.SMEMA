@@ -15,16 +15,16 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
 
         internal MachineReadySMEMAStateMachine StateMachine { get; private set; }
 
-        public MachineReadyComponent(string theGuid, string theEventSuffix)
+        public MachineReadyComponent(string theGuid)
         {
             SMEMAMachineReadyAlways = false;
             StateMachine = new MachineReadySMEMAStateMachine(this);
 
             SMEMAMachineReadySubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Value = "1" };
             SMEMAMachineReadySubscription.Event += StateMachine.OnMachineReady;
-            SMEMABoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = c_SMEMABoardAvailableEventId + theEventSuffix, Description = "Good Board Available", Subjects = new string[] { "value" } };
-            SMEMAFailedBoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = c_SMEMAFailedBoardAvailableEventId + theEventSuffix, Description = "Bad Board Available", Subjects = new string[] { "value" } };
-            SMEMAFlipBoardEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = c_SMEMAFlipBoardEventId + theEventSuffix, Description = "Flip Board", Subjects = new string[] { "value" } };
+            SMEMABoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = theGuid + "-" + c_SMEMABoardAvailableEventId, Description = "Good Board Available", Subjects = new string[] { "value" }, Group = theGuid };
+            SMEMAFailedBoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = theGuid + "-" + c_SMEMAFailedBoardAvailableEventId, Description = "Bad Board Available", Subjects = new string[] { "value" }, Group = theGuid};
+            SMEMAFlipBoardEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = theGuid + "-" + c_SMEMAFlipBoardEventId, Description = "Flip Board", Subjects = new string[] { "value" }, Group = theGuid };
         }
 
         internal void UpdateProperties(MachineReadyProperties theNewProperties)
