@@ -1,6 +1,7 @@
 ﻿using System;
 using MultiPlug.Base.Exchange;
 using MultiPlug.Ext.SMEMA.Models.Components.MachineReady;
+using MultiPlug.Ext.SMEMA.Models.Exchange;
 
 namespace MultiPlug.Ext.SMEMA.Components.MachineReady
 {
@@ -20,11 +21,11 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
             SMEMAMachineReadyAlways = false;
             StateMachine = new MachineReadySMEMAStateMachine(this);
 
-            SMEMAMachineReadySubscription = new Models.Exchange.Subscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Value = "1" };
+            SMEMAMachineReadySubscription = new Models.Exchange.SMEMASubscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Value = "1" };
             SMEMAMachineReadySubscription.Event += StateMachine.OnMachineReady;
-            SMEMABoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = theGuid + "-" + c_SMEMABoardAvailableEventId, Description = "Good Board Available", Subjects = new string[] { "value" }, Group = theGuid };
-            SMEMAFailedBoardAvailableEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = theGuid + "-" + c_SMEMAFailedBoardAvailableEventId, Description = "Bad Board Available", Subjects = new string[] { "value" }, Group = theGuid};
-            SMEMAFlipBoardEvent = new Event { Guid = Guid.NewGuid().ToString(), Id = theGuid + "-" + c_SMEMAFlipBoardEventId, Description = "Flip Board", Subjects = new string[] { "value" }, Group = theGuid };
+            SMEMABoardAvailableEvent = new SMEMAEvent { Guid = Guid.NewGuid().ToString(), Id = theGuid + "-" + c_SMEMABoardAvailableEventId, Description = "Good Board Available", Subjects = new string[] { "value" }, Group = theGuid };
+            SMEMAFailedBoardAvailableEvent = new SMEMAEvent { Guid = Guid.NewGuid().ToString(), Id = theGuid + "-" + c_SMEMAFailedBoardAvailableEventId, Description = "Bad Board Available", Subjects = new string[] { "value" }, Group = theGuid};
+            SMEMAFlipBoardEvent = new SMEMAEvent { Guid = Guid.NewGuid().ToString(), Id = theGuid + "-" + c_SMEMAFlipBoardEventId, Description = "Flip Board", Subjects = new string[] { "value" }, Group = theGuid };
         }
 
         internal void UpdateProperties(MachineReadyProperties theNewProperties)
@@ -32,29 +33,24 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
             bool FlagSubscriptionUpdated = false;
             bool FlagEventUpdated = false;
 
-            if (theNewProperties.SMEMABoardAvailableEvent != null && Event.Merge(SMEMABoardAvailableEvent, theNewProperties.SMEMABoardAvailableEvent))
+            if (theNewProperties.SMEMABoardAvailableEvent != null && SMEMAEvent.Merge(SMEMABoardAvailableEvent, theNewProperties.SMEMABoardAvailableEvent))
             {
                 FlagEventUpdated = true;
             }
 
-            if (theNewProperties.SMEMAFailedBoardAvailableEvent != null && Event.Merge(SMEMAFailedBoardAvailableEvent, theNewProperties.SMEMAFailedBoardAvailableEvent))
+            if (theNewProperties.SMEMAFailedBoardAvailableEvent != null && SMEMAEvent.Merge(SMEMAFailedBoardAvailableEvent, theNewProperties.SMEMAFailedBoardAvailableEvent))
             {
                 FlagEventUpdated = true;
             }
 
-            if (theNewProperties.SMEMAFlipBoardEvent != null && Event.Merge(SMEMAFlipBoardEvent, theNewProperties.SMEMAFlipBoardEvent))
+            if (theNewProperties.SMEMAFlipBoardEvent != null && SMEMAEvent.Merge(SMEMAFlipBoardEvent, theNewProperties.SMEMAFlipBoardEvent))
             {
                 FlagEventUpdated = true;
             }
 
-            if (theNewProperties.SMEMAMachineReadySubscription != null && Subscription.Merge(SMEMAMachineReadySubscription, theNewProperties.SMEMAMachineReadySubscription))
+            if (theNewProperties.SMEMAMachineReadySubscription != null && Models.Exchange.SMEMASubscription.Merge(SMEMAMachineReadySubscription, theNewProperties.SMEMAMachineReadySubscription))
             {
                 FlagSubscriptionUpdated = true;
-            }
-
-            if(theNewProperties.SMEMAMachineReadySubscription != null)
-            {
-                SMEMAMachineReadySubscription.Value = theNewProperties.SMEMAMachineReadySubscription.Value;
             }
 
             if(theNewProperties.SMEMAMachineReadyAlways != null && theNewProperties.SMEMAMachineReadyAlways != SMEMAMachineReadyAlways)
@@ -66,5 +62,7 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
             if (FlagSubscriptionUpdated) { SubscriptionsUpdated?.Invoke(); }
             if (FlagEventUpdated) { EventsUpdated?.Invoke(); }
         }
+
+        
     }
 }

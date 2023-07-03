@@ -3,6 +3,7 @@ using MultiPlug.Base.Attribute;
 using MultiPlug.Base.Http;
 using MultiPlug.Ext.SMEMA.Models.Settings.BoardAvailable;
 using MultiPlug.Ext.SMEMA.Models.Components.BoardAvailable;
+using MultiPlug.Ext.SMEMA.Models.Exchange;
 
 namespace MultiPlug.Ext.SMEMA.Controllers.Settings.BoardAvailable
 {
@@ -46,23 +47,25 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.BoardAvailable
 
             BoardAvailableProperties Properties = new BoardAvailableProperties
             {
-                SMEMAMachineReadyEvent = new Base.Exchange.Event
+                SMEMAMachineReadyEvent = new SMEMAEvent
                 {
                     Id = theModel.SMEMAMachineReadyEventId,
                     Description = theModel.SMEMAMachineReadyEventDescription,
-                    Subjects = new string[] { theModel.SMEMAMachineReadyEventSubject }
+                    Subjects = new string[] { theModel.SMEMAMachineReadyEventSubject },
+                    HighValue = theModel.SMEMAMachineReadyEventHighValue,
+                    LowValue = theModel.SMEMAMachineReadyEventLowValue
                 },
-                SMEMABoardAvailableSubscription = new Models.Exchange.Subscription
+                SMEMABoardAvailableSubscription = new SMEMASubscription
                 {
                     Id = theModel.SMEMABoardAvailableSubscriptionId,
                     Value = theModel.SMEMABoardAvailableSubscriptionAvailableValue
                 },
-                SMEMAFailedBoardAvailableSubscription = new Models.Exchange.Subscription
+                SMEMAFailedBoardAvailableSubscription = new SMEMASubscription
                 {
                     Id = theModel.SMEMAFailedBoardAvailableSubscriptionId,
                     Value = theModel.SMEMAFailedBoardAvailableSubscriptionAvailableValue
                 },
-                SMEMAFlipBoardSubscription = new Models.Exchange.Subscription
+                SMEMAFlipBoardSubscription = new SMEMASubscription
                 {
                     Id = theModel.SMEMAFlipBoardSubscriptionId,
                     Value = theModel.SMEMAFlipBoardSubscriptionFlipValue

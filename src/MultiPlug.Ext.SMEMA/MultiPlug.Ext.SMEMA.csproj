@@ -113,7 +113,8 @@
     <Compile Include="Models\Exchange\Event.cs" />
     <Compile Include="Models\Exchange\GoodBadInterlockSubscription.cs" />
     <Compile Include="Models\Exchange\MachineReadyAndFlipInterlockSubscription.cs" />
-    <Compile Include="Models\Exchange\Subscription.cs" />
+    <Compile Include="Models\Exchange\SMEMAEvent.cs" />
+    <Compile Include="Models\Exchange\SMEMASubscription.cs" />
     <Compile Include="Models\Load\LoadLaneComponent.cs" />
     <Compile Include="Models\Load\LoadRoot.cs" />
     <Compile Include="Models\Settings\About\AboutModel.cs" />
@@ -181,7 +182,9 @@
     <None Include="Controllers\Settings\Lane\Lane.cshtml" />
     <None Include="Controllers\Settings\Shared\SettingsNavigation.cshtml" />
     <None Include="Controllers\Settings\BoardAvailable\BoardAvailable.cshtml" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -1,7 +1,6 @@
 ﻿using System;
 using MultiPlug.Base.Exchange;
 using MultiPlug.Ext.SMEMA.Models.Components.BoardAvailable;
-using MultiPlug.Ext.SMEMA.Components.Utils;
 
 namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
 {
@@ -130,7 +129,8 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
                 MachineReadyState = isTrue;
 
                 m_Properties.SMEMAMachineReadyEvent.Invoke(new Payload(m_Properties.SMEMAMachineReadyEvent.Id, new PayloadSubject[] {
-                    new PayloadSubject(m_Properties.SMEMAMachineReadyEvent.Subjects[0], GetStringValue.Invoke( isTrue ) )
+                    new PayloadSubject(m_Properties.SMEMAMachineReadyEvent.Subjects[0],
+                    MachineReadyState ? m_Properties.SMEMAMachineReadyEvent.HighValue : m_Properties.SMEMAMachineReadyEvent.LowValue )
                     }));
             }
         }

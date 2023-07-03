@@ -3,6 +3,7 @@ using MultiPlug.Base.Http;
 using MultiPlug.Base.Attribute;
 using MultiPlug.Ext.SMEMA.Models.Settings.MachineReady;
 using MultiPlug.Ext.SMEMA.Models.Components.MachineReady;
+using MultiPlug.Ext.SMEMA.Models.Exchange;
 
 namespace MultiPlug.Ext.SMEMA.Controllers.Settings.MachineReady
 {
@@ -46,28 +47,34 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.MachineReady
 
             MachineReadyProperties Properties = new MachineReadyProperties
             {
-                SMEMAMachineReadySubscription = new Models.Exchange.Subscription
+                SMEMAMachineReadySubscription = new Models.Exchange.SMEMASubscription
                 {
                     Id = theModel.SMEMAMachineReadySubscriptionId,
                     Value = theModel.SMEMAMachineReadySubscriptionReadyValue
                 },
-                SMEMABoardAvailableEvent = new Base.Exchange.Event
+                SMEMABoardAvailableEvent = new SMEMAEvent
                 {
                     Id = theModel.SMEMABoardAvailableEventId,
                     Description = theModel.SMEMABoardAvailableEventDescription,
-                    Subjects = new string[] { theModel.SMEMABoardAvailableEventSubject }
+                    Subjects = new string[] { theModel.SMEMABoardAvailableEventSubject },
+                    HighValue = theModel.SMEMABoardAvailableEventHighValue,
+                    LowValue = theModel.SMEMABoardAvailableEventLowValue
                 },
-                SMEMAFailedBoardAvailableEvent = new Base.Exchange.Event
+                SMEMAFailedBoardAvailableEvent = new SMEMAEvent
                 {
                     Id = theModel.SMEMAFailedBoardAvailableEventId,
                     Description = theModel.SMEMAFailedBoardAvailableEventDescription,
-                    Subjects = new string[] { theModel.SMEMAFailedBoardAvailableEventSubject }
+                    Subjects = new string[] { theModel.SMEMAFailedBoardAvailableEventSubject },
+                    HighValue = theModel.SMEMAFailedBoardAvailableEventHighValue,
+                    LowValue = theModel.SMEMAFailedBoardAvailableEventLowValue
                 },
-                SMEMAFlipBoardEvent = new Base.Exchange.Event
+                SMEMAFlipBoardEvent = new SMEMAEvent
                 {
                     Id = theModel.SMEMAFlipBoardEventId,
                     Description = theModel.SMEMAFlipBoardEventDescription,
-                    Subjects = new string[] { theModel.SMEMAFlipBoardEventSubject }
+                    Subjects = new string[] { theModel.SMEMAFlipBoardEventSubject },
+                    HighValue = theModel.SMEMAFlipBoardEventHighValue,
+                    LowValue = theModel.SMEMAFlipBoardEventLowValue
                 },
                 SMEMAMachineReadyAlways = theModel.SMEMAMachineReadyAlways
             };

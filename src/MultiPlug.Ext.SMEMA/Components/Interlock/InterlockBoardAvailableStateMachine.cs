@@ -1,9 +1,9 @@
 ﻿using System;
 using MultiPlug.Base.Exchange;
-using MultiPlug.Ext.SMEMA.Components.Utils;
 using System.Threading.Tasks;
 using System.Threading;
 using MultiPlug.Ext.SMEMA.Models.Components.Interlock;
+using MultiPlug.Ext.SMEMA.Components.Utils;
 
 namespace MultiPlug.Ext.SMEMA.Components.Interlock
 {

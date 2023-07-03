@@ -1,6 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using MultiPlug.Base;
 using MultiPlug.Base.Exchange;
+using MultiPlug.Ext.SMEMA.Models.Exchange;
 
 namespace MultiPlug.Ext.SMEMA.Models.Components.MachineReady
 {
@@ -10,28 +11,28 @@ namespace MultiPlug.Ext.SMEMA.Models.Components.MachineReady
         /// SMEMA Machine Ready to Receive
         ///
         [DataMember]
-        public Exchange.Subscription SMEMAMachineReadySubscription { get; set; }
+        public Exchange.SMEMASubscription SMEMAMachineReadySubscription { get; set; }
 
         ///
         /// SMEMA Board Available
         ///
 
         [DataMember]
-        public Event SMEMABoardAvailableEvent { get; set; }
+        public SMEMAEvent SMEMABoardAvailableEvent { get; set; }
 
         ///
         /// SMEMA Failed Board Available
         ///
 
         [DataMember]
-        public Event SMEMAFailedBoardAvailableEvent { get; set; }
+        public SMEMAEvent SMEMAFailedBoardAvailableEvent { get; set; }
 
         ///
         /// SMEMA Flip Board
         ///
 
         [DataMember]
-        public Event SMEMAFlipBoardEvent { get; set; }
+        public SMEMAEvent SMEMAFlipBoardEvent { get; set; }
 
         [DataMember]
         public bool? SMEMAMachineReadyAlways { get; set; }

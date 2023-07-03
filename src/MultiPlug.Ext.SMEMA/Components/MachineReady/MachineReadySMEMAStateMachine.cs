@@ -1,7 +1,6 @@
 ﻿using System;
 using MultiPlug.Base.Exchange;
 using MultiPlug.Ext.SMEMA.Models.Components.MachineReady;
-using MultiPlug.Ext.SMEMA.Components.Utils;
 
 namespace MultiPlug.Ext.SMEMA.Components.MachineReady
 {
@@ -71,8 +70,8 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
                 GoodBoardAvailableState = Test;
 
                 m_Properties.SMEMABoardAvailableEvent.Invoke(new Payload(m_Properties.SMEMABoardAvailableEvent.Id, new PayloadSubject[] {
-                    new PayloadSubject(m_Properties.SMEMABoardAvailableEvent.Subjects[0], GetStringValue.Invoke( GoodBoardAvailableState ) )
-                    }));
+                    new PayloadSubject(m_Properties.SMEMABoardAvailableEvent.Subjects[0],
+                    GoodBoardAvailableState ? m_Properties.SMEMABoardAvailableEvent.HighValue : m_Properties.SMEMABoardAvailableEvent.LowValue )}));
             }
         }
 
@@ -103,8 +102,8 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
                 BadBoardAvailableState = Test;
 
                 m_Properties.SMEMAFailedBoardAvailableEvent.Invoke(new Payload(m_Properties.SMEMAFailedBoardAvailableEvent.Id, new PayloadSubject[] {
-                new PayloadSubject(m_Properties.SMEMAFailedBoardAvailableEvent.Subjects[0], GetStringValue.Invoke( BadBoardAvailableState ) )
-                }));
+                new PayloadSubject(m_Properties.SMEMAFailedBoardAvailableEvent.Subjects[0],
+                BadBoardAvailableState ? m_Properties.SMEMAFailedBoardAvailableEvent.HighValue : m_Properties.SMEMAFailedBoardAvailableEvent.LowValue )}));
             }
         }
 
@@ -138,8 +137,7 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
         private void InvokeFlipBoardEvent()
         {
             m_Properties.SMEMAFlipBoardEvent.Invoke(new Payload(m_Properties.SMEMAFlipBoardEvent.Id, new PayloadSubject[] {
-                new PayloadSubject(m_Properties.SMEMAFlipBoardEvent.Subjects[0], GetStringValue.Invoke( FlipBoardState ) )
-                }));
+                new PayloadSubject(m_Properties.SMEMAFlipBoardEvent.Subjects[0], FlipBoardState ? m_Properties.SMEMAFlipBoardEvent.HighValue : m_Properties.SMEMAFlipBoardEvent.LowValue )}));
         }
     }
 }
