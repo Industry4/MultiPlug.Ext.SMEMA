@@ -10,31 +10,40 @@
     <icon>images\multiplugico.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>SMEMA Extension for the MultiPlug .Net Edge Computing Platform</description>
-	<license type="expression">MIT</license>
+    <license type="expression">MIT</license>
     <releaseNotes>
+1.0.14 This version requires MultiPlug 2.2.81 or newer
+Documentation https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/13
+Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/12
+Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/11
+Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/10
+Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/9
+Bug https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/8
+Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/7
+Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/5
 1.0.13 Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/3
 Bug https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/2
 Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/1
-	1.0.12 Improvements to REST API - See Wiki for documentation: https://github.com/Industry4/MultiPlug.Ext.SMEMA/wiki/REST-API 
-	1.0.11 Settable Line Direction - Left to Right, Right to Left
-	1.0.10 Settable Startup State in UI
-	1.0.9 Block Events added for Machine Ready, Good Board and Bad Board
-	1.0.8 1. Added Global Status Event of blocking. 2. Fetch live value of SMEMA values on startup/init
-	1.0.7 State bugs
-	1.0.6 Divert Bug and changes to api signature simplified	
-	1.0.5 Good/Bad Divert API and UI 
-	1.0.4 Interlock REST API for All
-	1.0.3 Interlock REST API for Machine Ready only
-	1.0.2 UI Mirros SMEMA signals, no interlocking.
-	1.0.1 Customer Preview - Settings Page
-	1.0.0 Reserve name and create project scaffolding.</releaseNotes>
-    <copyright>4IR.UK British Systems 2022</copyright>
+1.0.12 Improvements to REST API - See Wiki for documentation: https://github.com/Industry4/MultiPlug.Ext.SMEMA/wiki/REST-API 
+1.0.11 Settable Line Direction - Left to Right, Right to Left
+1.0.10 Settable Startup State in UI
+1.0.9 Block Events added for Machine Ready, Good Board and Bad Board
+1.0.8 1. Added Global Status Event of blocking. 2. Fetch live value of SMEMA values on startup/init
+1.0.7 State bugs
+1.0.6 Divert Bug and changes to api signature simplified	
+1.0.5 Good/Bad Divert API and UI 
+1.0.4 Interlock REST API for All
+1.0.3 Interlock REST API for Machine Ready only
+1.0.2 UI Mirros SMEMA signals, no interlocking.
+1.0.1 Customer Preview - Settings Page
+1.0.0 Reserve name and create project scaffolding.</releaseNotes>
+    <copyright>4IR.UK British Systems 2023</copyright>
     <tags>SMEMA 9851 MultiPlug Edge_Computing Edge IoT INDUSTRY_4.0 INDUSTRY4 4IR M2M</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">
-        <dependency id="MultiPlug.Base" version="1.0.69" />
-        <dependency id="MultiPlug.Extension.Core" version="1.0.63" />
-        <dependency id="MultiPlug.Core" version="2.2.79" />
+        <dependency id="MultiPlug.Base" version="1.0.71" />
+        <dependency id="MultiPlug.Extension.Core" version="1.0.64" />
+        <dependency id="MultiPlug.Core" version="2.2.81" />
       </group>
     </dependencies>
   </metadata>
