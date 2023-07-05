@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MultiPlug.Ext.SMEMA</id>
-    <version>1.0.14</version>
+    <version>1.0.15</version>
     <title>SMEMA MultiPlug Edge Computing Platform Extension</title>
     <authors>4IR.UK</authors>
     <owners>4IR.UK</owners>
@@ -12,6 +12,8 @@
     <description>SMEMA Extension for the MultiPlug .Net Edge Computing Platform</description>
     <license type="expression">MIT</license>
     <releaseNotes>
+1.0.15 Bug https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/15
+Bug https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/14
 1.0.14 This version requires MultiPlug 2.2.81 or newer
 Documentation https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/13
 Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/12
