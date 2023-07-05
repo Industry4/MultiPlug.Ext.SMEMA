@@ -28,7 +28,7 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
             if( m_Properties.SMEMABoardAvailableAlways == true)
             {
                 GoodBoardAvailableState = true;
-                GoodBoard?.BeginInvoke(GoodBoardAvailableState, GoodBoard.EndInvoke, null);
+                GoodBoard?.Invoke(GoodBoardAvailableState);
             }
             else
             {
@@ -38,7 +38,7 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
             if(m_Properties.SMEMAFailedBoardAvailableAlways == true)
             {
                 BadBoardAvailableState = true;
-                BadBoard?.BeginInvoke(BadBoardAvailableState, BadBoard.EndInvoke, null);
+                BadBoard?.Invoke(BadBoardAvailableState);
             }
             else
             {
@@ -75,7 +75,8 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
                 }
             }
 
-            GoodBoard?.BeginInvoke(GoodBoardAvailableState, GoodBoard.EndInvoke, null);
+            GoodBoard?.Invoke(GoodBoardAvailableState);
+            //GoodBoard?.BeginInvoke(GoodBoardAvailableState, GoodBoard.EndInvoke, null);
         }
 
         internal void OnBadBoardEvent(SubscriptionEvent theEvent)
@@ -97,7 +98,8 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
                 }
             }
 
-            BadBoard?.BeginInvoke(BadBoardAvailableState, BadBoard.EndInvoke, null);
+            BadBoard?.Invoke(BadBoardAvailableState);
+            //BadBoard?.BeginInvoke(BadBoardAvailableState, BadBoard.EndInvoke, null);
         }
 
         internal void OnFlipBoardEvent(SubscriptionEvent theEvent)

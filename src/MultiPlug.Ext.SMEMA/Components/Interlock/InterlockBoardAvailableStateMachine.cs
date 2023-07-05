@@ -73,6 +73,10 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             m_GoodBoardBlockEvent = theGoodBoardBlockEvent;
             m_BadBoardBlockEvent = theBadBoardBlockEvent;
             m_FlipBoardBlockEvent = theFlipBoardBlockEvent;
+
+            m_SMEMAUplineStateMachine.GoodBoard.Updated += GoodBoardStateUpdated;
+            m_SMEMAUplineStateMachine.BadBoard.Updated += BadBoardStateUpdated;
+            m_SMEMAUplineStateMachine.FlipBoard.Updated += FlipBoardStateUpdated;
         }
 
         internal void OnSMEMAIOMachineReady(bool theIOState)
@@ -88,6 +92,20 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         internal void OnSMEMAIOGoodBoard(bool theIOState)
         {
             m_SMEMAUplineStateMachine.GoodBoard.Value = theIOState;
+        }
+
+        internal void OnSMEMAIOBadBoard(bool theIOState)
+        {
+            m_SMEMAUplineStateMachine.BadBoard.Value = theIOState;
+        }
+
+        internal void OnSMEMAIOFlipBoard(bool theIOState)
+        {
+            m_SMEMAUplineStateMachine.FlipBoard.Value = theIOState;
+        }
+
+        private void GoodBoardStateUpdated(bool theIOState)
+        {
             if (theIOState == false)
             {
                 BlockFlipBoardOnSMEMAGoodBoardNotAvailable();
@@ -96,19 +114,17 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             OnGoodBoardUpdate();
         }
 
-        internal void OnSMEMAIOBadBoard(bool theIOState)
+        private void BadBoardStateUpdated(bool theIOState)
         {
-            m_SMEMAUplineStateMachine.BadBoard.Value = theIOState;
-            if(theIOState == false)
+            if (theIOState == false)
             {
                 BlockFlipBoardOnSMEMABadBoardNotAvailable();
             }
             OnBadBoardUpdate();
         }
 
-        internal void OnSMEMAIOFlipBoard(bool theIOState)
+        private void FlipBoardStateUpdated(bool theIOState)
         {
-            m_SMEMAUplineStateMachine.FlipBoard.Value = theIOState;
             OnFlipBoardUpdate();
         }
 
@@ -180,6 +196,10 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                         SMEMADownlineStateMachine.GoodBoard.Value = false;
                         SMEMADownlineStateMachine.GoodBoardDiverted.Value = true;
                         SetGoodBlocked(false);
+                    }
+                    else if (GoodBoard)
+                    {
+                        // Should never get here
                     }
                     else
                     {

@@ -29,10 +29,12 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                                                     Event theMachineReadyEvent,
                                                     Models.Exchange.Event theMachineReadyBlockEvent)
         {
-            this.m_SMEMAUplineStateMachine = theSMEMAUplineStateMachine;
-            this.SMEMADownlineStateMachine = theSMEMADownlineStateMachine;
-            this.m_MachineReadyEvent = theMachineReadyEvent;
-            this.m_MachineReadyBlockEvent = theMachineReadyBlockEvent;
+            m_SMEMAUplineStateMachine = theSMEMAUplineStateMachine;
+            SMEMADownlineStateMachine = theSMEMADownlineStateMachine;
+            m_MachineReadyEvent = theMachineReadyEvent;
+            m_MachineReadyBlockEvent = theMachineReadyBlockEvent;
+
+            m_SMEMAUplineStateMachine.MachineReady.Updated += MachineReadyStateUpdated; 
         }
 
         private void InvokeMachineReadyEvent()
@@ -80,7 +82,10 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         internal void OnSMEMAIOMachineReady(bool theIOState)
         {
             m_SMEMAUplineStateMachine.MachineReady.Value = theIOState;
+        }
 
+        private void MachineReadyStateUpdated(bool theIOState)
+        {
             if (theIOState)
             {
                 if (MachineReady)
