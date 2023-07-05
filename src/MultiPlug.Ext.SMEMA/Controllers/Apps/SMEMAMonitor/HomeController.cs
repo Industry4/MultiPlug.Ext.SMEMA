@@ -83,6 +83,17 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
                     SMEMAFlipBoardAlways = LaneSearch.BoardAvailable.SMEMAFlipBoardAlways.Value,
                     SMEMAMachineReadyAlways = LaneSearch.MachineReady.SMEMAMachineReadyAlways.Value,
 
+                    SubscriptionTrueValues = new Models.Apps.TrueValues
+                    {
+                        USReady = LaneSearch.BoardAvailable.SMEMAMachineReadyEvent.HighValue,
+                        USGood = LaneSearch.BoardAvailable.SMEMABoardAvailableSubscription.Value,
+                        USBad = LaneSearch.BoardAvailable.SMEMAFailedBoardAvailableSubscription.Value,
+                        USFlip = LaneSearch.BoardAvailable.SMEMAFlipBoardSubscription.Value,
+                        DSReady = LaneSearch.MachineReady.SMEMAMachineReadySubscription.Value,
+                        DSGood = LaneSearch.MachineReady.SMEMABoardAvailableEvent.HighValue,
+                        DSBad = LaneSearch.MachineReady.SMEMAFailedBoardAvailableEvent.HighValue,
+                        DSFlip = LaneSearch.MachineReady.SMEMAFlipBoardEvent.HighValue
+                    },
                     SMEMABoardAvailableStates = new Models.Apps.ComponentStates
                     {
                         MachineReady = LaneSearch.BoardAvailable.StateMachine.MachineReadyState,

@@ -23,6 +23,7 @@ namespace MultiPlug.Ext.SMEMA.Models.Apps
         public bool SMEMAFailedBoardAvailableAlways { get; internal set; }
         public bool SMEMAFlipBoardAlways { get; internal set; }
         public bool SMEMAMachineReadyAlways { get; internal set; }
+        public TrueValues SubscriptionTrueValues { get; internal set; }
     }
 
     [Serializable]
