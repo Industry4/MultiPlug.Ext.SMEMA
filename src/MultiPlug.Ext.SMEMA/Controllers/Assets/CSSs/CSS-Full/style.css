@@ -405,3 +405,12 @@ button i.fa {
         max-width: 900px;
     }
 }
+
+.software-version
+{
+    position: absolute;
+    right: 16px;
+    top: -10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+}

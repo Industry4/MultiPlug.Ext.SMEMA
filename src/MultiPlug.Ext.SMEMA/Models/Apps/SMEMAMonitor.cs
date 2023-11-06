@@ -24,6 +24,7 @@ namespace MultiPlug.Ext.SMEMA.Models.Apps
         public bool SMEMAFlipBoardAlways { get; internal set; }
         public bool SMEMAMachineReadyAlways { get; internal set; }
         public TrueValues SubscriptionTrueValues { get; internal set; }
+        public string AssemblyFileVersion { get; internal set; }
     }
 
     [Serializable]

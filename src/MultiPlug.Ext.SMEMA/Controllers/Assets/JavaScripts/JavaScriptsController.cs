@@ -12,38 +12,41 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Assets
         {
             string Result = string.Empty;
 
-            switch (theName)
+            if (theName.StartsWith("smemaio.") && theName.EndsWith(".js"))
             {
-                case "lanes.js":
-                    Result = Resources.lanes_js;
-                    break;
+                Result = Resources.smemaio_min_js;
+            }
+            else
+            {
+                switch (theName)
+                {
+                    case "lanes.js":
+                        Result = Resources.lanes_js;
+                        break;
 
-                case "smemaio.js":
-                    Result = Resources.smemaio_min_js;
-                    break;
+                    case "jquery-3.4.1.min.js":
+                        Result = Resources.jquery_3_4_1_min_js;
+                        break;
 
-                case "jquery-3.4.1.min.js":
-                    Result = Resources.jquery_3_4_1_min_js;
-                    break;
+                    case "popper.min.js":
+                        Result = Resources.popper_min_js;
+                        break;
 
-                case "popper.min.js":
-                    Result = Resources.popper_min_js;
-                    break;
+                    case "bootstrap.min.js":
+                        Result = Resources.bootstrap_min_js;
+                        break;
 
-                case "bootstrap.min.js":
-                    Result = Resources.bootstrap_min_js;
-                    break;
+                    case "mdb.min.js":
+                        Result = Resources.mdb_min_js;
+                        break;
 
-                case "mdb.min.js":
-                    Result = Resources.mdb_min_js;
-                    break;
+                    case "all.min.js":
+                        Result = Resources.all_min_js;
+                        break;
 
-                case "all.min.js":
-                    Result = Resources.all_min_js;
-                    break;
-
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
 
             if (string.IsNullOrEmpty(Result))

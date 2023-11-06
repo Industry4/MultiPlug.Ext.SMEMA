@@ -24,6 +24,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
                     Model = new Models.Apps.SMEMAMonitor
                     {
                         Lanes = new Models.Apps.LaneUrl[0],
+                        AssemblyFileVersion = Core.Instance.AssemblyFileVersion
                     },
                     Template = Templates.AppsSMEMAMonitorNotSetup
                 };
@@ -46,6 +47,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
                     Model = new Models.Apps.SMEMAMonitor
                     {
                         Lanes = Core.Instance.Lanes.Select(Lane => new Models.Apps.LaneUrl { Guid = Lane.Guid, MachineName = Lane.MachineId, LaneName = Lane.LaneId }).ToArray(),
+                        AssemblyFileVersion = Core.Instance.AssemblyFileVersion
                     },
                     Template = Templates.AppsSMEMAMonitorLaneNotFound
                 };
@@ -82,7 +84,7 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Apps.SMEMAMonitor
                     SMEMAFailedBoardAvailableAlways = LaneSearch.BoardAvailable.SMEMAFailedBoardAvailableAlways.Value,
                     SMEMAFlipBoardAlways = LaneSearch.BoardAvailable.SMEMAFlipBoardAlways.Value,
                     SMEMAMachineReadyAlways = LaneSearch.MachineReady.SMEMAMachineReadyAlways.Value,
-
+                    AssemblyFileVersion = Core.Instance.AssemblyFileVersion,
                     SubscriptionTrueValues = new Models.Apps.TrueValues
                     {
                         USReady = LaneSearch.BoardAvailable.SMEMAMachineReadyEvent.HighValue,

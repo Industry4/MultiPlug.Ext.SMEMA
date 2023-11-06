@@ -12,27 +12,30 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Assets
         {
             string Result = string.Empty;
 
-            switch (theName)
+            if (theName.StartsWith("style.min.") && theName.EndsWith(".css"))
             {
-                case "all.min.css":
-                    Result = Resources.all_min_css;
-                    break;
+                Result = Resources.style_min_css;
+            }
+            else
+            {
+                switch (theName)
+                {
+                    case "all.min.css":
+                        Result = Resources.all_min_css;
+                        break;
 
-                case "bootstrap.min.css":
-                    Result = Resources.bootstrap_min_css;
-                    break;
+                    case "bootstrap.min.css":
+                        Result = Resources.bootstrap_min_css;
+                        break;
 
-                case "style.min.css":
-                    Result = Resources.style_min_css;
-                    break;
+                    case "mdb.min.css":
+                        Result = Resources.mdb_min_css;
+                        break;
 
-                case "mdb.min.css":
-                    Result = Resources.mdb_min_css;
-                    break;
-
-                default:
-                    //m_Logger.WriteLine("ERROR Style missing:               " + theName);
-                    break;
+                    default:
+                        //m_Logger.WriteLine("ERROR Style missing:               " + theName);
+                        break;
+                }
             }
 
             if (string.IsNullOrEmpty(Result))

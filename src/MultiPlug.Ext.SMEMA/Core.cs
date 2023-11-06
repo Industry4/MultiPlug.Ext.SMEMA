@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Security;
+using System.Reflection;
 using System.Collections.Generic;
 using MultiPlug.Base.Exchange;
 using MultiPlug.Base.Exchange.API;
@@ -23,6 +24,8 @@ namespace MultiPlug.Ext.SMEMA
 
         internal Subscription[] Subscriptions { get; private set; }
         internal Event[] Events { get; private set; }
+
+        internal string AssemblyFileVersion { get; set; } = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
 
         private Core()
         {
