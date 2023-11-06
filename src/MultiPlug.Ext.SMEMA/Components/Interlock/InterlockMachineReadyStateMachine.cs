@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading;
 using MultiPlug.Base.Exchange;
 using MultiPlug.Ext.SMEMA.Components.Utils;
+using MultiPlug.Ext.SMEMA.Models.Components.Interlock;
 
 namespace MultiPlug.Ext.SMEMA.Components.Interlock
 {
@@ -19,16 +21,23 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         private Models.Exchange.Event m_MachineReadyBlockEvent;
 
         internal event Action BlockedUpdated;
+
+        private CancellationTokenSource m_MachineReadyUnblockDelayCancellationSource;
+
         internal bool Blocked { get; private set; }
 
         private bool m_MachineReady;
         private bool m_MachineReadyLatch;
 
-        public InterlockMachineReadyStateMachine(   InterlockSMEMAStateMachine theSMEMAUplineStateMachine,
+        private InterlockProperties m_InterlockProperties;
+
+        public InterlockMachineReadyStateMachine(   InterlockProperties theProperties,
+                                                    InterlockSMEMAStateMachine theSMEMAUplineStateMachine,
                                                     InterlockSMEMAStateMachine theSMEMADownlineStateMachine,
                                                     Event theMachineReadyEvent,
                                                     Models.Exchange.Event theMachineReadyBlockEvent)
         {
+            m_InterlockProperties = theProperties;
             m_SMEMAUplineStateMachine = theSMEMAUplineStateMachine;
             SMEMADownlineStateMachine = theSMEMADownlineStateMachine;
             m_MachineReadyEvent = theMachineReadyEvent;
@@ -69,14 +78,16 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             }
         }
 
-        private void SetBlocked(bool theValue)
+        private bool SetBlocked(bool theValue)
         {
             if (theValue != Blocked)
             {
                 Blocked = theValue;
                 InvokeMachineReadyBlockEvent();
                 BlockedUpdated?.Invoke();
+                return true;
             }
+            return false;
         }
 
         internal void OnSMEMAIOMachineReady(bool theIOState)
@@ -95,11 +106,13 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 }
                 else
                 {
+                    TransitionDelays.UnblockCancel(m_MachineReadyUnblockDelayCancellationSource);
                     SetBlocked(true);
                 }
             }
             else
             {
+                TransitionDelays.UnblockCancel(m_MachineReadyUnblockDelayCancellationSource);
                 SetBlocked(false);
 
                 if (!Latch)
@@ -125,11 +138,22 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
 
                     if (m_MachineReady && m_SMEMAUplineStateMachine.MachineReady.Value)
                     {
-                        SetBlocked(false);
-                        SMEMADownlineStateMachine.MachineReady.Value = true;
+                        if (SetBlocked(false))
+                        {
+                            m_MachineReadyUnblockDelayCancellationSource = TransitionDelays.Unblock(() =>
+                            { SMEMADownlineStateMachine.MachineReady.Value = true; },
+                                m_MachineReadyUnblockDelayCancellationSource,
+                                m_InterlockProperties.DelayMachineReadyUnblockedThenSMEMA.Value);
+                        }
+                        else
+                        {
+                            // Don't delay if already Unblocked
+                            SMEMADownlineStateMachine.MachineReady.Value = true;
+                        }
                     }
                     else if(m_SMEMAUplineStateMachine.MachineReady.Value)
                     {
+                        TransitionDelays.UnblockCancel(m_MachineReadyUnblockDelayCancellationSource);
                         SetBlocked(true);
                         SMEMADownlineStateMachine.MachineReady.Value = false;
                     }

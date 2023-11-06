@@ -61,6 +61,12 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Interlock
                 TriggerBlockFlipBoardOnGoodBoardNotAvailable = theModel.TriggerBlockFlipBoardOnGoodBoardNotAvailable,
                 TriggerBlockFlipBoardOnBadBoardNotAvailable = theModel.TriggerBlockFlipBoardOnBadBoardNotAvailable,
                 DelayFlipThenBoardAvailable = theModel.DelayFlipThenBoardAvailable,
+                DelayGoodBoardUnblockedThenSMEMA = theModel.DelayGoodBoardUnblockedThenSMEMA,
+                DelayGoodBoardDivertUnblockedThenSMEMA = theModel.DelayGoodBoardDivertUnblockedThenSMEMA,
+                DelayBadBoardUnblockedThenSMEMA = theModel.DelayBadBoardUnblockedThenSMEMA,
+                DelayBadBoardDivertUnblockedThenSMEMA = theModel.DelayBadBoardDivertUnblockedThenSMEMA,
+                DelayMachineReadyUnblockedThenSMEMA = theModel.DelayMachineReadyUnblockedThenSMEMA,
+                DelayFlipUnblockedThenSMEMA = theModel.DelayFlipUnblockedThenSMEMA,
                 MachineReadyInterlockSubscription = new Models.Exchange.MachineReadyAndFlipInterlockSubscription
                 {
                     Id = theModel.MachineReadyInterlockSubscriptionId,

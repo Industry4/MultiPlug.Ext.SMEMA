@@ -93,5 +93,11 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.Interlock
         public string FlipBoardBlockEventBlockedValue { get; set; }
 
         public int DelayFlipThenBoardAvailable { get; set; }
+        public int DelayGoodBoardUnblockedThenSMEMA { get; set; }
+        public int DelayGoodBoardDivertUnblockedThenSMEMA { get; set; }
+        public int DelayBadBoardUnblockedThenSMEMA { get; set; }
+        public int DelayBadBoardDivertUnblockedThenSMEMA { get; set; }
+        public int DelayMachineReadyUnblockedThenSMEMA { get; set; }
+        public int DelayFlipUnblockedThenSMEMA { get; set; }
     }
 }

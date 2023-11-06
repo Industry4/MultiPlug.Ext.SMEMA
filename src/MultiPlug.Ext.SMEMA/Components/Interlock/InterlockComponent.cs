@@ -35,6 +35,12 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             TriggerBlockFlipBoardOnGoodBoardNotAvailable = false;
             TriggerBlockFlipBoardOnBadBoardNotAvailable = false;
             DelayFlipThenBoardAvailable = 0;
+            DelayGoodBoardUnblockedThenSMEMA = 0;
+            DelayGoodBoardDivertUnblockedThenSMEMA = 0;
+            DelayBadBoardUnblockedThenSMEMA = 0;
+            DelayBadBoardDivertUnblockedThenSMEMA = 0;
+            DelayMachineReadyUnblockedThenSMEMA = 0;
+            DelayFlipUnblockedThenSMEMA = 0;
             // Defaults End
 
             MachineReadyInterlockSubscription = new Models.Exchange.MachineReadyAndFlipInterlockSubscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty };
@@ -122,6 +128,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             };
 
             MachineReadyStateMachine = new InterlockMachineReadyStateMachine(
+                this,
                 m_SMEMAUplineStateMachine,
                 m_SMEMADownlineStateMachine,
                 MachineReadyEvent,
@@ -566,6 +573,36 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             if(theNewProperties.DelayFlipThenBoardAvailable != null)
             {
                 DelayFlipThenBoardAvailable = theNewProperties.DelayFlipThenBoardAvailable;
+            }
+
+            if (theNewProperties.DelayGoodBoardUnblockedThenSMEMA != null)
+            {
+                DelayGoodBoardUnblockedThenSMEMA = theNewProperties.DelayGoodBoardUnblockedThenSMEMA;
+            }
+
+            if(theNewProperties.DelayGoodBoardDivertUnblockedThenSMEMA != null)
+            {
+                DelayGoodBoardDivertUnblockedThenSMEMA = theNewProperties.DelayGoodBoardDivertUnblockedThenSMEMA;
+            }
+
+            if (theNewProperties.DelayBadBoardUnblockedThenSMEMA != null)
+            {
+                DelayBadBoardUnblockedThenSMEMA = theNewProperties.DelayBadBoardUnblockedThenSMEMA;
+            }
+
+            if (theNewProperties.DelayBadBoardDivertUnblockedThenSMEMA != null)
+            {
+                DelayBadBoardDivertUnblockedThenSMEMA = theNewProperties.DelayBadBoardDivertUnblockedThenSMEMA;
+            }
+
+            if (theNewProperties.DelayMachineReadyUnblockedThenSMEMA != null)
+            {
+                DelayMachineReadyUnblockedThenSMEMA = theNewProperties.DelayMachineReadyUnblockedThenSMEMA;
+            }
+
+            if(theNewProperties.DelayFlipUnblockedThenSMEMA != null)
+            {
+                DelayFlipUnblockedThenSMEMA = theNewProperties.DelayFlipUnblockedThenSMEMA;
             }
 
             if (m_RunOnce)

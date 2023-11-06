@@ -133,5 +133,17 @@ namespace MultiPlug.Ext.SMEMA.Models.Components.Interlock
         public bool? TriggerBlockFlipBoardOnBadBoardNotAvailable { get; set; }
         [DataMember]
         public int? DelayFlipThenBoardAvailable { get; set; }
+        [DataMember]
+        public int? DelayGoodBoardUnblockedThenSMEMA { get; set; }
+        [DataMember]
+        public int? DelayGoodBoardDivertUnblockedThenSMEMA { get; set; }
+        [DataMember]
+        public int? DelayBadBoardUnblockedThenSMEMA { get; set; }
+        [DataMember]
+        public int? DelayBadBoardDivertUnblockedThenSMEMA { get; set; }
+        [DataMember]
+        public int? DelayMachineReadyUnblockedThenSMEMA { get; set; }
+        [DataMember]
+        public int? DelayFlipUnblockedThenSMEMA { get; set; }
     }
 }

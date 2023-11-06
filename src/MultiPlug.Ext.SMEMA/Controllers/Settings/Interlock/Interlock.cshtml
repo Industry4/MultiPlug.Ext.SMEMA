@@ -210,8 +210,44 @@
                 <div class="well">
                     <div class="row-fluid">
                         <div class="row-fluid">
+                            <input name="DelayGoodBoardUnblockedThenSMEMA" class="span2" type="number" value="@Model.Extension.Model.Properties.DelayGoodBoardUnblockedThenSMEMA" min="0" max="10000">
+                            <span class="help-inline">Delay between Good Board Unblocked and SMEMA Good Board Ready [milliseconds]</span>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="row-fluid">
+                            <input name="DelayGoodBoardDivertUnblockedThenSMEMA" class="span2" type="number" value="@Model.Extension.Model.Properties.DelayGoodBoardDivertUnblockedThenSMEMA" min="0" max="10000">
+                            <span class="help-inline">Delay between Good Board Divert Unblocked and SMEMA Bad Board Ready [milliseconds]</span>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="row-fluid">
+                            <input name="DelayBadBoardUnblockedThenSMEMA" class="span2" type="number" value="@Model.Extension.Model.Properties.DelayBadBoardUnblockedThenSMEMA" min="0" max="10000">
+                            <span class="help-inline">Delay between Bad Board Unblocked and SMEMA Bad Board Ready [milliseconds]</span>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="row-fluid">
+                            <input name="DelayBadBoardDivertUnblockedThenSMEMA" class="span2" type="number" value="@Model.Extension.Model.Properties.DelayBadBoardDivertUnblockedThenSMEMA" min="0" max="10000">
+                            <span class="help-inline">Delay between Bad Board Divert Unblocked and SMEMA Good Board Ready [milliseconds]</span>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="row-fluid">
+                            <input name="DelayMachineReadyUnblockedThenSMEMA" class="span2" type="number" value="@Model.Extension.Model.Properties.DelayMachineReadyUnblockedThenSMEMA" min="0" max="10000">
+                            <span class="help-inline">Delay between Machine Ready Unblocked and SMEMA Machine Ready [milliseconds]</span>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="row-fluid">
+                            <input name="DelayFlipUnblockedThenSMEMA" class="span2" type="number" value="@Model.Extension.Model.Properties.DelayFlipUnblockedThenSMEMA" min="0" max="10000">
+                            <span class="help-inline">Delay between Flip Unblocked and SMEMA Flip [milliseconds]</span>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="row-fluid">
                             <input name="DelayFlipThenBoardAvailable" class="span2" type="number" value="@Model.Extension.Model.Properties.DelayFlipThenBoardAvailable" min="0" max="3000">
-                            <span class="help-inline">Delay between Flip Unblock and Good or Bad Board Available Unblock [milliseconds]</span>
+                            <span class="help-inline">Delay between Flip Unblocked and Good or Bad Board Available Unblock [milliseconds]</span>
                         </div>
                     </div>
                 </div>

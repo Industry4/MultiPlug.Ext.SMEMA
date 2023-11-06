@@ -61,6 +61,7 @@
     <Compile Include="Components\Lane\LaneComponent.cs" />
     <Compile Include="Components\BoardAvailable\BoardAvailableComponent.cs" />
     <Compile Include="Components\MachineReady\MachineReadySMEMAStateMachine.cs" />
+    <Compile Include="Components\Utils\TransitionDelays.cs" />
     <Compile Include="Components\Utils\GetStringValue.cs" />
     <Compile Include="Controllers\API\APIController.cs" />
     <Compile Include="Controllers\API\Interlock\BadBoard\InterlockBadBoard.cs" />
@@ -241,8 +242,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)bin\$(ConfigurationName)\MultiPlug.Ext.SMEMA.dll" "C:\projects\i4Core\Connector\MultiPlug.CLI\bin\Debug\extensions\MultiPlug.Ext.SMEMA" /Y /I</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

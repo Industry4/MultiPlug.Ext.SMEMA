@@ -46,6 +46,11 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         internal event Action BlockedUpdated;
 
         private CancellationTokenSource m_FlipTimerCancellationToken;
+        private CancellationTokenSource m_GoodBoardUnblockDelayCancellationSource;
+        private CancellationTokenSource m_GoodBoardDivertUnblockDelayCancellationSource;
+        private CancellationTokenSource m_BadBoardUnblockDelayCancellationSource;
+        private CancellationTokenSource m_BadBoardDivertUnblockDelayCancellationSource;
+        private CancellationTokenSource m_FlipUnblockDelayCancellationSource;
 
         internal bool Blocked { get; private set; }
         internal bool GoodBoardBlocked { get; private set; }
@@ -139,33 +144,39 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             }
         }
 
-        private void SetGoodBlocked(bool isBlocked)
+        private bool SetGoodBlocked(bool isBlocked)
         {
             if (isBlocked != GoodBoardBlocked)
             {
                 GoodBoardBlocked = isBlocked;
                 BlockUpdated();
                 InvokeGoodBoardBlockEvent();
+                return true;
             }
+            return false;
         }
 
-        private void SetBadBlocked(bool isBlocked)
+        private bool SetBadBlocked(bool isBlocked)
         {
             if (isBlocked != BadBoardBlocked)
             {
                 BadBoardBlocked = isBlocked;
                 BlockUpdated();
                 InvokeBadBoardBlockEvent();
+                return true;
             }
+            return false;
         }
 
-        private void SetFlipBlocked(bool isBlocked)
+        private bool SetFlipBlocked(bool isBlocked)
         {
             if (isBlocked != FlipBoardBlocked)
             {
                 FlipBoardBlocked = isBlocked;
                 InvokeFlipBoardBlockEvent();
+                return true;
             }
+            return false;
         }
 
         private void OnGoodBoardUpdate()
@@ -176,16 +187,40 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 {
                     if (GoodBoardDivert)
                     {
-                        SetGoodBlocked(false);
-                        SMEMADownlineStateMachine.GoodBoardDiverted.Value = true;
+                        TransitionDelays.UnblockCancel(m_GoodBoardUnblockDelayCancellationSource);
+                        if (SetGoodBlocked(false))
+                        {
+                            m_GoodBoardDivertUnblockDelayCancellationSource = TransitionDelays.Unblock(() =>
+                            { SMEMADownlineStateMachine.GoodBoardDiverted.Value = true; },
+                                m_GoodBoardDivertUnblockDelayCancellationSource,
+                                m_InterlockProperties.DelayGoodBoardDivertUnblockedThenSMEMA.Value);
+                        }
+                        else
+                        {
+                            // Don't delay if already Unblocked
+                            SMEMADownlineStateMachine.GoodBoardDiverted.Value = true;
+                        }
                     }
                     else if (GoodBoard)
                     {
-                        SetGoodBlocked(false);
-                        SMEMADownlineStateMachine.GoodBoard.Value = true;
+                        TransitionDelays.UnblockCancel(m_GoodBoardDivertUnblockDelayCancellationSource);
+                        if (SetGoodBlocked(false))
+                        {
+                            m_GoodBoardUnblockDelayCancellationSource = TransitionDelays.Unblock(() => 
+                                { SMEMADownlineStateMachine.GoodBoard.Value = true; }, 
+                                m_GoodBoardUnblockDelayCancellationSource, 
+                                m_InterlockProperties.DelayGoodBoardUnblockedThenSMEMA.Value);
+                        }
+                        else
+                        {
+                            // Don't delay if already Unblocked
+                            SMEMADownlineStateMachine.GoodBoard.Value = true;
+                        }
                     }
                     else
                     {
+                        TransitionDelays.UnblockCancel(m_GoodBoardUnblockDelayCancellationSource);
+                        TransitionDelays.UnblockCancel(m_GoodBoardDivertUnblockDelayCancellationSource);
                         SetGoodBlocked(true);
                     }
                 }
@@ -193,9 +228,21 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 {
                     if (GoodBoardDivert)
                     {
+                        TransitionDelays.UnblockCancel(m_GoodBoardUnblockDelayCancellationSource);
                         SMEMADownlineStateMachine.GoodBoard.Value = false;
-                        SMEMADownlineStateMachine.GoodBoardDiverted.Value = true;
-                        SetGoodBlocked(false);
+
+                        if (SetGoodBlocked(false))
+                        {
+                            m_GoodBoardDivertUnblockDelayCancellationSource = TransitionDelays.Unblock(() =>
+                            { SMEMADownlineStateMachine.GoodBoardDiverted.Value = true; },
+                                m_GoodBoardDivertUnblockDelayCancellationSource,
+                                m_InterlockProperties.DelayGoodBoardDivertUnblockedThenSMEMA.Value);
+                        }
+                        else
+                        {
+                            // Don't delay if already Unblocked
+                            SMEMADownlineStateMachine.GoodBoardDiverted.Value = true;
+                        }
                     }
                     else if (GoodBoard)
                     {
@@ -203,6 +250,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                     }
                     else
                     {
+                        TransitionDelays.UnblockCancel(m_GoodBoardUnblockDelayCancellationSource);
                         SMEMADownlineStateMachine.GoodBoard.Value = false;
                         SetGoodBlocked(true);
                     }
@@ -216,8 +264,19 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                             GoodBoardDivertReset();
                             SMEMADownlineStateMachine.GoodBoardDiverted.Value = false;
                         }
-                        SetGoodBlocked(false);
-                        SMEMADownlineStateMachine.GoodBoard.Value = true;
+
+                        if (SetGoodBlocked(false))
+                        {
+                            m_GoodBoardUnblockDelayCancellationSource = TransitionDelays.Unblock(() =>
+                            { SMEMADownlineStateMachine.GoodBoard.Value = true; },
+                                m_GoodBoardUnblockDelayCancellationSource,
+                                m_InterlockProperties.DelayGoodBoardUnblockedThenSMEMA.Value);
+                        }
+                        else
+                        {
+                            // Don't delay if already Unblocked
+                            SMEMADownlineStateMachine.GoodBoard.Value = true;
+                        }
                     }
                     else
                     {
@@ -231,16 +290,18 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             {
                 SetGoodBlocked(false);
 
-                if (SMEMADownlineStateMachine.GoodBoardDiverted.Value)
+                if (SMEMADownlineStateMachine.GoodBoardDiverted.Value || TransitionDelays.UnblockInProgress(m_GoodBoardDivertUnblockDelayCancellationSource))
                 {
+                    TransitionDelays.UnblockCancel(m_GoodBoardDivertUnblockDelayCancellationSource);
                     GoodBoardDivertReset();
                     SMEMADownlineStateMachine.GoodBoardDiverted.Value = false;
                 }
-                else if (SMEMADownlineStateMachine.GoodBoard.Value)
+                else if (SMEMADownlineStateMachine.GoodBoard.Value || TransitionDelays.UnblockInProgress(m_GoodBoardUnblockDelayCancellationSource))
                 {
+                    TransitionDelays.UnblockCancel(m_GoodBoardUnblockDelayCancellationSource);
                     if (!GoodBoardLatch)
                     {
-                        m_GoodBoard = false;
+                        m_GoodBoard = false;  // Calling BadBoard directly calls OnGoodBoardUpdate() again!
                         SMEMADownlineStateMachine.GoodBoard.Value = false;
                         InvokeGoodBoardEvent();
                     }
@@ -262,16 +323,40 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 {
                     if (BadBoardDivert)
                     {
-                        SetBadBlocked(false);
-                        SMEMADownlineStateMachine.BadBoardDiverted.Value = true;
+                        TransitionDelays.UnblockCancel(m_BadBoardUnblockDelayCancellationSource);
+                        if (SetBadBlocked(false))
+                        {
+                            m_BadBoardDivertUnblockDelayCancellationSource = TransitionDelays.Unblock(() =>
+                            { SMEMADownlineStateMachine.BadBoardDiverted.Value = true; },
+                                m_BadBoardDivertUnblockDelayCancellationSource,
+                                m_InterlockProperties.DelayBadBoardDivertUnblockedThenSMEMA.Value);
+                        }
+                        else
+                        {
+                            // Don't delay if already Unblocked
+                            SMEMADownlineStateMachine.BadBoardDiverted.Value = true;
+                        }
                     }
                     else if (BadBoard)
                     {
-                        SetBadBlocked(false);
-                        SMEMADownlineStateMachine.BadBoard.Value = true;
+                        TransitionDelays.UnblockCancel(m_BadBoardDivertUnblockDelayCancellationSource);
+                        if (SetBadBlocked(false))
+                        {
+                            m_BadBoardUnblockDelayCancellationSource = TransitionDelays.Unblock(() =>
+                            { SMEMADownlineStateMachine.BadBoard.Value = true; },
+                                m_BadBoardUnblockDelayCancellationSource,
+                                m_InterlockProperties.DelayBadBoardUnblockedThenSMEMA.Value);
+                        }
+                        else
+                        {
+                            // Don't delay if already Unblocked
+                            SMEMADownlineStateMachine.BadBoard.Value = true;
+                        }
                     }
                     else
                     {
+                        TransitionDelays.UnblockCancel(m_BadBoardUnblockDelayCancellationSource);
+                        TransitionDelays.UnblockCancel(m_BadBoardDivertUnblockDelayCancellationSource);
                         SetBadBlocked(true);
                     }
                 }
@@ -279,12 +364,29 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 {
                     if (BadBoardDivert)
                     {
+                        TransitionDelays.UnblockCancel(m_BadBoardUnblockDelayCancellationSource);
                         SMEMADownlineStateMachine.BadBoard.Value = false;
-                        SMEMADownlineStateMachine.BadBoardDiverted.Value = true;
-                        SetBadBlocked(false);
+
+                        if (SetGoodBlocked(false))
+                        {
+                            m_BadBoardDivertUnblockDelayCancellationSource = TransitionDelays.Unblock(() =>
+                            { SMEMADownlineStateMachine.BadBoardDiverted.Value = true; },
+                                m_BadBoardDivertUnblockDelayCancellationSource,
+                                m_InterlockProperties.DelayBadBoardDivertUnblockedThenSMEMA.Value);
+                        }
+                        else
+                        {
+                            // Don't delay if already Unblocked
+                            SMEMADownlineStateMachine.BadBoardDiverted.Value = true;
+                        }
+                    }
+                    else if (BadBoard)
+                    {
+                        // Should never get here
                     }
                     else
                     {
+                        TransitionDelays.UnblockCancel(m_BadBoardUnblockDelayCancellationSource);
                         SMEMADownlineStateMachine.BadBoard.Value = false;
                         SetBadBlocked(true);
                     }
@@ -298,8 +400,19 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                             BadBoardDivertReset();
                             SMEMADownlineStateMachine.BadBoardDiverted.Value = false;
                         }
-                        SetBadBlocked(false);
-                        SMEMADownlineStateMachine.BadBoard.Value = true;
+
+                        if (SetGoodBlocked(false))
+                        {
+                            m_BadBoardUnblockDelayCancellationSource = TransitionDelays.Unblock(() =>
+                            { SMEMADownlineStateMachine.BadBoard.Value = true; },
+                                m_BadBoardUnblockDelayCancellationSource,
+                                m_InterlockProperties.DelayBadBoardUnblockedThenSMEMA.Value);
+                        }
+                        else
+                        {
+                            // Don't delay if already Unblocked
+                            SMEMADownlineStateMachine.BadBoard.Value = true;
+                        }
                     }
                     else
                     {
@@ -313,23 +426,25 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             {
                 SetBadBlocked(false);
 
-                if (SMEMADownlineStateMachine.BadBoardDiverted.Value)
+                if (SMEMADownlineStateMachine.BadBoardDiverted.Value || TransitionDelays.UnblockInProgress(m_BadBoardDivertUnblockDelayCancellationSource))
                 {
-                    if (!BadBoardDivertLatch)
-                    {
-                        BadBoardDivert = false;
-                    }
-
+                    TransitionDelays.UnblockCancel(m_BadBoardDivertUnblockDelayCancellationSource);
+                    BadBoardDivertReset();
                     SMEMADownlineStateMachine.BadBoardDiverted.Value = false;
                 }
-                else if (SMEMADownlineStateMachine.BadBoard.Value)
+                else if (SMEMADownlineStateMachine.BadBoard.Value || TransitionDelays.UnblockInProgress(m_BadBoardUnblockDelayCancellationSource))
                 {
+                    TransitionDelays.UnblockCancel(m_BadBoardUnblockDelayCancellationSource);
                     if (!BadBoardLatch)
                     {
-                        BadBoard = false;
+                        m_BadBoard = false; // Calling BadBoard directly calls OnBadBoardUpdate() again!
+                        SMEMADownlineStateMachine.BadBoard.Value = false;
+                        InvokeBadBoardEvent();
                     }
-
-                    SMEMADownlineStateMachine.BadBoard.Value = false;
+                    else
+                    {
+                        SMEMADownlineStateMachine.BadBoard.Value = false;
+                    }
                 }
             }
         }
@@ -340,20 +455,32 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             {
                 if (FlipBoard)
                 {
-                    SetFlipBlocked(false);
-                    SMEMADownlineStateMachine.FlipBoard.Value = true;
+                    if (SetFlipBlocked(false))
+                    {
+                        m_FlipUnblockDelayCancellationSource = TransitionDelays.Unblock(() =>
+                        { SMEMADownlineStateMachine.FlipBoard.Value = true; },
+                            m_FlipUnblockDelayCancellationSource,
+                            m_InterlockProperties.DelayFlipUnblockedThenSMEMA.Value);
+                    }
+                    else
+                    {
+                        // Don't delay if already Unblocked
+                        SMEMADownlineStateMachine.FlipBoard.Value = true;
+                    }
                 }
                 else
                 {
+                    TransitionDelays.UnblockCancel(m_FlipUnblockDelayCancellationSource);
                     SetFlipBlocked(true);
                     SMEMADownlineStateMachine.FlipBoard.Value = false;
                 }
             }
             else
             {
+                TransitionDelays.UnblockCancel(m_FlipUnblockDelayCancellationSource);
                 SetFlipBlocked(false);
 
-                if (SMEMADownlineStateMachine.FlipBoard.Value)
+                if (FlipBoard)
                 {
                     if (!FlipBoardLatch)
                     {
@@ -417,6 +544,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 new PayloadSubject(m_GoodBoardBlockEvent.Subjects[0], m_GoodBoardBlockEvent.UnblockedValue),
                 new PayloadSubject(m_GoodBoardBlockEvent.Subjects[1], c_GoodBoardDescription)
                 }));
+
             }
         }
 
@@ -820,6 +948,5 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             {
             }
         }
-
     }
 }
