@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MultiPlug.Ext.SMEMA</id>
-    <version>1.0.16</version>
+    <version>1.0.17</version>
     <title>SMEMA MultiPlug Edge Computing Platform Extension</title>
     <authors>4IR.UK</authors>
     <owners>4IR.UK</owners>
@@ -13,6 +13,7 @@
     <license type="expression">MIT</license>
     <repository type="git" url="https://github.com/Industry4/MultiPlug.Ext.SMEMA" />
     <releaseNotes>
+1.0.17 Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/20
 1.0.16 Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/18
 Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/17
 Documentation https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/16
