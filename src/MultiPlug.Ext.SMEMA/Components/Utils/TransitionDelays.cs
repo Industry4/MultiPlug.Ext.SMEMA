@@ -8,6 +8,11 @@ namespace MultiPlug.Ext.SMEMA.Components.Utils
     {
         internal static CancellationTokenSource Unblock(Action theAction, CancellationTokenSource theCancellationTokenSource, int theMillisecondsDelay)
         {
+            return InvokeEvent(theAction, theCancellationTokenSource, theMillisecondsDelay);
+        }
+
+        internal static CancellationTokenSource InvokeEvent(Action theAction, CancellationTokenSource theCancellationTokenSource, int theMillisecondsDelay)
+        {
             if (theCancellationTokenSource != null)
             {
                 theCancellationTokenSource.Cancel();
@@ -36,6 +41,11 @@ namespace MultiPlug.Ext.SMEMA.Components.Utils
 
         internal static void UnblockCancel(CancellationTokenSource theCancellationTokenSource)
         {
+            DelayCancel(theCancellationTokenSource);
+        }
+
+        internal static void DelayCancel(CancellationTokenSource theCancellationTokenSource)
+        {
             if (theCancellationTokenSource != null)
             {
                 theCancellationTokenSource.Cancel();
@@ -43,6 +53,11 @@ namespace MultiPlug.Ext.SMEMA.Components.Utils
         }
 
         internal static bool UnblockInProgress(CancellationTokenSource theTimer)
+        {
+            return DelayInProgress(theTimer);
+        }
+
+        internal static bool DelayInProgress(CancellationTokenSource theTimer)
         {
             return theTimer != null && theTimer.IsCancellationRequested == false;
         }

@@ -633,6 +633,8 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
             Into.BlockedValue = From.BlockedValue;
             Into.UnblockedEnabled = From.UnblockedEnabled;
             Into.UnblockedValue = From.UnblockedValue;
+            Into.UnblockedDelay = From.UnblockedDelay;
+            Into.BlockedDelay = From.BlockedDelay;
         }
 
         private void MergeSubscription(Models.Exchange.MachineReadyAndFlipInterlockSubscription Into, Models.Exchange.MachineReadyAndFlipInterlockSubscription From)

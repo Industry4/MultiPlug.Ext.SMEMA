@@ -13,5 +13,9 @@ namespace MultiPlug.Ext.SMEMA.Models.Exchange
         public bool BlockedEnabled { get; set; } = true;
         [DataMember]
         public bool UnblockedEnabled { get; set; } = true;
+        [DataMember]
+        public int BlockedDelay { get; set; } = 0;
+        [DataMember]
+        public int UnblockedDelay { get; set; } = 0;
     }
 }

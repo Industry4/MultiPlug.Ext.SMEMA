@@ -67,6 +67,8 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.Interlock
         public string MachineReadyBlockEventSubject { get; set; }
         public string MachineReadyBlockEventUnblockedValue { get; set; }
         public string MachineReadyBlockEventBlockedValue { get; set; }
+        public int MachineReadyBlockEventUnblockedDelay { get; set; }
+        public int MachineReadyBlockEventBlockedDelay { get; set; }
 
         public string GoodBoardBlockEventId { get; set; }
         public string GoodBoardBlockEventDescription { get; set; }
@@ -75,6 +77,8 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.Interlock
         public string GoodBoardBlockEventSubject { get; set; }
         public string GoodBoardBlockEventUnblockedValue { get; set; }
         public string GoodBoardBlockEventBlockedValue { get; set; }
+        public int GoodBoardBlockEventUnblockedDelay { get; set; }
+        public int GoodBoardBlockEventBlockedDelay { get; set; }
 
         public string BadBoardBlockEventId { get; set; }
         public string BadBoardBlockEventDescription { get; set; }
@@ -83,6 +87,9 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.Interlock
         public string BadBoardBlockEventSubject { get; set; }
         public string BadBoardBlockEventUnblockedValue { get; set; }
         public string BadBoardBlockEventBlockedValue { get; set; }
+        public int BadBoardBlockEventUnblockedDelay { get; set; }
+        public int BadBoardBlockEventBlockedDelay { get; set; }
+
 
         public string FlipBoardBlockEventId { get; set; }
         public string FlipBoardBlockEventDescription { get; set; }
@@ -91,6 +98,8 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.Interlock
         public string FlipBoardBlockEventSubject { get; set; }
         public string FlipBoardBlockEventUnblockedValue { get; set; }
         public string FlipBoardBlockEventBlockedValue { get; set; }
+        public int FlipBoardBlockEventUnblockedDelay { get; set; }
+        public int FlipBoardBlockEventBlockedDelay { get; set; }
 
         public int DelayFlipThenBoardAvailable { get; set; }
         public int DelayGoodBoardUnblockedThenSMEMA { get; set; }

@@ -122,8 +122,10 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Interlock
                     Subjects = new string[] {theModel.MachineReadyBlockEventSubject, "smema"},
                     BlockedEnabled = theModel.MachineReadyBlockEventBlockedEnabled,
                     BlockedValue = theModel.MachineReadyBlockEventBlockedValue,
+                    BlockedDelay = theModel.MachineReadyBlockEventBlockedDelay,
                     UnblockedEnabled = theModel.MachineReadyBlockEventUnblockedEnabled,
-                    UnblockedValue = theModel.MachineReadyBlockEventUnblockedValue
+                    UnblockedValue = theModel.MachineReadyBlockEventUnblockedValue,
+                    UnblockedDelay = theModel.MachineReadyBlockEventUnblockedDelay
                 },
                 GoodBoardBlockEvent = new Models.Exchange.Event
                 {
@@ -132,8 +134,10 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Interlock
                     Subjects = new string[] { theModel.GoodBoardBlockEventSubject, "smema"},
                     BlockedEnabled = theModel.GoodBoardBlockEventBlockedEnabled,
                     BlockedValue = theModel.GoodBoardBlockEventBlockedValue,
+                    BlockedDelay = theModel.GoodBoardBlockEventBlockedDelay,
                     UnblockedEnabled = theModel.GoodBoardBlockEventUnblockedEnabled,
-                    UnblockedValue = theModel.GoodBoardBlockEventUnblockedValue
+                    UnblockedValue = theModel.GoodBoardBlockEventUnblockedValue,
+                    UnblockedDelay = theModel.GoodBoardBlockEventUnblockedDelay
                 },
                 BadBoardBlockEvent = new Models.Exchange.Event
                 {
@@ -142,8 +146,10 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Interlock
                     Subjects = new string[] { theModel.BadBoardBlockEventSubject, "smema" },
                     BlockedEnabled = theModel.BadBoardBlockEventBlockedEnabled,
                     BlockedValue = theModel.BadBoardBlockEventBlockedValue,
+                    BlockedDelay = theModel.BadBoardBlockEventBlockedDelay,
                     UnblockedEnabled = theModel.BadBoardBlockEventUnblockedEnabled,
-                    UnblockedValue = theModel.BadBoardBlockEventUnblockedValue
+                    UnblockedValue = theModel.BadBoardBlockEventUnblockedValue,
+                    UnblockedDelay = theModel.BadBoardBlockEventUnblockedDelay
                 },
                 FlipBoardBlockEvent = new Models.Exchange.Event
                 {
@@ -152,8 +158,10 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Interlock
                     Subjects = new string[] { theModel.FlipBoardBlockEventSubject, "smema" },
                     BlockedEnabled = theModel.FlipBoardBlockEventBlockedEnabled,
                     BlockedValue = theModel.FlipBoardBlockEventBlockedValue,
+                    BlockedDelay = theModel.FlipBoardBlockEventBlockedDelay,
                     UnblockedEnabled = theModel.FlipBoardBlockEventUnblockedEnabled,
-                    UnblockedValue = theModel.FlipBoardBlockEventUnblockedValue
+                    UnblockedValue = theModel.FlipBoardBlockEventUnblockedValue,
+                    UnblockedDelay = theModel.FlipBoardBlockEventUnblockedDelay
                 }
 
             };
