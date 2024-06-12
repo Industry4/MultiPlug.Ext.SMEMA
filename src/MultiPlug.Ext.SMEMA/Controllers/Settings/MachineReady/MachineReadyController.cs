@@ -58,7 +58,9 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.MachineReady
                     Description = theModel.SMEMABoardAvailableEventDescription,
                     Subjects = new string[] { theModel.SMEMABoardAvailableEventSubject },
                     HighValue = theModel.SMEMABoardAvailableEventHighValue,
-                    LowValue = theModel.SMEMABoardAvailableEventLowValue
+                    LowValue = theModel.SMEMABoardAvailableEventLowValue,
+                    HighDelay = theModel.SMEMABoardAvailableEventHighDelay,
+                    LowDelay = theModel.SMEMABoardAvailableEventLowDelay,
                 },
                 SMEMAFailedBoardAvailableEvent = new SMEMAEvent
                 {
@@ -66,7 +68,9 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.MachineReady
                     Description = theModel.SMEMAFailedBoardAvailableEventDescription,
                     Subjects = new string[] { theModel.SMEMAFailedBoardAvailableEventSubject },
                     HighValue = theModel.SMEMAFailedBoardAvailableEventHighValue,
-                    LowValue = theModel.SMEMAFailedBoardAvailableEventLowValue
+                    LowValue = theModel.SMEMAFailedBoardAvailableEventLowValue,
+                    HighDelay = theModel.SMEMAFailedBoardAvailableEventHighDelay,
+                    LowDelay = theModel.SMEMAFailedBoardAvailableEventLowDelay,
                 },
                 SMEMAFlipBoardEvent = new SMEMAEvent
                 {
@@ -74,7 +78,9 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.MachineReady
                     Description = theModel.SMEMAFlipBoardEventDescription,
                     Subjects = new string[] { theModel.SMEMAFlipBoardEventSubject },
                     HighValue = theModel.SMEMAFlipBoardEventHighValue,
-                    LowValue = theModel.SMEMAFlipBoardEventLowValue
+                    LowValue = theModel.SMEMAFlipBoardEventLowValue,
+                    HighDelay = theModel.SMEMAFlipBoardEventHighDelay,
+                    LowDelay = theModel.SMEMAFlipBoardEventLowDelay,
                 },
                 SMEMAMachineReadyAlways = theModel.SMEMAMachineReadyAlways
             };

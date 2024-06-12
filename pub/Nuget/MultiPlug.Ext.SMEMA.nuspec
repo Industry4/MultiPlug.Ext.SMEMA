@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MultiPlug.Ext.SMEMA</id>
-    <version>1.0.17</version>
+    <version>1.0.18</version>
     <title>SMEMA MultiPlug Edge Computing Platform Extension</title>
     <authors>4IR.UK</authors>
     <owners>4IR.UK</owners>
@@ -13,6 +13,7 @@
     <license type="expression">MIT</license>
     <repository type="git" url="https://github.com/Industry4/MultiPlug.Ext.SMEMA" />
     <releaseNotes>
+1.0.18 Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/24
 1.0.17 Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/20
 1.0.16 Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/18
 Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/17
@@ -44,7 +45,7 @@ Enhancement https://github.com/Industry4/MultiPlug.Ext.SMEMA/issues/1
 1.0.2 UI Mirros SMEMA signals, no interlocking.
 1.0.1 Customer Preview - Settings Page
 1.0.0 Reserve name and create project scaffolding.</releaseNotes>
-    <copyright>4IR.UK British Systems 2023</copyright>
+    <copyright>4IR.UK British Systems 2024</copyright>
     <tags>SMEMA 9851 MultiPlug Edge_Computing Edge IoT INDUSTRY_4.0 INDUSTRY4 4IR M2M</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.7.2">

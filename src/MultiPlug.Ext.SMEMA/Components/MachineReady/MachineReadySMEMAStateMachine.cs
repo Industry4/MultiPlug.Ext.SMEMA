@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading;
 using MultiPlug.Base.Exchange;
 using MultiPlug.Ext.SMEMA.Models.Components.MachineReady;
+using MultiPlug.Ext.SMEMA.Components.Utils;
 
 namespace MultiPlug.Ext.SMEMA.Components.MachineReady
 {
@@ -9,6 +11,13 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
         private MachineReadyProperties m_Properties;
 
         internal event Action<bool> MachineReady;
+
+        private CancellationTokenSource m_GoodBoardHighDelayCancellationSource = new CancellationTokenSource();
+        private CancellationTokenSource m_GoodBoardLowDelayCancellationSource = new CancellationTokenSource();
+        private CancellationTokenSource m_BadBoardHighDelayCancellationSource = new CancellationTokenSource();
+        private CancellationTokenSource m_BadBoardLowDelayCancellationSource = new CancellationTokenSource();
+        private CancellationTokenSource m_FlipBoardHighDelayCancellationSource = new CancellationTokenSource();
+        private CancellationTokenSource m_FlipBoardLowDelayCancellationSource = new CancellationTokenSource();
 
         internal bool MachineReadyState { get; private set; }
         internal bool BadBoardAvailableState { get; private set; }
@@ -23,6 +32,13 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
         public MachineReadySMEMAStateMachine(MachineReadyProperties theMachineReadyProperties)
         {
             this.m_Properties = theMachineReadyProperties;
+
+            m_GoodBoardHighDelayCancellationSource.Cancel();
+            m_GoodBoardLowDelayCancellationSource.Cancel();
+            m_BadBoardHighDelayCancellationSource.Cancel();
+            m_BadBoardLowDelayCancellationSource.Cancel();
+            m_FlipBoardHighDelayCancellationSource.Cancel();
+            m_FlipBoardLowDelayCancellationSource.Cancel();
         }
 
         internal void Init()
@@ -65,14 +81,13 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
         {
             var Test = m_GoodBoard || m_BadBoardDiverted;
 
-            if (GoodBoardAvailableState != Test)
-            {
-                GoodBoardAvailableState = Test;
-
-                m_Properties.SMEMABoardAvailableEvent.Invoke(new Payload(m_Properties.SMEMABoardAvailableEvent.Id, new PayloadSubject[] {
-                    new PayloadSubject(m_Properties.SMEMABoardAvailableEvent.Subjects[0],
-                    GoodBoardAvailableState ? m_Properties.SMEMABoardAvailableEvent.HighValue : m_Properties.SMEMABoardAvailableEvent.LowValue )}));
-            }
+            TransitionDelays.SMEMAEventChange(  GoodBoardAvailableState,
+                                                Test,
+                                                ref m_GoodBoardHighDelayCancellationSource,
+                                                () => { GoodBoardAvailableState = true; },
+                                                ref m_GoodBoardLowDelayCancellationSource,
+                                                () => { GoodBoardAvailableState = false; },
+                                                m_Properties.SMEMABoardAvailableEvent);
         }
 
         internal void OnGoodBoard(bool isTrue)
@@ -97,14 +112,13 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
         {
             var Test = m_BadBoard || m_GoodBoardDiverted;
 
-            if (BadBoardAvailableState != Test)
-            {
-                BadBoardAvailableState = Test;
-
-                m_Properties.SMEMAFailedBoardAvailableEvent.Invoke(new Payload(m_Properties.SMEMAFailedBoardAvailableEvent.Id, new PayloadSubject[] {
-                new PayloadSubject(m_Properties.SMEMAFailedBoardAvailableEvent.Subjects[0],
-                BadBoardAvailableState ? m_Properties.SMEMAFailedBoardAvailableEvent.HighValue : m_Properties.SMEMAFailedBoardAvailableEvent.LowValue )}));
-            }
+            TransitionDelays.SMEMAEventChange(  BadBoardAvailableState,
+                                                Test,
+                                                ref m_BadBoardHighDelayCancellationSource,
+                                                () => { BadBoardAvailableState = true; },
+                                                ref m_BadBoardLowDelayCancellationSource,
+                                                () => { BadBoardAvailableState = false; },
+                                                m_Properties.SMEMAFailedBoardAvailableEvent);
         }
 
         internal void OnBadBoard(bool isTrue)
@@ -127,17 +141,13 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
 
         internal void OnFlipBoard(bool isTrue)
         {
-            if (FlipBoardState != isTrue)
-            {
-                FlipBoardState = isTrue;
-                InvokeFlipBoardEvent();
-            }
-        }
-
-        private void InvokeFlipBoardEvent()
-        {
-            m_Properties.SMEMAFlipBoardEvent.Invoke(new Payload(m_Properties.SMEMAFlipBoardEvent.Id, new PayloadSubject[] {
-                new PayloadSubject(m_Properties.SMEMAFlipBoardEvent.Subjects[0], FlipBoardState ? m_Properties.SMEMAFlipBoardEvent.HighValue : m_Properties.SMEMAFlipBoardEvent.LowValue )}));
+            TransitionDelays.SMEMAEventChange(  FlipBoardState,
+                                                isTrue,
+                                                ref m_FlipBoardHighDelayCancellationSource,
+                                                () => { FlipBoardState = true; },
+                                                ref m_FlipBoardLowDelayCancellationSource,
+                                                () => { FlipBoardState = false; },
+                                                m_Properties.SMEMAFlipBoardEvent);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using MultiPlug.Base.Exchange;
 using MultiPlug.Ext.SMEMA.Models.Components.BoardAvailable;
 using MultiPlug.Ext.SMEMA.Models.Exchange;
 
@@ -29,16 +28,6 @@ namespace MultiPlug.Ext.SMEMA.Components.BoardAvailable
             SMEMAFailedBoardAvailableSubscription.Event += StateMachine.OnBadBoardEvent;
             SMEMAFlipBoardSubscription = new SMEMASubscription { Guid = Guid.NewGuid().ToString(), Id = string.Empty, Value = "1" };
             SMEMAFlipBoardSubscription.Event += StateMachine.OnFlipBoardEvent;
-        }
-
-        internal void OnMachineReady(bool isTrue)
-        {
-            StateMachine.MachineReadyState = isTrue;
-
-            SMEMAMachineReadyEvent.Invoke(new Payload(SMEMAMachineReadyEvent.Id, new PayloadSubject[] {
-                new PayloadSubject(SMEMAMachineReadyEvent.Subjects[0],
-                    isTrue ? SMEMAMachineReadyEvent.HighValue : SMEMAMachineReadyEvent.LowValue )
-                }));
         }
 
         internal void UpdateProperties(BoardAvailableProperties theNewProperties)

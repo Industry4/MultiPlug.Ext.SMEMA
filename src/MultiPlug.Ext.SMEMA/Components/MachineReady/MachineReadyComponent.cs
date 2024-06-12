@@ -1,5 +1,4 @@
 ﻿using System;
-using MultiPlug.Base.Exchange;
 using MultiPlug.Ext.SMEMA.Models.Components.MachineReady;
 using MultiPlug.Ext.SMEMA.Models.Exchange;
 
@@ -62,7 +61,5 @@ namespace MultiPlug.Ext.SMEMA.Components.MachineReady
             if (FlagSubscriptionUpdated) { SubscriptionsUpdated?.Invoke(); }
             if (FlagEventUpdated) { EventsUpdated?.Invoke(); }
         }
-
-        
     }
 }

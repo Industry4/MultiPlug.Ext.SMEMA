@@ -53,7 +53,9 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.BoardAvailable
                     Description = theModel.SMEMAMachineReadyEventDescription,
                     Subjects = new string[] { theModel.SMEMAMachineReadyEventSubject },
                     HighValue = theModel.SMEMAMachineReadyEventHighValue,
-                    LowValue = theModel.SMEMAMachineReadyEventLowValue
+                    LowValue = theModel.SMEMAMachineReadyEventLowValue,
+                    HighDelay = theModel.SMEMAMachineReadyEventHighDelay,
+                    LowDelay = theModel.SMEMAMachineReadyEventLowDelay
                 },
                 SMEMABoardAvailableSubscription = new SMEMASubscription
                 {

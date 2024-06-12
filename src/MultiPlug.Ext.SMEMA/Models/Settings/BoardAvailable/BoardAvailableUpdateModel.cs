@@ -19,5 +19,7 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.BoardAvailable
         public string SMEMAFlipBoardSubscriptionId { get; set; }
         public string SMEMAFlipBoardSubscriptionFlipValue { get; set; }
         public bool SMEMAFlipBoardAlways { get; set; }
+        public int SMEMAMachineReadyEventHighDelay { get; set; }
+        public int SMEMAMachineReadyEventLowDelay { get; set; }
     }
 }
