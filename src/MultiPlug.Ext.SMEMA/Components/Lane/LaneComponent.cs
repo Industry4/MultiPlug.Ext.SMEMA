@@ -3,6 +3,7 @@ using MultiPlug.Ext.SMEMA.Components.BoardAvailable;
 using MultiPlug.Ext.SMEMA.Components.Interlock;
 using MultiPlug.Ext.SMEMA.Components.MachineReady;
 using MultiPlug.Ext.SMEMA.Models.Components.Lane;
+using MultiPlug.Ext.SMEMA.Components.BeaconTower;
 
 namespace MultiPlug.Ext.SMEMA.Components.Lane
 {
@@ -47,6 +48,10 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
             Interlock.BoardAvailableStateMachine.SMEMADownlineStateMachine.FlipBoard.Updated += MachineReady.StateMachine.OnFlipBoard;
 
             MachineReady.StateMachine.MachineReady += Interlock.BoardAvailableStateMachine.OnSMEMAIOMachineReady;
+
+            BeaconTower = new BeaconTowerComponent(theGuid, Interlock);
+            BeaconTower.EventsUpdated += OnEventsUpdated;
+
         }
 
         internal void Init()
@@ -54,6 +59,12 @@ namespace MultiPlug.Ext.SMEMA.Components.Lane
             BoardAvailable.StateMachine.Init();
             MachineReady.StateMachine.Init();
             Interlock.Init();
+            BeaconTower.Init();
+        }
+
+        internal void Shutdown()
+        {
+            BeaconTower.Shutdown();
         }
 
         private void OnEventsUpdated()

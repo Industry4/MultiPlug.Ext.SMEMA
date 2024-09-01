@@ -3,6 +3,7 @@ using MultiPlug.Base;
 using MultiPlug.Ext.SMEMA.Components.Interlock;
 using MultiPlug.Ext.SMEMA.Components.BoardAvailable;
 using MultiPlug.Ext.SMEMA.Components.MachineReady;
+using MultiPlug.Ext.SMEMA.Components.BeaconTower;
 
 namespace MultiPlug.Ext.SMEMA.Models.Components.Lane
 {
@@ -14,6 +15,8 @@ namespace MultiPlug.Ext.SMEMA.Models.Components.Lane
         public MachineReadyComponent MachineReady { get; set; }
         [DataMember]
         public InterlockComponent Interlock { get; set; }
+        [DataMember]
+        public BeaconTowerComponent BeaconTower { get; set; }
         [DataMember]
         public string Guid { get; set; }
         [DataMember]

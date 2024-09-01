@@ -38,6 +38,10 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
         internal event Action<bool> BadBoardLatchedUpdated;
         internal event Action<bool> FlipBoardUpdated;
         internal event Action<bool> FlipBoardLatchedUpdated;
+        internal event Action<bool> GoodBoardDivertUpdated;
+        internal event Action<bool> BadBoardDivertUpdated;
+        internal event Action<bool> GoodBoardDivertLatchedUpdated;
+        internal event Action<bool> BadBoardDivertLatchedUpdated;
 
         private Models.Exchange.Event m_GoodBoardBlockEvent;
         private Models.Exchange.Event m_BadBoardBlockEvent;
@@ -720,6 +724,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 if (m_GoodBoardDivert != value)
                 {
                     m_GoodBoardDivert = value;
+                    GoodBoardDivertUpdated?.Invoke(m_GoodBoardDivert);
                     InvokeGoodBoardEvent();
                     OnGoodBoardUpdate();
                 }
@@ -771,6 +776,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 if (m_GoodBoardDivert)
                 {
                     m_GoodBoardDivert = false;
+                    GoodBoardDivertUpdated?.Invoke(m_GoodBoardDivert);
                     InvokeGoodBoardEvent();
                 }
             }
@@ -788,6 +794,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 if (m_GoodBoardDivertLatch != value)
                 {
                     m_GoodBoardDivertLatch = value;
+                    GoodBoardDivertLatchedUpdated?.Invoke(m_GoodBoardDivertLatch);
                     InvokeGoodBoardEvent();
                 }
             }
@@ -841,6 +848,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 if (m_BadBoardDivert != value)
                 {
                     m_BadBoardDivert = value;
+                    BadBoardDivertUpdated?.Invoke(m_BadBoardDivert);
                     InvokeBadBoardEvent();
                     OnBadBoardUpdate();
                 }
@@ -892,6 +900,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 if (m_BadBoardDivert)
                 {
                     m_BadBoardDivert = false;
+                    BadBoardDivertUpdated?.Invoke(m_BadBoardDivert);
                     InvokeBadBoardEvent();
                 }
             }
@@ -909,6 +918,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 if (m_BadBoardDivertLatch != value)
                 {
                     m_BadBoardDivertLatch = value;
+                    BadBoardDivertLatchedUpdated?.Invoke(m_BadBoardDivertLatch);
                     InvokeBadBoardEvent();
                 }
             }

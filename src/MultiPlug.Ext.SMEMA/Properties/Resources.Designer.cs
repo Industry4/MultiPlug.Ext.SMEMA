@@ -753,6 +753,33 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
+        ///
+        ///@functions
+        ///{
+        ///    string isCurrentLoggingLevel(int theLevel)
+        ///    {
+        ///        return (@Model.Extension.Model.LoggingLevel == theLevel) ? &quot;selected&quot; : &quot;&quot;;
+        ///    }
+        ///
+        ///    string isEnabled(bool theValue)
+        ///    {
+        ///        return (theValue) ? &quot;checked&quot; : string.Empty;
+        ///    }
+        ///
+        ///}
+        ///
+        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
+        ///    &lt;input type=&quot;hidden&quot; name=&quot;Guid&quot; value=&quot;@Model.Extension.Model.Guid&quot;&gt;
+        ///    &lt;section class=&quot;row [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SettingsProgrammableEvent {
+            get {
+                return ResourceManager.GetString("SettingsProgrammableEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap SMEMA_logo_jpg {
@@ -773,7 +800,7 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to function DrawEnabledIcon(e, a) { e.html(&quot;1&quot; == a ? &apos;&lt;i class=&quot;fas fa-lg fa-check&quot;&gt;&lt;/i&gt;&apos; : &apos;&lt;i class=&quot;fas fa-lg fa-times&quot;&gt;&lt;/i&gt;&apos;) } function DrawLeftIcon(e, a) { e.html(&quot;1&quot; == a ? &apos;&lt;i class=&quot;fas fa-lg fa-arrow-left&quot;&gt;&lt;/i&gt;&apos; : &apos;&lt;i class=&quot;fas fa-lg fa-times&quot;&gt;&lt;/i&gt;&apos;), UpdateColour(e, a, &quot;btn-smema-unblocked&quot;, &quot;btn-smema-blocked&quot;) } function DrawRightIcon(e, a) { e.html(&quot;1&quot; == a ? &apos;&lt;i class=&quot;fas fa-lg fa-arrow-right&quot;&gt;&lt;/i&gt;&apos; : &apos;&lt;i class=&quot;fas fa-lg fa-times&quot;&gt;&lt;/i&gt;&apos;), UpdateColour(e, a, &quot;btn-smema-unblocked&quot;, &quot;btn-smema- [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to function DrawEnabledIcon(e, a, t) { e.html(a == t ? &apos;&lt;i class=&quot;fas fa-lg fa-check&quot;&gt;&lt;/i&gt;&apos; : &apos;&lt;i class=&quot;fas fa-lg fa-times&quot;&gt;&lt;/i&gt;&apos;) } function DrawLeftIcon(e, a) { e.html(&quot;1&quot; == a ? &apos;&lt;i class=&quot;fas fa-lg fa-arrow-left&quot;&gt;&lt;/i&gt;&apos; : &apos;&lt;i class=&quot;fas fa-lg fa-times&quot;&gt;&lt;/i&gt;&apos;), UpdateColour(e, a, &quot;btn-smema-unblocked&quot;, &quot;btn-smema-blocked&quot;) } function DrawRightIcon(e, a) { e.html(&quot;1&quot; == a ? &apos;&lt;i class=&quot;fas fa-lg fa-arrow-right&quot;&gt;&lt;/i&gt;&apos; : &apos;&lt;i class=&quot;fas fa-lg fa-times&quot;&gt;&lt;/i&gt;&apos;), UpdateColour(e, a, &quot;btn-smema-unblocked&quot;, &quot;btn-smema [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string smemaio_min_js {
             get {
@@ -782,7 +809,7 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to @import url(all.min.css);body{padding-top:95px;background-color:#f2f2f2}.card-body{background-color:#fff}ul li a{font-weight:400;color:#000}ul li a:hover{color:#666}i.fa{margin-right:.5rem}.form-inline label{margin-left:.5rem}.form-inline label:not(:last-child){margin-right:.5rem}.modal-header{background-color:#6c757d!important;color:#fff!important}.modal-header span{color:#fff}.card-footer{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:end;justify-content:flex-end;p [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to @import url(all.min.css);.card-header .btn-link,.modal-header{color:#fff!important}.accordion .card-header h5:after,.accordion .card-header h6:after{content:&quot;\f068&quot;;font-family:&apos;Font Awesome 5 Free&apos;;font-weight:900;float:right}body{padding-top:95px;background-color:#f2f2f2}.card-body{background-color:#fff}ul li a{font-weight:400;color:#000}a.nav-link,ul li a:hover{color:#666}.form-inline label:not(:last-child),i.fa{margin-right:.5rem}.form-inline label{margin-left:.5rem}.modal-header{background-color:#6c757 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string style_min_css {
             get {

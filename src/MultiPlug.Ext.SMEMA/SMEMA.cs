@@ -35,6 +35,7 @@ namespace MultiPlug.Ext.SMEMA
                     new RazorTemplate(Templates.SettingsNavigation,Resources.SettingsNavigation),
                     new RazorTemplate(Templates.SettingsHome, Resources.SettingsHome),
                     new RazorTemplate(Templates.SettingsLane, Resources.SettingsLane),
+                    new RazorTemplate(Templates.SettingsProgrammableEvent, Resources.SettingsProgrammableEvent),
                     new RazorTemplate(Templates.SettingsBoardAvailable, Resources.SettingsBoardAvailable),
                     new RazorTemplate(Templates.SettingsInterlock, Resources.SettingsInterlock),
                     new RazorTemplate(Templates.SettingsMachineReady, Resources.SettingsMachineReady),
@@ -85,6 +86,11 @@ namespace MultiPlug.Ext.SMEMA
         public override void Start()
         {
             Core.Instance.Start();
+        }
+
+        public override void Shutdown()
+        {
+            Core.Instance.Shutdown();
         }
     }
 }

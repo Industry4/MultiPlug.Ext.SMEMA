@@ -86,6 +86,14 @@ namespace MultiPlug.Ext.SMEMA
             OnLaneStatusUpdated();
         }
 
+        internal void Shutdown()
+        {
+            foreach (var Lane in Lanes)
+            {
+                Lane.Shutdown();
+            }
+        }
+
         private void InvokeGlobalStatusEvent(bool theValue)
         {
             GlobalStatusEvent.Invoke(new Payload(GlobalStatusEvent.Id, new PayloadSubject[] {
@@ -158,6 +166,11 @@ namespace MultiPlug.Ext.SMEMA
                         NewLane.Interlock.UpdateProperties(Lane.Interlock);
                     }
 
+                    if (Lane.BeaconTower != null)
+                    {
+                        NewLane.BeaconTower.UpdateProperties(Lane.BeaconTower);
+                    }
+
                     NewLanes.Add(NewLane);
                 }
 
@@ -188,6 +201,7 @@ namespace MultiPlug.Ext.SMEMA
                 EventsList.Add(Lane.MachineReady.SMEMABoardAvailableEvent);
                 EventsList.Add(Lane.MachineReady.SMEMAFailedBoardAvailableEvent);
                 EventsList.Add(Lane.MachineReady.SMEMAFlipBoardEvent);
+                EventsList.AddRange(Lane.BeaconTower.BeaconTowerEvents);
             }
 
             Events = EventsList.ToArray();
@@ -228,6 +242,7 @@ namespace MultiPlug.Ext.SMEMA
         {
             try
             {
+                Shutdown();
                 m_MultiPlugActions.System.Power.Shutdown();
                 return true;
             }
@@ -241,6 +256,7 @@ namespace MultiPlug.Ext.SMEMA
         {
             try
             {
+                Shutdown();
                 m_MultiPlugActions.System.Power.Restart();
                 return true;
             }

@@ -7,7 +7,7 @@
 
     public string NavLocationIsLane()
     {
-        return Model.Context.Paths.Current == Model.Context.Paths.Home + "lane/" ? "active" : string.Empty;
+        return Model.Context.Paths.Current == Model.Context.Paths.Home + "lane/" || Model.Context.Paths.Current == "lane/programmable-event/" ? "active" : string.Empty;
     }
 
     public string NavLocationIsBoardAvailable()

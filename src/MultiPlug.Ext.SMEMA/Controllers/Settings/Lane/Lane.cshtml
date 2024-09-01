@@ -14,19 +14,19 @@
 
 }
 
-<form action="" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+<form action="" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" autocomplete="off">
     <input type="hidden" name="Guid" value="@Model.Extension.Model.Guid">
     <section class="row-fluid">
 
         <div class="row-fluid">
             <div class="box">
-                <div class="span2">
-                    <a style="line-height: 52px;" href="#"><img alt="Hermes Logo" src="@Raw(Model.Context.Paths.Assets)images/SMEMA-small.png"></a>
+                <div class="span4">
+                    <a style="line-height: 52px;" href="#"><img alt="SMEMA Logo" src="@Raw(Model.Context.Paths.Assets)images/SMEMA-small.png"></a>
                 </div>
-                <div class="span8">
+                <div class="span4">
                     <p style="font-size:26px; line-height: 54px; text-align: center; margin: 0px;">Lane</p>
                 </div>
-                <div class="span2" style="text-align: right;">
+                <div class="span4" style="text-align: right;">
                     <a class="btn btn-black" style="height:44px; width:35px" href="@Raw(Model.Context.Paths.Home)"><i class="icon-arrow-left icon-large"></i><p>Back</p></a>
                     <button type="submit" value="submit" style="height:54px; width:65px" class="item btn btn-green"><i class="icon-save icon-large"></i><p>Save</p></button>
                 </div>
@@ -66,6 +66,46 @@
                     </div>
                 </div>
             </div>
+
+            <h4>Programmable Events (Beacon Tower)</h4>
+            <div class="row-fluid">
+                <div class="well">
+                    <div class="row-fluid">
+
+                        <table id="beaconTowerEventsTable" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="span5">Event</th>
+                                    <th class="span5">Description</th>
+
+                                    <th class="span2"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var BeaconTowerEvent in @Model.Extension.Model.BeaconTowerEvents)
+                                {
+                                    <tr>
+                                        <td class="span5"><a href="@Raw(Model.Context.Paths.Home)lane/programmable-event/?id=@Model.Extension.Model.Guid&eventguid=@BeaconTowerEvent.Guid">@BeaconTowerEvent.Id</a></td>
+                                        <td class="span5"><a href="@Raw(Model.Context.Paths.Home)lane/programmable-event/?id=@Model.Extension.Model.Guid&eventguid=@BeaconTowerEvent.Guid">@BeaconTowerEvent.Description</a></td>
+                                        <td class="span2">
+                                            <div class="btn-group">
+                                                <a class="btn btn-blue" href="@Raw(Model.Context.Paths.Home)lane/programmable-event/?id=@Model.Extension.Model.Guid&eventguid=@BeaconTowerEvent.Guid"><i class="icon-edit"></i></a>
+                                                <a class="btn btn-red btn-deleteevent" href="@Raw(Model.Context.Paths.Home)lane/programmable-event/delete/?id=@Model.Extension.Model.Guid&eventguid=@BeaconTowerEvent.Guid"><i class="icon-trash"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                                <tr>
+                                    <td class="span5"></td>
+                                    <td class="span5"></td>
+                                    <td class="span2"><button type="button" class="btn btn-green" id="btn-newevent"><i class="icon-plus"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <h3 class="box-header">Logging</h3>
@@ -99,6 +139,45 @@
 </form>
 
 <script>
+    function newBeaconEvent()
+    {
+        return '<tr>\
+            <td class="span5"><input name="NewBeaconTowerEventId" class="input-block-level" type="text" value="@Raw(Model.Extension.Model.Guid + "-BeaconTower.")">\</td>\
+            <td class="span5"><input name="NewBeaconTowerEventDescription" class="input-block-level" type="text" value="Rule: ">\</td>\
+            <td class="span2">\
+                <div class="btn-group">\
+                    <a class="btn btn-red btn-deleterow" href="#"><i class="icon-trash"></i></a>\
+                </div>\
+            </td>\
+        </tr>'
+    }
+
+    function applyTempDelete() {
+        $(".btn-deleterow").click(function (event) {
+            event.preventDefault();
+            $(this).closest("tr").remove();
+        });
+    }
+
+    $("#btn-newevent").click(function () {
+        $('#beaconTowerEventsTable tr:last').before(newBeaconEvent());
+        applyTempDelete();
+    });
+
+    $(".btn-deleteevent").click(function (event) {
+        event.preventDefault();
+
+        var theRow = $(this).closest("tr");
+
+        $.post($(this).attr('href'), function (data) {
+
+        })
+        .done(function () {
+            theRow.remove();
+        });
+    });
+
+
     function scrollLogToBottom(loggingTextArea) {
         var textarea = document.getElementById(loggingTextArea);
         textarea.scrollTop = textarea.scrollHeight;

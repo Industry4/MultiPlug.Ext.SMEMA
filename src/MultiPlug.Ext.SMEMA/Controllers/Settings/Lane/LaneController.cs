@@ -1,9 +1,12 @@
 ﻿using System.Linq;
+using System.Collections.Generic;
 using MultiPlug.Base.Attribute;
 using MultiPlug.Base.Http;
 using MultiPlug.Ext.SMEMA.Components.Lane;
 using MultiPlug.Ext.SMEMA.Models.Settings.Lane;
 using MultiPlug.Ext.SMEMA.Models.Components.Lane;
+using MultiPlug.Ext.SMEMA.Models.Components.BeaconTower;
+using MultiPlug.Ext.SMEMA.Models.Exchange;
 
 namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Lane
 {
@@ -31,7 +34,8 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Lane
                     MachineId = LaneSearch.MachineId,
                     Log = string.Empty,     // TODO
                     LoggingLevel = 0,       // TODO
-                    RightToLeft = LaneSearch.RightToLeft
+                    RightToLeft = LaneSearch.RightToLeft,
+                    BeaconTowerEvents = LaneSearch.BeaconTower.BeaconTowerEvents
                 },
                 Template = Templates.SettingsLane,
                // Subscriptions = new Subscription[] { new Subscription { Id = LaneSearch.LogEventId } }
@@ -48,6 +52,27 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Settings.Lane
                 {
                     StatusCode = System.Net.HttpStatusCode.NotFound
                 };
+            }
+
+            if (theModel.NewBeaconTowerEventId != null)
+            {
+                var NewEvents = new List<BeaconTowerEvent>();
+
+                for (int i = 0; i < theModel.NewBeaconTowerEventId.Length; i++)
+                {
+                    NewEvents.Add(new BeaconTowerEvent
+                    {
+                        Id = theModel.NewBeaconTowerEventId[i],
+                        Description = theModel.NewBeaconTowerEventDescription[i],
+                        Subjects = new string[] { "value" },
+                        Group = theModel.Guid
+                    });
+                }
+
+                LaneSearch.BeaconTower.UpdateProperties(new BeaconTowerProperties
+                {
+                    BeaconTowerEvents = NewEvents.ToArray()
+                });
             }
 
             var LaneProps = new LaneProperties

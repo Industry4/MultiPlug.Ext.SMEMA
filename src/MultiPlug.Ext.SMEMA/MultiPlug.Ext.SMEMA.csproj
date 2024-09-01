@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\BeaconTower\BeaconTowerComponent.cs" />
     <Compile Include="Components\BoardAvailable\BoardAvailableSMEMAStateMachine.cs" />
     <Compile Include="Components\Interlock\InterlockBoardAvailableStateMachine.cs" />
     <Compile Include="Components\Interlock\InterlockMachineReadyStateMachine.cs" />
@@ -100,6 +101,8 @@
     <Compile Include="Controllers\Settings\Interlock\InterlockController.cs" />
     <Compile Include="Controllers\Settings\Lane\LaneController.cs" />
     <Compile Include="Controllers\Settings\Lane\LaneDeleteController.cs" />
+    <Compile Include="Controllers\Settings\ProgrammableEvent\ProgrammableEventController.cs" />
+    <Compile Include="Controllers\Settings\ProgrammableEvent\ProgrammableEventDeleteController.cs" />
     <Compile Include="Controllers\Settings\SettingsApp.cs" />
     <Compile Include="Controllers\Settings\BoardAvailable\BoardAvailableController.cs" />
     <Compile Include="Controllers\Templates.cs" />
@@ -107,11 +110,15 @@
     <Compile Include="Models\Apps\LaneUrl.cs" />
     <Compile Include="Models\Apps\SMEMAMonitor.cs" />
     <Compile Include="Models\Apps\TrueValues.cs" />
+    <Compile Include="Models\Components\BeaconTower\BeaconTowerProperties.cs" />
+    <Compile Include="Models\Components\BeaconTower\PropertyDelegateLookup.cs" />
     <Compile Include="Models\Components\Core\CoreProperties.cs" />
     <Compile Include="Models\Components\MachineReady\MachineReadyProperties.cs" />
     <Compile Include="Models\Components\Interlock\InterlockProperties.cs" />
     <Compile Include="Models\Components\Lane\LaneProperties.cs" />
     <Compile Include="Models\Components\BoardAvailable\BoardAvailableProperties.cs" />
+    <Compile Include="Models\Exchange\BeaconTowerEvent.cs" />
+    <Compile Include="Models\Exchange\BeaconTowerEventSequenceStep.cs" />
     <Compile Include="Models\Exchange\Event.cs" />
     <Compile Include="Models\Exchange\GoodBadInterlockSubscription.cs" />
     <Compile Include="Models\Exchange\MachineReadyAndFlipInterlockSubscription.cs" />
@@ -131,6 +138,7 @@
     <Compile Include="Models\Settings\Lane\LaneModel.cs" />
     <Compile Include="Models\Settings\BoardAvailable\BoardAvailableModel.cs" />
     <Compile Include="Models\Settings\BoardAvailable\BoardAvailableUpdateModel.cs" />
+    <Compile Include="Models\Settings\ProgrammableEvent\ProgrammableEventModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -182,6 +190,7 @@
     <None Include="Controllers\Settings\Home\Home.cshtml" />
     <None Include="Controllers\Settings\Interlock\Interlock.cshtml" />
     <None Include="Controllers\Settings\Lane\Lane.cshtml" />
+    <None Include="Controllers\Settings\ProgrammableEvent\SettingsProgrammableEvent.cshtml" />
     <None Include="Controllers\Settings\Shared\SettingsNavigation.cshtml" />
     <None Include="Controllers\Settings\BoardAvailable\BoardAvailable.cshtml" />
     <None Include="packages.config">

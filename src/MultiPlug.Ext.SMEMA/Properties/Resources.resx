@@ -247,4 +247,7 @@
   <data name="smemaio_min_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Controllers\Assets\JavaScripts\JavaScripts\smemaio.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="SettingsProgrammableEvent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controllers\Settings\ProgrammableEvent\SettingsProgrammableEvent.cshtml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

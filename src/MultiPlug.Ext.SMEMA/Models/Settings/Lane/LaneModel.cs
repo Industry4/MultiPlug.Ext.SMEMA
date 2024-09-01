@@ -1,4 +1,6 @@
 ﻿
+using MultiPlug.Ext.SMEMA.Models.Exchange;
+
 namespace MultiPlug.Ext.SMEMA.Models.Settings.Lane
 {
     public class LaneModel
@@ -9,5 +11,6 @@ namespace MultiPlug.Ext.SMEMA.Models.Settings.Lane
         public int LoggingLevel { get; set; }
         public string Log { get; set; }
         public bool RightToLeft { get; set; }
+        public BeaconTowerEvent[] BeaconTowerEvents { get; internal set; }
     }
 }
