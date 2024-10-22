@@ -65,7 +65,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 return;
             }
 
-            if (Blocked && m_MachineReadyBlockEvent.BlockedEnabled)
+            if ( Blocked )
             {
                 if (TransitionDelays.DelayInProgress(m_MachineReadyBlockEventUnblockedCancellationSource))
                 {
@@ -73,18 +73,21 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 }
                 else
                 {
-                    m_MachineReadyBlockEventBlockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                    if( m_MachineReadyBlockEvent.BlockedEnabled )
                     {
-                        m_MachineReadyBlockEvent.Invoke(new Payload(m_MachineReadyBlockEvent.Id, new PayloadSubject[] {
-                        new PayloadSubject(m_MachineReadyBlockEvent.Subjects[0], m_MachineReadyBlockEvent.BlockedValue),
-                        new PayloadSubject(m_MachineReadyBlockEvent.Subjects[1], c_ReadyDescription)
-                        }));
-                    },
-                    m_MachineReadyBlockEventBlockedCancellationSource,
-                    m_MachineReadyBlockEvent.BlockedDelay);
+                        m_MachineReadyBlockEventBlockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                        {
+                            m_MachineReadyBlockEvent.Invoke(new Payload(m_MachineReadyBlockEvent.Id, new PayloadSubject[] {
+                            new PayloadSubject(m_MachineReadyBlockEvent.Subjects[0], m_MachineReadyBlockEvent.BlockedValue),
+                            new PayloadSubject(m_MachineReadyBlockEvent.Subjects[1], c_ReadyDescription)
+                            }));
+                        },
+                        m_MachineReadyBlockEventBlockedCancellationSource,
+                        m_MachineReadyBlockEvent.BlockedDelay);
+                    }
                 }
             }
-            else if( !Blocked && m_MachineReadyBlockEvent.UnblockedEnabled)
+            else
             {
                 if (TransitionDelays.DelayInProgress(m_MachineReadyBlockEventBlockedCancellationSource))
                 {
@@ -92,15 +95,19 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 }
                 else
                 {
-                    m_MachineReadyBlockEventUnblockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                    if(m_MachineReadyBlockEvent.UnblockedEnabled)
                     {
-                        m_MachineReadyBlockEvent.Invoke(new Payload(m_MachineReadyBlockEvent.Id, new PayloadSubject[] {
-                        new PayloadSubject(m_MachineReadyBlockEvent.Subjects[0], m_MachineReadyBlockEvent.UnblockedValue),
-                        new PayloadSubject(m_MachineReadyBlockEvent.Subjects[1], c_ReadyDescription)
-                    }));
-                    },
-                    m_MachineReadyBlockEventUnblockedCancellationSource,
-                    m_MachineReadyBlockEvent.UnblockedDelay);
+                        m_MachineReadyBlockEventUnblockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                        {
+                            m_MachineReadyBlockEvent.Invoke(new Payload(m_MachineReadyBlockEvent.Id, new PayloadSubject[] {
+                            new PayloadSubject(m_MachineReadyBlockEvent.Subjects[0], m_MachineReadyBlockEvent.UnblockedValue),
+                            new PayloadSubject(m_MachineReadyBlockEvent.Subjects[1], c_ReadyDescription)
+                        }));
+                        },
+                        m_MachineReadyBlockEventUnblockedCancellationSource,
+                        m_MachineReadyBlockEvent.UnblockedDelay);
+                    }
+
                 }
             }
         }

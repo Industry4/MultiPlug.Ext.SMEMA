@@ -542,7 +542,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 return;
             }
 
-            if (GoodBoardBlocked && m_GoodBoardBlockEvent.BlockedEnabled)
+            if ( GoodBoardBlocked )
             {
                 if (TransitionDelays.DelayInProgress(m_GoodBoardBlockEventUnblockedCancellationSource))
                 {
@@ -550,18 +550,21 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 }
                 else
                 {
-                    m_GoodBoardBlockEventBlockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                    if(m_GoodBoardBlockEvent.BlockedEnabled)
                     {
-                        m_GoodBoardBlockEvent.Invoke(new Payload(m_GoodBoardBlockEvent.Id, new PayloadSubject[] {
-                        new PayloadSubject(m_GoodBoardBlockEvent.Subjects[0], m_GoodBoardBlockEvent.BlockedValue),
-                        new PayloadSubject(m_GoodBoardBlockEvent.Subjects[1], c_GoodBoardDescription)
-                    }));
-                    },
-                    m_GoodBoardBlockEventBlockedCancellationSource,
-                    m_GoodBoardBlockEvent.BlockedDelay);
+                        m_GoodBoardBlockEventBlockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                        {
+                            m_GoodBoardBlockEvent.Invoke(new Payload(m_GoodBoardBlockEvent.Id, new PayloadSubject[] {
+                            new PayloadSubject(m_GoodBoardBlockEvent.Subjects[0], m_GoodBoardBlockEvent.BlockedValue),
+                            new PayloadSubject(m_GoodBoardBlockEvent.Subjects[1], c_GoodBoardDescription)
+                        }));
+                        },
+                        m_GoodBoardBlockEventBlockedCancellationSource,
+                        m_GoodBoardBlockEvent.BlockedDelay);
+                    }
                 }
             }
-            else if (!GoodBoardBlocked && m_GoodBoardBlockEvent.UnblockedEnabled)
+            else
             {
                 if (TransitionDelays.DelayInProgress(m_GoodBoardBlockEventBlockedCancellationSource))
                 {
@@ -569,15 +572,18 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 }
                 else
                 {
-                    m_GoodBoardBlockEventUnblockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                    if(m_GoodBoardBlockEvent.UnblockedEnabled)
                     {
-                        m_GoodBoardBlockEvent.Invoke(new Payload(m_GoodBoardBlockEvent.Id, new PayloadSubject[] {
-                        new PayloadSubject(m_GoodBoardBlockEvent.Subjects[0], m_GoodBoardBlockEvent.UnblockedValue),
-                        new PayloadSubject(m_GoodBoardBlockEvent.Subjects[1], c_GoodBoardDescription)
-                    }));
-                    },
-                    m_GoodBoardBlockEventUnblockedCancellationSource,
-                    m_GoodBoardBlockEvent.UnblockedDelay);
+                        m_GoodBoardBlockEventUnblockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                        {
+                            m_GoodBoardBlockEvent.Invoke(new Payload(m_GoodBoardBlockEvent.Id, new PayloadSubject[] {
+                            new PayloadSubject(m_GoodBoardBlockEvent.Subjects[0], m_GoodBoardBlockEvent.UnblockedValue),
+                            new PayloadSubject(m_GoodBoardBlockEvent.Subjects[1], c_GoodBoardDescription)
+                        }));
+                        },
+                        m_GoodBoardBlockEventUnblockedCancellationSource,
+                        m_GoodBoardBlockEvent.UnblockedDelay);
+                    }
                 }
             }
         }
@@ -589,7 +595,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 return;
             }
 
-            if (BadBoardBlocked && m_BadBoardBlockEvent.BlockedEnabled)
+            if ( BadBoardBlocked )
             {
                 if(TransitionDelays.DelayInProgress(m_BadBoardBlockEventUnblockedCancellationSource))
                 {
@@ -597,18 +603,21 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 }
                 else
                 {
-                    m_BadBoardBlockEventBlockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                    if(m_BadBoardBlockEvent.BlockedEnabled)
                     {
-                        m_BadBoardBlockEvent.Invoke(new Payload(m_BadBoardBlockEvent.Id, new PayloadSubject[] {
-                        new PayloadSubject(m_BadBoardBlockEvent.Subjects[0], m_BadBoardBlockEvent.BlockedValue),
-                        new PayloadSubject(m_BadBoardBlockEvent.Subjects[1], c_BadBoardDescription)
-                    }));
-                    },
-                    m_BadBoardBlockEventBlockedCancellationSource,
-                    m_BadBoardBlockEvent.BlockedDelay);
+                        m_BadBoardBlockEventBlockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                        {
+                            m_BadBoardBlockEvent.Invoke(new Payload(m_BadBoardBlockEvent.Id, new PayloadSubject[] {
+                            new PayloadSubject(m_BadBoardBlockEvent.Subjects[0], m_BadBoardBlockEvent.BlockedValue),
+                            new PayloadSubject(m_BadBoardBlockEvent.Subjects[1], c_BadBoardDescription)
+                        }));
+                        },
+                        m_BadBoardBlockEventBlockedCancellationSource,
+                        m_BadBoardBlockEvent.BlockedDelay);
+                    }
                 }
             }
-            else if (!BadBoardBlocked && m_BadBoardBlockEvent.UnblockedEnabled)
+            else
             {
                 if (TransitionDelays.DelayInProgress(m_BadBoardBlockEventBlockedCancellationSource))
                 {
@@ -616,15 +625,18 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 }
                 else
                 {
-                    m_BadBoardBlockEventUnblockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                    if( m_BadBoardBlockEvent.UnblockedEnabled )
                     {
-                    m_BadBoardBlockEvent.Invoke(new Payload(m_BadBoardBlockEvent.Id, new PayloadSubject[] {
-                    new PayloadSubject(m_BadBoardBlockEvent.Subjects[0], m_BadBoardBlockEvent.UnblockedValue),
-                    new PayloadSubject(m_BadBoardBlockEvent.Subjects[1], c_BadBoardDescription)
-                    }));
-                    },
-                    m_BadBoardBlockEventUnblockedCancellationSource,
-                    m_BadBoardBlockEvent.UnblockedDelay);
+                        m_BadBoardBlockEventUnblockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                        {
+                        m_BadBoardBlockEvent.Invoke(new Payload(m_BadBoardBlockEvent.Id, new PayloadSubject[] {
+                        new PayloadSubject(m_BadBoardBlockEvent.Subjects[0], m_BadBoardBlockEvent.UnblockedValue),
+                        new PayloadSubject(m_BadBoardBlockEvent.Subjects[1], c_BadBoardDescription)
+                        }));
+                        },
+                        m_BadBoardBlockEventUnblockedCancellationSource,
+                        m_BadBoardBlockEvent.UnblockedDelay);
+                    }
                 }
             }
         }
@@ -636,7 +648,7 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 return;
             }
 
-            if (FlipBoardBlocked && m_FlipBoardBlockEvent.BlockedEnabled)
+            if ( FlipBoardBlocked )
             {
                 if (TransitionDelays.DelayInProgress(m_FlipBlockEventUnblockedCancellationSource))
                 {
@@ -644,18 +656,21 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 }
                 else
                 {
-                    m_FlipBlockEventBlockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                    if(m_FlipBoardBlockEvent.BlockedEnabled)
                     {
-                        m_FlipBoardBlockEvent.Invoke(new Payload(m_FlipBoardBlockEvent.Id, new PayloadSubject[] {
-                        new PayloadSubject(m_FlipBoardBlockEvent.Subjects[0], m_FlipBoardBlockEvent.BlockedValue),
-                        new PayloadSubject(m_FlipBoardBlockEvent.Subjects[1], c_FlipBoardDescription)
-                    }));
-                    },
-                    m_FlipBlockEventBlockedCancellationSource,
-                    m_FlipBoardBlockEvent.BlockedDelay);
+                        m_FlipBlockEventBlockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                        {
+                            m_FlipBoardBlockEvent.Invoke(new Payload(m_FlipBoardBlockEvent.Id, new PayloadSubject[] {
+                            new PayloadSubject(m_FlipBoardBlockEvent.Subjects[0], m_FlipBoardBlockEvent.BlockedValue),
+                            new PayloadSubject(m_FlipBoardBlockEvent.Subjects[1], c_FlipBoardDescription)
+                        }));
+                        },
+                        m_FlipBlockEventBlockedCancellationSource,
+                        m_FlipBoardBlockEvent.BlockedDelay);
+                    }
                 }
             }
-            else if (!FlipBoardBlocked && m_FlipBoardBlockEvent.UnblockedEnabled)
+            else
             {
                 if (TransitionDelays.DelayInProgress(m_FlipBlockEventBlockedCancellationSource))
                 {
@@ -663,15 +678,18 @@ namespace MultiPlug.Ext.SMEMA.Components.Interlock
                 }
                 else
                 {
-                    m_FlipBlockEventUnblockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                    if( m_FlipBoardBlockEvent.UnblockedEnabled )
                     {
-                        m_FlipBoardBlockEvent.Invoke(new Payload(m_FlipBoardBlockEvent.Id, new PayloadSubject[] {
-                        new PayloadSubject(m_FlipBoardBlockEvent.Subjects[0], m_FlipBoardBlockEvent.UnblockedValue),
-                        new PayloadSubject(m_FlipBoardBlockEvent.Subjects[1], c_FlipBoardDescription)
-                        }));
-                    },
-                    m_FlipBlockEventUnblockedCancellationSource,
-                    m_FlipBoardBlockEvent.UnblockedDelay);
+                        m_FlipBlockEventUnblockedCancellationSource = TransitionDelays.InvokeEvent(() =>
+                        {
+                            m_FlipBoardBlockEvent.Invoke(new Payload(m_FlipBoardBlockEvent.Id, new PayloadSubject[] {
+                            new PayloadSubject(m_FlipBoardBlockEvent.Subjects[0], m_FlipBoardBlockEvent.UnblockedValue),
+                            new PayloadSubject(m_FlipBoardBlockEvent.Subjects[1], c_FlipBoardDescription)
+                            }));
+                        },
+                        m_FlipBlockEventUnblockedCancellationSource,
+                        m_FlipBoardBlockEvent.UnblockedDelay);
+                    }
                 }
             }
         }
