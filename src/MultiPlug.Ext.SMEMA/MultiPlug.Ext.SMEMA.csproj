@@ -226,6 +226,7 @@
     <Content Include="Controllers\Assets\CSSs\css\v4-shims.min.css" />
     <Content Include="Controllers\Assets\Icons\Icons\favicon.ico" />
     <Content Include="Controllers\Assets\Images\Images\apple-touch-icon.png" />
+    <Content Include="Controllers\Assets\Images\Images\monitor-background.jpg" />
     <Content Include="Controllers\Assets\Images\Images\SMEMA-logo.jpg" />
     <Content Include="Controllers\Assets\Images\Images\SMEMA-small.png" />
     <Content Include="Controllers\Assets\JavaScripts\JavaScript-Full\all.js" />

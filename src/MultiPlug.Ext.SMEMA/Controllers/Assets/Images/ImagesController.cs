@@ -27,6 +27,10 @@ namespace MultiPlug.Ext.SMEMA.Controllers.Assets.Images
                     Result = new Response { RawBytes = (byte[])converter.ConvertTo(Resources.apple_touch_icon_png, typeof(byte[])), MediaType = "image/png" };
                     break;
 
+                case "monitor-background.jpg":
+                    Result = new Response { RawBytes = (byte[])converter.ConvertTo(Resources.monitor_background_jpg, typeof(byte[])), MediaType = "image/jpeg" };
+                    break;
+
                 default:
                     Result = new Response { StatusCode = System.Net.HttpStatusCode.NotFound };
                     break;

@@ -494,6 +494,16 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap monitor_background_jpg {
+            get {
+                object obj = ResourceManager.GetObject("monitor_background_jpg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /*
         /// Copyright (C) Federico Zivolo 2018
         /// Distributed under the MIT License (license terms are at http://opensource.org/licenses/MIT).
@@ -633,7 +643,7 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
-        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
+        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot; autocomplete=&quot;off&quot;&gt;
         ///    &lt;section class=&quot;row-fluid&quot;&gt;
         ///
         ///        &lt;div class=&quot;row-fluid&quot;&gt;
@@ -641,8 +651,7 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         ///                &lt;div class=&quot;span4&quot;&gt;
         ///                    &lt;a style=&quot;line-height: 52px;&quot; href=&quot;@Raw(Model.Context.Paths.Home)&quot;&gt;&lt;img alt=&quot;SMEMA Logo&quot; src=&quot;@Raw(Model.Context.Paths.Assets)images/SMEMA-small.png&quot;&gt;&lt;/a&gt;
         ///                &lt;/div&gt;
-        ///                &lt;div class=&quot;span4&quot;&gt;
-        ///    [rest of string was truncated]&quot;;.
+        ///                &lt;div  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SettingsHome {
             get {
@@ -694,9 +703,9 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         ///
         ///}
         ///
-        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
+        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot; autocomplete=&quot;off&quot;&gt;
         ///    &lt;input type=&quot;hidden&quot; name=&quot;Guid&quot; value=&quot;@Model.Extension.Model.Guid&quot;&gt;
-        ///    &lt;section class=&quot;row [rest of string was truncated]&quot;;.
+        ///     [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SettingsLane {
             get {
@@ -739,12 +748,12 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         ///
         ///    public string NavLocationIsLane()
         ///    {
-        ///        return Model.Context.Paths.Current == Model.Context.Paths.Home + &quot;lane/&quot; ? &quot;active&quot; : string.Empty;
+        ///        return Model.Context.Paths.Current == Model.Context.Paths.Home + &quot;lane/&quot; || Model.Context.Paths.Current == &quot;lane/programmable-event/&quot; ? &quot;active&quot; : string.Empty;
         ///    }
         ///
         ///    public string NavLocationIsBoardAvailable()
         ///    {
-        ///        return Model.Context.Paths.Current == Model.Context.Paths.Home + &quot;lane/board-ava [rest of string was truncated]&quot;;.
+        ///        return Model.Contex [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SettingsNavigation {
             get {
@@ -757,21 +766,20 @@ namespace MultiPlug.Ext.SMEMA.Properties {
         ///
         ///@functions
         ///{
-        ///    string isCurrentLoggingLevel(int theLevel)
-        ///    {
-        ///        return (@Model.Extension.Model.LoggingLevel == theLevel) ? &quot;selected&quot; : &quot;&quot;;
-        ///    }
-        ///
         ///    string isEnabled(bool theValue)
         ///    {
-        ///        return (theValue) ? &quot;checked&quot; : string.Empty;
+        ///        return (theValue) ? &quot;checked&quot; : &quot;&quot;;
         ///    }
-        ///
+        ///    string isSelected(int CurrentValue, int theValue)
+        ///    {
+        ///        return (CurrentValue == theValue) ? &quot;selected&quot; : &quot;&quot;;
+        ///    }
         ///}
-        ///
-        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;
+        ///&lt;form action=&quot;&quot; method=&quot;post&quot; accept-charset=&quot;utf-8&quot; enctype=&quot;application/x-www-form-urlencoded&quot; autocomplete=&quot;off&quot;&gt;
         ///    &lt;input type=&quot;hidden&quot; name=&quot;Guid&quot; value=&quot;@Model.Extension.Model.Guid&quot;&gt;
-        ///    &lt;section class=&quot;row [rest of string was truncated]&quot;;.
+        ///    &lt;section class=&quot;row-fluid&quot;&gt;
+        ///
+        ///  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SettingsProgrammableEvent {
             get {
